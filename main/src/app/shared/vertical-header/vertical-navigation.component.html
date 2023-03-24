@@ -52,28 +52,7 @@
   <!-- ============================================================== -->
   <!-- Search -->
   <!-- ============================================================== -->
-  <li class="nav-item search-box">
-    <a
-      (click)="showSearch = !showSearch"
-      class="nav-link waves-effect waves-dark"
-      href="javascript:void(0)"
-    >
-      <i class="ti-search"></i>
-    </a>
-    <form
-      class="app-search position-absolute"
-      [ngClass]="{ 'show-search': showSearch }"
-    >
-      <input
-        type="text"
-        class="form-control"
-        placeholder="Search &amp; enter"
-      />
-      <a class="srh-btn" (click)="showSearch = !showSearch">
-        <i class="ti-close"></i>
-      </a>
-    </form>
-  </li>
+  
   <!-- ============================================================== -->
   <!-- Comment -->
   <!-- ============================================================== -->
@@ -225,145 +204,7 @@
   <!-- ============================================================== -->
   <!-- End Messages -->
   <!-- ============================================================== -->
-  <!-- ============================================================== -->
-  <!-- mega menu -->
-  <!-- ============================================================== -->
-  <li class="nav-item mega-dropdown" ngbDropdown [autoClose]="false">
-    <a
-      ngbDropdownToggle
-      class="nav-link waves-effect waves-dark"
-      href="javascript:void(0)"
-      data-toggle="dropdown"
-      aria-haspopup="true"
-      aria-expanded="false"
-    >
-      <i class="mdi mdi-view-grid"></i>
-    </a>
-    <div class="dropdown-menu" ngbDropdownMenu>
-      <div class="mega-dropdown-menu row">
-        <div class="col-lg-3 col-xlg-2 mb-4">
-          <h4 class="mb-4">CAROUSEL</h4>
-          <!-- CAROUSEL -->
-          <ngb-carousel class="carousel-dark">
-            <ng-template ngbSlide>
-              <img
-                src="assets/images/big/img1.jpg"
-                class="img-fluid"
-                alt="Random first slide"
-              />
-            </ng-template>
-            <ng-template ngbSlide>
-              <img
-                src="assets/images/big/img2.jpg"
-                class="img-fluid"
-                alt="Random second slide"
-              />
-            </ng-template>
-            <ng-template ngbSlide>
-              <img
-                src="assets/images/big/img3.jpg"
-                class="img-fluid"
-                alt="Random third slide"
-              />
-            </ng-template>
-          </ngb-carousel>
-          <!-- End CAROUSEL -->
-        </div>
-        <div class="col-lg-3 mb-4">
-          <h4 class="mb-4">ACCORDION</h4>
-          <!-- Accordian -->
-          <ngb-accordion
-            [closeOthers]="true"
-            activeIds="static-1"
-            class="accordion nav-accordion"
-          >
-            <ngb-panel id="static-1" title="Simple">
-              <ng-template ngbPanelContent>
-                Anim pariatur cliche reprehenderit, enim eiusmod high life
-                accusamus terry richardson ad squid.
-              </ng-template>
-            </ngb-panel>
-            <ngb-panel id="static-2">
-              <ng-template ngbPanelTitle>
-                <span>&#9733; <b>Fancy</b> title &#9733;</span>
-              </ng-template>
-              <ng-template ngbPanelContent>
-                Anim pariatur cliche reprehenderit, enim eiusmod high life
-                accusamus terry richardson ad squid.
-              </ng-template>
-            </ngb-panel>
-            <ngb-panel id="static-3" title="Disabled" [disabled]="true">
-              <ng-template ngbPanelContent>
-                Anim pariatur cliche reprehenderit, enim eiusmod high life
-                accusamus terry richardson ad squid.
-              </ng-template>
-            </ngb-panel>
-          </ngb-accordion>
-        </div>
-        <div class="col-lg-3 mb-4">
-          <h4 class="mb-4">CONTACT US</h4>
-          <!-- Contact -->
-          <form>
-            <div class="mb-3">
-              <input
-                type="text"
-                class="form-control"
-                id="exampleInputname1"
-                placeholder="Enter Name"
-              />
-            </div>
-            <div class="mb-3">
-              <input
-                type="email"
-                class="form-control"
-                placeholder="Enter email"
-              />
-            </div>
-            <div class="mb-3">
-              <textarea
-                class="form-control"
-                id="exampleTextarea"
-                rows="3"
-                placeholder="Message"
-              ></textarea>
-            </div>
-            <button type="submit" class="btn btn-info">Submit</button>
-          </form>
-        </div>
-        <div class="col-lg-3 col-xlg-4 mb-4">
-          <h4 class="mb-4">List style</h4>
-          <!-- List style -->
-          <ul class="list-style-none">
-            <li>
-              <a href="javascript:void(0)">
-                <i class="fa fa-check text-success"></i> You can give link</a
-              >
-            </li>
-            <li>
-              <a href="javascript:void(0)">
-                <i class="fa fa-check text-success"></i> Give link</a
-              >
-            </li>
-            <li>
-              <a href="javascript:void(0)">
-                <i class="fa fa-check text-success"></i> Another Give link</a
-              >
-            </li>
-            <li>
-              <a href="javascript:void(0)">
-                <i class="fa fa-check text-success"></i> Forth link</a
-              >
-            </li>
-            <li>
-              <a href="javascript:void(0)">
-                <i class="fa fa-check text-success"></i> Another fifth link</a
-              >
-            </li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </li>
+  
   <!-- ============================================================== -->
   <!-- End mega menu -->
   <!-- ============================================================== -->
@@ -397,31 +238,26 @@
           />
         </div>
         <div class="ms-2">
-          <h4 class="mb-0 fs-4">Steave Jobs</h4>
-          <p class="text-muted mb-0 fs-2">varun@gmail.com</p>
-          <a
+          <h4 class="mb-0 fs-4">Hasbulla Magomedov</h4>
+          <p class="text-muted mb-0 fs-2">hustler@gmail.com</p>
+          <!-- <a
             href="javascript:void(0)"
             class="btn btn-danger btn-rounded btn-sm mt-1"
             >View Profile</a
-          >
+          > -->
         </div>
       </div>
+      <div class="dropdown-divider"></div>
       <a class="dropdown-item" href="javascript:void(0)">
-        <i class="ti-user me-1 ms-1"></i> My Profile</a
-      >
-      <a class="dropdown-item" href="javascript:void(0)">
-        <i class="ti-wallet me-1 ms-1"></i> My Balance</a
-      >
-      <a class="dropdown-item" href="javascript:void(0)">
-        <i class="ti-email me-1 ms-1"></i> Inbox</a
+        <i class="ti-user me-1 ms-1"></i> Mi perfil</a
       >
       <div class="dropdown-divider"></div>
       <a class="dropdown-item" href="javascript:void(0)">
-        <i class="ti-settings me-1 ms-1"></i> Account Setting</a
+        <i class="ti-settings me-1 ms-1"></i> Configuración</a
       >
       <div class="dropdown-divider"></div>
       <a class="dropdown-item" href="javascript:void(0)">
-        <i class="fa fa-power-off me-1 ms-1"></i> Logout</a
+        <i class="fa fa-power-off me-1 ms-1"></i> Cerrar sesión</a
       >
     </div>
   </li>

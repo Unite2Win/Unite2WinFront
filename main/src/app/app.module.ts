@@ -38,6 +38,7 @@ import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
 
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { UsuarioModule } from './usuario/usuario.module';
 
 
 export function HttpLoaderFactory(http: HttpClient) {
@@ -62,9 +63,10 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     BreadcrumbComponent,
     VerticalSidebarComponent,
     HorizontalNavigationComponent,
-    HorizontalSidebarComponent,
+    HorizontalSidebarComponent
   ],
   imports: [
+    //
     CommonModule,
     BrowserModule,
     BrowserAnimationsModule,

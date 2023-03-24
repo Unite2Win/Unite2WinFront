@@ -85,10 +85,9 @@ export class VerticalNavigationComponent implements AfterViewInit {
   ];
 
   public selectedLanguage: any = {
-    language: 'English',
-    code: 'en',
-    type: 'US',
-    icon: 'us'
+    language: 'Español',
+    code: 'es',
+    icon: 'es'
   }
 
   public languages: any[] = [{
@@ -101,16 +100,6 @@ export class VerticalNavigationComponent implements AfterViewInit {
     language: 'Español',
     code: 'es',
     icon: 'es'
-  },
-  {
-    language: 'Français',
-    code: 'fr',
-    icon: 'fr'
-  },
-  {
-    language: 'German',
-    code: 'de',
-    icon: 'de'
   }]
 
 
