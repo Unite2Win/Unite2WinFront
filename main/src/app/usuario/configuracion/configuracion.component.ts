@@ -1,20 +1,19 @@
-import { Component, OnInit, HostListener } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { configuraciones } from 'common/configuraciones';
+import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
+import { FullComponent } from '../../layouts/full/full.component';
 declare var $: any;
 
-import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
-
 @Component({
-  selector: 'app-full-layout',
-  templateUrl: './full.component.html',
-  styleUrls: ['./full.component.scss']
+  selector: 'app-configuracion',
+  templateUrl: './configuracion.component.html',
+  styleUrls: ['./configuracion.component.scss']
 })
-export class FullComponent implements OnInit {
+export class ConfiguracionComponent implements OnInit {
+
   public config: PerfectScrollbarConfigInterface = {};
   active=1;
-
-  constructor(public router: Router) { }
 
   tabStatus = 'justified';
 
@@ -26,17 +25,21 @@ export class FullComponent implements OnInit {
   public showMobileMenu = false;
   public expandLogo = false;
 
-  options = configuraciones.options
-
   Logo() {
     this.expandLogo = !this.expandLogo;
   }
 
-  ngOnInit() {
+  get options() {
+    return configuraciones.options;
+  }
+
+  constructor(public router: Router, public fullComponent: FullComponent) { }
+
+  ngOnInit(): void {
     if (this.router.url === '/') {
       this.router.navigate(['/dashboard/classic']);
     }
-    this.defaultSidebar = this.options.sidebartype;
+    this.defaultSidebar = configuraciones.options.sidebartype;
     this.handleSidebar();
   }
 
@@ -51,17 +54,17 @@ export class FullComponent implements OnInit {
       case 'full':
       case 'iconbar':
         if (this.innerWidth < 1170) {
-          this.options.sidebartype = 'mini-sidebar';
+          configuraciones.options.sidebartype = 'mini-sidebar';
         } else {
-          this.options.sidebartype = this.defaultSidebar;
+          configuraciones.options.sidebartype = this.defaultSidebar;
         }
         break;
 
       case 'overlay':
         if (this.innerWidth < 767) {
-          this.options.sidebartype = 'mini-sidebar';
+          configuraciones.options.sidebartype = 'mini-sidebar';
         } else {
-          this.options.sidebartype = this.defaultSidebar;
+          configuraciones.options.sidebartype = this.defaultSidebar;
         }
         break;
 
@@ -70,10 +73,10 @@ export class FullComponent implements OnInit {
   }
 
   toggleSidebarType() {
-    switch (this.options.sidebartype) {
+    switch (configuraciones.options.sidebartype) {
       case 'full':
       case 'iconbar':
-        this.options.sidebartype = 'mini-sidebar';
+        configuraciones.options.sidebartype = 'mini-sidebar';
         break;
 
       case 'overlay':
@@ -82,9 +85,9 @@ export class FullComponent implements OnInit {
 
       case 'mini-sidebar':
         if (this.defaultSidebar === 'mini-sidebar') {
-          this.options.sidebartype = 'full';
+          configuraciones.options.sidebartype = 'full';
         } else {
-          this.options.sidebartype = this.defaultSidebar;
+          configuraciones.options.sidebartype = this.defaultSidebar;
         }
         break;
 
@@ -95,4 +98,5 @@ export class FullComponent implements OnInit {
   handleClick(event: boolean) {
     this.showMobileMenu = event;
   }
+
 }

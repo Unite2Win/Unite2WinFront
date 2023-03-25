@@ -1,7 +1,9 @@
 import { Routes } from '@angular/router';
 import { ComunidadesComponent } from './comunidades/comunidades.component';
+import { ConfiguracionComponent } from './configuracion/configuracion.component';
 import { InicioComponent } from './inicio/inicio.component';
 import { ObjetivosComponent } from './objetivos/objetivos.component';
+import { PerfilComponent } from './perfil/perfil.component';
 import { PlanesComponent } from './planes/planes.component';
 
 export const UsuarioRoutes: Routes = [
@@ -46,6 +48,22 @@ export const UsuarioRoutes: Routes = [
         data: {
           title: 'Mis Comunidades',
           urls: [{ title: 'Mis Comunidades', url: '/usuario' }, { title: 'Mis Comunidades' }]
+        }
+      },
+      {
+        path: 'perfil',
+        component: PerfilComponent,
+        data: {
+          title: 'Mi Perfil',
+          urls: [{ title: 'Mi Perfil', url: '/usuario' }, { title: 'Mi Perfil' }]
+        }
+      },
+      {
+        path: 'configuracion',
+        component: ConfiguracionComponent,
+        data: {
+          title: 'Mi Configuración',
+          urls: [{ title: 'Mi Configuración', url: '/usuario' }, { title: 'Mi Configuración' }]
         }
       },
     ]

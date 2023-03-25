@@ -7,6 +7,9 @@ import { ObjetivosComponent } from './objetivos/objetivos.component';
 import { PlanesComponent } from './planes/planes.component';
 import { ComunidadesComponent } from './comunidades/comunidades.component';
 import { PerfilComponent } from './perfil/perfil.component';
+import { NgxChartsModule } from '@swimlane/ngx-charts';
+import { NgApexchartsModule } from 'ng-apexcharts';
+import { ConfiguracionComponent } from './configuracion/configuracion.component';
 
 
 
@@ -16,9 +19,12 @@ import { PerfilComponent } from './perfil/perfil.component';
     ObjetivosComponent,
     PlanesComponent,
     ComunidadesComponent,
-    PerfilComponent
+    PerfilComponent,
+    ConfiguracionComponent
   ],
   imports: [
+    NgxChartsModule,
+    NgApexchartsModule,
     CommonModule,
     RouterModule.forChild(UsuarioRoutes)
   ]

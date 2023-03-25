@@ -1,1 +1,117 @@
-<p>perfil works!</p>
+<div class="p-3 border-bottom">
+    <h3 style="font-weight: bold;">Mi perfil</h3>
+</div>
+<div class="row">
+    <!-- Column -->
+    <div class="col-lg-4 col-xlg-3 col-md-5">
+        <div class="card">
+            <div class="card-body">
+                <div class="mt-4 text-center">
+                    <img src="assets/images/users/user1.jpg" class="rounded-circle" width="150" />
+                    <h4 class="card-title mt-2">Hasbulla Magomedov</h4>
+                    <h6 class="card-subtitle">hustler@gmail.com</h6>
+                    <div class="row text-center justify-content-md-center">
+                        <div class="col-4">
+                            <a routerLink="/usuario/objetivos" class="link">
+                                <i class="far fa-calendar"></i>
+                                <p style="font-size: 14px;">Objetivos</p>
+                            </a>
+                        </div>
+                        <div class="col-4">
+                            <a routerLink="/usuario/comunidades" class="link">
+                                <i class="icon-people me-2"></i>
+                                <p style="font-size: 14px;">Comunidades</p>
+
+                                <!-- 54 -->
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <hr> </div>
+            <div class="card-body">
+                <h4 class="card-title">Nivel</h4>
+                <!-- <h6 class="card-subtitle">This is the simple example of Radial Chart</h6> -->
+                <apx-chart [series]="radialChartOptions.series" [chart]="radialChartOptions.chart"
+                    [dataLabels]="radialChartOptions.dataLabels" [legend]="radialChartOptions.legends"
+                    [colors]="radialChartOptions.colors" [stroke]="radialChartOptions.stroke"
+                    [labels]="radialChartOptions.labels" [tooltip]="radialChartOptions.tooltip"
+                    [plotOptions]="radialChartOptions.plotOptions"></apx-chart>
+                <!-- <small class="text-muted pt-4 db">Social Profile</small>
+                <br/>
+                <div class="button-group">
+                <button class="btn btn-circle rounded-circle btn-secondary">
+                    <i class="fab fa-facebook-f"></i>
+                </button>
+                <button class="btn btn-circle rounded-circle btn-secondary">
+                    <i class="fab fa-twitter"></i>
+                </button>
+                <button class="btn btn-circle rounded-circle btn-secondary">
+                    <i class="fab fa-youtube"></i>
+                </button>
+                </div> -->
+            </div>
+        </div>
+    </div>
+    <!-- Column -->
+    <!-- Column -->
+    <div class="col-lg-8 col-xlg-9 col-md-7">
+        <div class="card">
+            <div class="card-body">
+                <div class="card-body">
+                    <form class="form-horizontal form-material">
+                        <div class="mb-3">
+                            <label class="col-md-12">Nombre completo</label>
+                            <div class="col-md-12">
+                                <input type="text" placeholder="Introduzca su nombre" class="form-control form-control-line">
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="example-email" class="col-md-12">Email</label>
+                            <div class="col-md-12">
+                                <input type="email" placeholder="Introduzca su email" class="form-control form-control-line" name="example-email" id="example-email">
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="col-md-12">Contraseña</label>
+                            <div class="col-md-12">
+                                <input type="password" value="password" class="form-control form-control-line">
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="col-md-12">Número de teléfono</label>
+                            <div class="col-md-12">
+                                <input type="text" placeholder="Introduzca su número de teléfono" class="form-control form-control-line">
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="col-md-12">Descripción</label>
+                            <div class="col-md-12">
+                                <textarea rows="5" placeholder="Cuéntanos sobre tí" class="form-control form-control-line"></textarea>
+                            </div>
+                        </div>
+                        <!-- <div class="mb-3">
+                            <label class="col-sm-12">Select Country</label>
+                            <div class="col-sm-12">
+                                <select class="form-select form-control-line">
+                                    <option>London</option>
+                                    <option>India</option>
+                                    <option>Usa</option>
+                                    <option>Canada</option>
+                                    <option>Thailand</option>
+                                </select>
+                            </div>
+                        </div> -->
+                        <div class="mb-3">
+                            <div class="col-sm-12">
+                                <button class="btn btn-success">Actualizar perfil</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+    </div>
+    <!-- Column -->
+</div>

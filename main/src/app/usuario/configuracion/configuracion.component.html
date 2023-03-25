@@ -1,0 +1,197 @@
+<div class="p-3 border-bottom">
+    <h3 style="font-weight: bold;">Configuración</h3>
+</div>
+<div class="flex">
+    <div class="flex1">
+        <div class="p-3 border-bottom">
+            <h5 style="font-weight: bold;">Configuración estructural</h5>
+        </div>
+        <div class="p-3 border-bottom">
+            <h5 class="font-medium mb-4 mt-2">Disposición</h5>
+            <div class="form-check mt-2">
+                <input type="checkbox" class="form-check-input" name="layout" id="layout"
+                    [attr.checked]="(options.layout=='horizontal') ? 'checked' : null"
+                    (change)="options.layout = (options.layout == 'vertical' ? 'horizontal' : 'vertical')"
+                    (click)="options.boxed = (options.boxed == 'full' ? 'boxed' : 'full');">
+                <label class="form-check-label" for="layout">Horizontal</label>
+            </div>
+
+            <div class="form-check mt-2">
+                <input type="checkbox" class="form-check-input" name="theme-view" id="theme-view"
+                    [attr.checked]="(options.theme=='dark') ? 'checked' : null"
+                    (change)="options.theme = (options.theme == 'light' ? 'dark' : 'light');">
+                <label class="form-check-label" for="theme-view">Modo Oscuro</label>
+            </div>
+            <div class="form-check mt-2">
+                <input type="checkbox" class="form-check-input" name="sidebar-position" id="sidebar-position"
+                    [attr.checked]="(options.sidebarpos=='fixed') ? 'checked' : null"
+                    (change)="options.sidebarpos = (options.sidebarpos == 'fixed' ? 'absolute' : 'fixed');">
+                <label class="form-check-label" for="sidebar-position">Fixed Sidebar</label>
+            </div>
+            <div class="form-check mt-2">
+                <input type="checkbox" class="form-check-input" name="header-position" id="header-position"
+                    [attr.checked]="(options.headerpos=='fixed') ? 'checked' : null"
+                    (change)="options.headerpos = (options.headerpos == 'fixed' ? 'absolute' : 'fixed');">
+                <label class="form-check-label" for="header-position">Header Fijado</label>
+            </div>
+            <div class="form-check mt-2">
+                <input type="checkbox" class="form-check-input" name="boxed-layout" id="boxed-layout"
+                    [attr.checked]="(options.boxed=='boxed') ? 'checked' : null"
+                    (change)="options.boxed = (options.boxed == 'full' ? 'boxed' : 'full');">
+                <label class="form-check-label" for="boxed-layout">Bordes Pagina</label>
+            </div>
+            <div class="form-check mt-2">
+                <input type="checkbox" class="form-check-input" name="rtl-layout" id="rtl-layout"
+                    [attr.checked]="(options.dir=='rtl') ? 'checked' : null"
+                    (change)="options.dir = (options.dir == 'rtl' ? 'ltr' : 'rtl');">
+                <label class="form-check-label" for="rtl-layout">RTL</label>
+            </div>
+        </div>
+        <div class="p-3 border-bottom" *ngIf="options.layout==='vertical'">
+
+            <h5 class="font-medium mb-4 mt-2">Menú Lateral</h5>
+            <div class="form-check mt-2">
+                <input type="radio" class="form-check-input" name="sidebar" [(ngModel)]="options.sidebartype"
+                    value="mini-sidebar" id="minisidebar" (change)="options.sidebartype = 'mini-sidebar'">
+                <label class="form-check-label" for="minisidebar">Mini Barra Lateral</label>
+            </div>
+            <div class="form-check mt-2">
+                <input type="radio" class="form-check-input" name="sidebar" [(ngModel)]="options.sidebartype"
+                    value="iconbar" id="iconsidebar" (change)="options.sidebartype = 'iconbar'">
+                <label class="form-check-label" for="iconsidebar">Iconos Barra Lateral</label>
+            </div>
+            <div class="form-check mt-2">
+                <input type="radio" class="form-check-input" name="sidebar" [(ngModel)]="options.sidebartype"
+                    value="overlay" id="overlaysidebar" (change)="options.sidebartype = 'overlay'">
+                <label class="form-check-label" for="overlaysidebar">Superposición Barra Lateral</label>
+            </div>
+            <div class="form-check mt-2">
+                <input type="radio" class="form-check-input" name="sidebar" [(ngModel)]="options.sidebartype"
+                    value="full" id="fullsidebar" (change)="options.sidebartype = 'full'">
+                <label class="form-check-label" for="fullsidebar">Barra Lateral Completa</label>
+            </div>
+        </div>
+        <div class="p-3 border-bottom" *ngIf="options.layout==='vertical'">
+        </div>
+
+    </div>
+
+    <div class="flex2">
+        <div class="p-3 border-bottom">
+            <h5 style="font-weight: bold;">Configuración visual</h5>
+        </div>
+        <div class="p-3 border-bottom">
+            <h5 class="font-medium mb-4 mt-2">Logo Fondo</h5>
+            <ul class="theme-color">
+                <li class="theme-item">
+                    <a href="javascript:void(0)" class="theme-link" data-logobg="skin1"
+                        (click)="options.logobg = 'skin1'"></a>
+                </li>
+                <li class="theme-item">
+                    <a href="javascript:void(0)" class="theme-link" data-logobg="skin2"
+                        (click)="options.logobg = 'skin2'"></a>
+                </li>
+                <li class="theme-item">
+                    <a href="javascript:void(0)" class="theme-link" data-logobg="skin3"
+                        (click)="options.logobg = 'skin3'"></a>
+                </li>
+                <li class="theme-item">
+                    <a href="javascript:void(0)" class="theme-link" data-logobg="skin4"
+                        (click)="options.logobg = 'skin4'"></a>
+                </li>
+                <li class="theme-item">
+                    <a href="javascript:void(0)" class="theme-link" data-logobg="skin5"
+                        (click)="options.logobg = 'skin5'"></a>
+                </li>
+                <li class="theme-item">
+                    <a href="javascript:void(0)" class="theme-link" data-logobg="skin6"
+                        (click)="options.logobg = 'skin6'"></a>
+                </li>
+            </ul>
+        </div>
+        
+        <div class="p-3 border-bottom">
+
+            <h5 class="font-medium mb-4 mt-2">Header Fondo</h5>
+            <ul class="theme-color">
+                <li class="theme-item">
+                    <a href="javascript:void(0)" class="theme-link" data-navbarbg="skin1"
+                        (click)="options.navbarbg = 'skin1'"></a>
+                </li>
+                <li class="theme-item">
+                    <a href="javascript:void(0)" class="theme-link" data-navbarbg="skin2"
+                        (click)="options.navbarbg = 'skin2'"></a>
+                </li>
+                <li class="theme-item">
+                    <a href="javascript:void(0)" class="theme-link" data-navbarbg="skin3"
+                        (click)="options.navbarbg = 'skin3'"></a>
+                </li>
+                <li class="theme-item">
+                    <a href="javascript:void(0)" class="theme-link" data-navbarbg="skin4"
+                        (click)="options.navbarbg = 'skin4'"></a>
+                </li>
+                <li class="theme-item">
+                    <a href="javascript:void(0)" class="theme-link" data-navbarbg="skin5"
+                        (click)="options.navbarbg = 'skin5'"></a>
+                </li>
+                <li class="theme-item">
+                    <a href="javascript:void(0)" class="theme-link" data-navbarbg="skin6"
+                        (click)="options.navbarbg = 'skin6'"></a>
+                </li>
+            </ul>
+    
+        </div>
+        <div class="p-3 border-bottom">
+    
+            <h5 class="font-medium mb-4 mt-2">Menú Lateral Fondo</h5>
+            <ul class="theme-color">
+                <li class="theme-item">
+                    <a href="javascript:void(0)" class="theme-link" data-sidebarbg="skin1"
+                        (click)="options.sidebarbg = 'skin1'"></a>
+                </li>
+                <li class="theme-item">
+                    <a href="javascript:void(0)" class="theme-link" data-sidebarbg="skin2"
+                        (click)="options.sidebarbg = 'skin2'"></a>
+                </li>
+                <li class="theme-item">
+                    <a href="javascript:void(0)" class="theme-link" data-sidebarbg="skin3"
+                        (click)="options.sidebarbg = 'skin3'"></a>
+                </li>
+                <li class="theme-item">
+                    <a href="javascript:void(0)" class="theme-link" data-sidebarbg="skin4"
+                        (click)="options.sidebarbg = 'skin4'"></a>
+                </li>
+                <li class="theme-item">
+                    <a href="javascript:void(0)" class="theme-link" data-sidebarbg="skin5"
+                        (click)="options.sidebarbg = 'skin5'"></a>
+                </li>
+                <li class="theme-item">
+                    <a href="javascript:void(0)" class="theme-link" data-sidebarbg="skin6"
+                        (click)="options.sidebarbg = 'skin6'"></a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- <div class="flex3">
+        <div class="p-3 border-bottom">
+            <h5 style="font-weight: bold;">Configuración lingüística</h5>
+        </div>
+        <div class="p-3 border-bottom">
+
+            <h5 class="font-medium mb-4 mt-2">Idiomas</h5>
+            <div class="form-check mt-2">
+                <input type="radio">
+                <input type="radio" class="form-check-input" name="sidebar" [(ngModel)]="options.idiomas"
+                    value="idiomas" id="idiomas" (change)="options.idiomas = 'mini-sidebar'">
+                <label class="form-check-label" for="minisidebar">Español</label>
+            </div>
+            <div class="form-check mt-2">
+                <input type="radio">
+                <input type="radio" class="form-check-input" name="sidebar" [(ngModel)]="options.sidebartype"
+                    value="iconbar" id="iconsidebar" (change)="options.sidebartype = 'iconbar'">
+                <label class="form-check-label" for="iconsidebar">Inglés</label>
+            </div>
+        </div>
+    </div> -->
+</div>
