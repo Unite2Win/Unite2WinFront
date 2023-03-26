@@ -4,7 +4,7 @@
         <li class="sidebar-item user-profile" [class.active]="showMenu === 'user'">
             <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)"
                 (click)="addExpandClass('user')" aria-expanded="false"><span><img src="assets/images/users/user1.jpg"
-                        alt="user" /></span><span class="hide-menu">Hasbulla Magomedov </span></a>
+                        alt="user" /></span><span class="hide-menu">{{usuarioLogueado.name}} {{usuarioLogueado.surname}}</span></a>
             <ul aria-expanded="false" class="collapse" [class.in]="showMenu === 'user'">
                 <li><a routerLink="/usuario/perfil" class="sidebar-link p-0">Mi perfil</a></li>
                 <li><a routerLink="/usuario/configuracion" class="sidebar-link p-0">Configuración</a></li>

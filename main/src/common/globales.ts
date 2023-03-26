@@ -1,4 +1,4 @@
-export class configuraciones {
+export class globales {
     public static options = {
         theme: 'light', // two possible values: light, dark
         dir: 'ltr', // two possible values: ltr, rtl
@@ -11,5 +11,24 @@ export class configuraciones {
         sidebarbg: 'skin5', // six possible values: skin(1/2/3/4/5/6)
         logobg: 'skin6' // six possible values: skin(1/2/3/4/5/6)
         // idioma: 'espanol'
+    };
+
+    public static usuarioLogueado = {
+        id_usu: null,
+        nick: null,
+        password: null,
+        name: null,
+        surname: null,
+        email: null,
+        picture: null,
+        level: null,
+        active: null,
+        last_login: null,
+        create_date: null,
+        last_modified: null,
+        delete_date: null,
+        perfil: null,
+        objetivos: null,
+        comunidadesUsuarios: null,
     }
-};
+}

@@ -41,6 +41,7 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { UsuarioModule } from './usuario/usuario.module';
 import { AuthInterceptor } from './authentication/login/helpers/auth.interceptor';
 import { JwtHelperService, JwtModule } from '@auth0/angular-jwt';
+import { NotifierModule } from 'angular-notifier';
 
 
 export function HttpLoaderFactory(http: HttpClient) {
@@ -72,6 +73,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     HorizontalSidebarComponent
   ],
   imports: [
+    NotifierModule,
     //
     CommonModule,
     BrowserModule,

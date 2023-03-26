@@ -1,4 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { globales } from 'common/globales';
 import {
   ApexAxisChartSeries,
   ApexChart,
@@ -13,6 +15,8 @@ import {
   ApexPlotOptions,
   ApexFill
 } from 'ng-apexcharts';
+import { UsuariosService } from '../services/usuarios.service';
+import { ToastrService } from 'ngx-toastr';
 
 export type ChartOptions = {
   series: ApexAxisChartSeries;
@@ -41,13 +45,34 @@ export class PerfilComponent implements OnInit {
 
   @ViewChild("chart") chart: ChartComponent = Object.create(null);
 
-  constructor() { }
+  myForm: FormGroup
+
+  constructor(private fb: FormBuilder, private usuariosService: UsuariosService, private toastrService: ToastrService) { }
 
   public radialChartOptions: Partial<any>;
 
   ngOnInit(): void {
+    this.myForm = this.fb.group({
+      id_usu: new FormControl(globales.usuarioLogueado.id_usu),
+      nick: new FormControl(globales.usuarioLogueado.nick),
+      password: new FormControl(globales.usuarioLogueado.password),
+      name: new FormControl(globales.usuarioLogueado.name),
+      surname: new FormControl(globales.usuarioLogueado.surname),
+      email: new FormControl(globales.usuarioLogueado.email),
+      picture: new FormControl(globales.usuarioLogueado.picture),
+      level: new FormControl(globales.usuarioLogueado.level),
+      active: new FormControl(globales.usuarioLogueado.active),
+      last_login: new FormControl(globales.usuarioLogueado.last_login),
+      create_date: new FormControl(globales.usuarioLogueado.create_date),
+      last_modified: new FormControl(globales.usuarioLogueado.last_modified),
+      delete_date: new FormControl(globales.usuarioLogueado.delete_date),
+      perfil: new FormControl(globales.usuarioLogueado.perfil),
+      objetivos: new FormControl(globales.usuarioLogueado.perfil),
+      comunidadesUsuarios: new FormControl(globales.usuarioLogueado.comunidadesUsuarios),
+    })
+
     this.radialChartOptions = {
-      series: [85, 15],
+      series: [globales.usuarioLogueado.level, 100 - globales.usuarioLogueado.level],
       chart: {
         type: 'donut',
         height: 140,
@@ -71,7 +96,7 @@ export class PerfilComponent implements OnInit {
               },
               total: {
                 show: true,
-                label: '85',
+                label: globales.usuarioLogueado.level,
                 color: '#99abb4',
               }
             }
@@ -93,6 +118,20 @@ export class PerfilComponent implements OnInit {
       labels: ['Nivel', 'other'],
       colors: ['#2961ff', '#dadada'],
     };
+  }
+
+  async submit() {
+    console.log(globales.usuarioLogueado.id_usu)
+    console.log(this.myForm.value)
+    await this.usuariosService.putUsuario(globales.usuarioLogueado.id_usu, this.myForm.value).subscribe(resp => {
+      console.log(resp)
+      this.toastrService.success('Tu información ha sido actualizada')
+    })
+    globales.usuarioLogueado = this.myForm.value
+  }
+
+  reset() {
+    this.myForm.setValue(globales.usuarioLogueado)
   }
 
 }

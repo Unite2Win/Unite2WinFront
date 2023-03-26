@@ -3,6 +3,7 @@ import { RouteInfo } from './vertical-sidebar.metadata';
 import { VerticalSidebarService } from './vertical-sidebar.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { globales } from '../../../common/globales';
 declare var $: any;
 
 @Component({
@@ -10,11 +11,15 @@ declare var $: any;
   templateUrl: './vertical-sidebar.component.html'
 })
 export class VerticalSidebarComponent {
+
   showMenu = '';
   showSubMenu = '';
   public sidebarnavItems: RouteInfo[] = [];
   path = '';
 
+  get usuarioLogueado() {
+    return globales.usuarioLogueado;
+  }
 
   @Input() showClass: boolean = false;
   @Output() notify: EventEmitter<boolean> = new EventEmitter<boolean>();

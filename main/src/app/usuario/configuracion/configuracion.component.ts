@@ -1,6 +1,6 @@
 import { Component, HostListener, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { configuraciones } from 'common/configuraciones';
+import { globales } from 'common/globales';
 import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
 import { FullComponent } from '../../layouts/full/full.component';
 declare var $: any;
@@ -30,7 +30,7 @@ export class ConfiguracionComponent implements OnInit {
   }
 
   get options() {
-    return configuraciones.options;
+    return globales.options;
   }
 
   constructor(public router: Router, public fullComponent: FullComponent) { }
@@ -39,7 +39,7 @@ export class ConfiguracionComponent implements OnInit {
     if (this.router.url === '/') {
       this.router.navigate(['/dashboard/classic']);
     }
-    this.defaultSidebar = configuraciones.options.sidebartype;
+    this.defaultSidebar = globales.options.sidebartype;
     this.handleSidebar();
   }
 
@@ -54,17 +54,17 @@ export class ConfiguracionComponent implements OnInit {
       case 'full':
       case 'iconbar':
         if (this.innerWidth < 1170) {
-          configuraciones.options.sidebartype = 'mini-sidebar';
+          globales.options.sidebartype = 'mini-sidebar';
         } else {
-          configuraciones.options.sidebartype = this.defaultSidebar;
+          globales.options.sidebartype = this.defaultSidebar;
         }
         break;
 
       case 'overlay':
         if (this.innerWidth < 767) {
-          configuraciones.options.sidebartype = 'mini-sidebar';
+          globales.options.sidebartype = 'mini-sidebar';
         } else {
-          configuraciones.options.sidebartype = this.defaultSidebar;
+          globales.options.sidebartype = this.defaultSidebar;
         }
         break;
 
@@ -73,10 +73,10 @@ export class ConfiguracionComponent implements OnInit {
   }
 
   toggleSidebarType() {
-    switch (configuraciones.options.sidebartype) {
+    switch (globales.options.sidebartype) {
       case 'full':
       case 'iconbar':
-        configuraciones.options.sidebartype = 'mini-sidebar';
+        globales.options.sidebartype = 'mini-sidebar';
         break;
 
       case 'overlay':
@@ -85,9 +85,9 @@ export class ConfiguracionComponent implements OnInit {
 
       case 'mini-sidebar':
         if (this.defaultSidebar === 'mini-sidebar') {
-          configuraciones.options.sidebartype = 'full';
+          globales.options.sidebartype = 'full';
         } else {
-          configuraciones.options.sidebartype = this.defaultSidebar;
+          globales.options.sidebartype = this.defaultSidebar;
         }
         break;
 
