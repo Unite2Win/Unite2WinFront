@@ -3,6 +3,7 @@ import { Routes, RouterModule } from "@angular/router";
 
 import { FullComponent } from "./layouts/full/full.component";
 import { BlankComponent } from "./layouts/blank/blank.component";
+import { AuthGuard } from "./authentication/guards/auth.guard";
 
 export const Approutes: Routes = [
   {
@@ -12,7 +13,7 @@ export const Approutes: Routes = [
       { path: "", redirectTo: "/authentication/login", pathMatch: "full" },
       {
         path: "usuario",
-        // canActivate: [AuthGuard], solo haría falta aquí
+        canActivate: [AuthGuard], //Estoy hay que ponerlo en las rutas que queramos securizadas con el login
         loadChildren: () =>
           import("./usuario/usuario.module").then((m) => m.UsuarioModule),
       },

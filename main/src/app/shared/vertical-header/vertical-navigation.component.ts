@@ -7,6 +7,7 @@ import {
 } from '@ng-bootstrap/ng-bootstrap';
 import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
 import { TranslateService } from '@ngx-translate/core';
+import { LoginService } from '../../authentication/login/login.service';
 declare var $: any;
 
 @Component({
@@ -104,7 +105,7 @@ export class VerticalNavigationComponent implements AfterViewInit {
 
 
 
-  constructor(private modalService: NgbModal, private translate: TranslateService) {
+  constructor(private modalService: NgbModal, private translate: TranslateService, private loginService: LoginService) {
     translate.setDefaultLang('en');
   }
 
@@ -114,4 +115,10 @@ export class VerticalNavigationComponent implements AfterViewInit {
   }
 
   ngAfterViewInit() { }
+
+  logout() {
+    this.loginService.logout();
+    // console.log(("paso por aqui"));
+
+  }
 }

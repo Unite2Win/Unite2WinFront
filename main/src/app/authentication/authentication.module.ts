@@ -12,12 +12,19 @@ import { SignupComponent } from './signup/signup.component';
 import { Signup2Component } from './signup2/signup2.component';
 
 import { AuthenticationRoutes } from './authentication.routing';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { AuthInterceptor } from './login/helpers/auth.interceptor';
+import { AppComponent } from 'app/app.component';
+import { AuthGuard } from './guards/auth.guard';
 
 @NgModule({
   imports: [
     CommonModule,
     RouterModule.forChild(AuthenticationRoutes),
-    NgbModule
+    NgbModule,
+    ReactiveFormsModule,
+    FormsModule
   ],
   declarations: [
     NotfoundComponent,
@@ -26,6 +33,8 @@ import { AuthenticationRoutes } from './authentication.routing';
     LockComponent,
     Login2Component,
     Signup2Component
-  ]
+  ],
+  providers: [{ provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }, AuthGuard],
+  bootstrap: [AppComponent]
 })
 export class AuthenticationModule {}

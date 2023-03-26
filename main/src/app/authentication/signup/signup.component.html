@@ -3,48 +3,58 @@
         <div>
             <div class="text-center">
                 <span class="db"><img src="assets/images/logo-icon.png" alt="logo" /></span>
-                <h5 class="font-medium mb-4">Sign Up to Admin</h5>
+                <h5 class="font-medium mb-4">Registro de usuario</h5>
             </div>
             <!-- Form -->
             <div class="row">
                 <div class="col-12">
-                    <form class="form-horizontal mt-3" action="index.html">
+                    <form class="form-horizontal mt-3" action="index.html" [formGroup]="miFormSignUp" (ngSubmit)="signup()">
                         <div class="mb-3 row ">
                             <div class="col-12 ">
-                                <input class="form-control" type="text" required=" " placeholder="Name">
+                                <input class="form-control" formControlName="name" type="text" required=" " placeholder="Nombre">
+                            </div>
+                        </div>
+                        <div class="mb-3 row ">
+                            <div class="col-12 ">
+                                <input class="form-control" formControlName="surname" type="text" required=" " placeholder="Apellidos">
                             </div>
                         </div>
                         <div class="mb-3 row">
                             <div class="col-12 ">
-                                <input class="form-control" type="text" required=" " placeholder="Email">
+                                <input class="form-control" formControlName="email" type="text" required=" " placeholder="Email">
+                            </div>
+                        </div>
+                        <div class="mb-3 row ">
+                            <div class="col-12 ">
+                                <input class="form-control" formControlName="username" type="text" required=" " placeholder="Usuario">
                             </div>
                         </div>
                         <div class="mb-3 row">
                             <div class="col-12 ">
-                                <input class="form-control" type="password" required=" " placeholder="Password">
+                                <input class="form-control" formControlName="password" type="password" required=" " placeholder="Contraseña">
                             </div>
                         </div>
                         <div class="mb-3 row">
                             <div class="col-12 ">
-                                <input class="form-control" type="password" required=" " placeholder="Confirm Password">
+                                <input class="form-control" formControlName="passRepeat" type="password" required=" " placeholder="Confime contraseña">
                             </div>
                         </div>
                         <div class="mb-3 row">
                             <div class="col-md-12 ">
                                 <div class="form-check">
                                     <input type="checkbox" class="form-check-input" id="customCheck1">
-                                    <label class="form-check-label" for="customCheck1">I agree to all <a href="javascript:void(0)">Terms</a></label>
+                                    <label class="form-check-label" for="customCheck1">Acepto los <a href="javascript:void(0)">terminos y condiciones</a></label>
                                 </div>
                             </div>
                         </div>
                         <div class="mb-3 text-center ">
                             <div class="col-xs-12 mb-4">
-                                <a class="btn d-block w-100 btn-lg btn-info" href="/dashboard/classic">SIGN UP</a>
+                                <a class="btn d-block w-100 btn-lg btn-info" (click)="signup()">Registrarme</a>
                             </div>
                         </div>
                         <div class="mb-3 mb-0 mt-2 ">
                             <div class="col-sm-12 text-center ">
-                                Already have an account? <a href="/authentication/login" class="text-info ms-1 "><b>Sign In</b></a>
+                                Ya eres parte de la comunidad? <a href="/authentication/login" class="text-info ms-1 "><b>Inicia sesión</b></a>
                             </div>
                         </div>
                     </form>
