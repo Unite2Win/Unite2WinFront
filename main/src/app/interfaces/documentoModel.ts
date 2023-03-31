@@ -1,5 +1,6 @@
 export interface Documento {
-    id: number,
-    data: string,
-    extensionArchivo: string,
+    id_doc: number;
+    data: string;
+    descripcion: string;
+    extensionArchivo: string;
 }

@@ -220,18 +220,21 @@
       aria-haspopup="true"
       aria-expanded="false"
     >
+    <div *ngIf="usuarioLogueado.picture!=null">
       <img
-        src="assets/images/users/user1.jpg"
-        alt="user"
-        class="rounded-circle"
-        width="31"
-      />
+      [src]="'data: usuarioLogueado.picture.extensionArchivo; base64,'+usuarioLogueado.picture.data | safe"
+      alt="user"
+      class="rounded-circle"
+      width="31"
+    />
+    </div>
+      
     </a>
     <div class="dropdown-menu-right user-dd" ngbDropdownMenu>
       <div class="d-flex no-block align-items-center p-3 mb-2">
-        <div class="">
+        <div *ngIf="usuarioLogueado.picture!=null">
           <img
-            src="assets/images/users/user1.jpg"
+            [src]="'data: usuarioLogueado.picture.extensionArchivo; base64,'+usuarioLogueado.picture.data | safe"
             alt="user"
             class="rounded"
             width="70"

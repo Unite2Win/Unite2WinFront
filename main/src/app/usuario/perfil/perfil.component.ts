@@ -17,6 +17,10 @@ import {
 } from 'ng-apexcharts';
 import { UsuariosService } from '../services/usuarios.service';
 import { ToastrService } from 'ngx-toastr';
+import { Documento } from 'app/interfaces/documentoModel';
+import { DocumentosService } from '../services/documentos.service';
+import { DecodedBase64 } from 'app/interfaces/decodedBase64Model';
+import { Usuario } from 'app/interfaces/usuarioModel';
 
 export type ChartOptions = {
   series: ApexAxisChartSeries;
@@ -45,9 +49,16 @@ export class PerfilComponent implements OnInit {
 
   @ViewChild("chart") chart: ChartComponent = Object.create(null);
 
+  recursoDocumento: Documento = {
+    id_doc: -1,
+    data: '',
+    descripcion: '',
+    extensionArchivo: ''
+  }
+
   myForm: FormGroup
 
-  constructor(private fb: FormBuilder, private usuariosService: UsuariosService, private toastrService: ToastrService) { }
+  constructor(private fb: FormBuilder, private usuariosService: UsuariosService, private documentosService: DocumentosService, private toastrService: ToastrService) { }
 
   public radialChartOptions: Partial<any>;
 
@@ -59,7 +70,7 @@ export class PerfilComponent implements OnInit {
       name: new FormControl(globales.usuarioLogueado.name),
       surname: new FormControl(globales.usuarioLogueado.surname),
       email: new FormControl(globales.usuarioLogueado.email),
-      picture: new FormControl(globales.usuarioLogueado.picture),
+      picture: new FormControl(),
       level: new FormControl(globales.usuarioLogueado.level),
       active: new FormControl(globales.usuarioLogueado.active),
       last_login: new FormControl(globales.usuarioLogueado.last_login),
@@ -120,10 +131,33 @@ export class PerfilComponent implements OnInit {
     };
   }
 
+  get globales() {
+    return globales.usuarioLogueado;
+  }
+
+  async postDocumento(documento: Documento) {
+    console.log(this.recursoDocumento)
+    this.recursoDocumento = await this.documentosService.postDocumento(documento).toPromise()
+    console.log(this.recursoDocumento)
+  }
+
   async submit() {
+    await this.postDocumento(this.recursoDocumento)
     console.log(globales.usuarioLogueado.id_usu)
     console.log(this.myForm.value)
-    await this.usuariosService.putUsuario(globales.usuarioLogueado.id_usu, this.myForm.value).subscribe(resp => {
+    console.log(this.recursoDocumento)
+    var usuarioAModificar : Usuario = {
+      nick: this.myForm.controls['nick'].value,
+      password: this.myForm.controls['password'].value,
+      name: this.myForm.controls['name'].value,
+      surname: this.myForm.controls['surname'].value,
+      email: this.myForm.controls['email'].value,
+      picture: this.recursoDocumento,
+      level: globales.usuarioLogueado.level,
+      active: globales.usuarioLogueado.active
+    }
+    console.log(usuarioAModificar)
+    await this.usuariosService.putUsuario(globales.usuarioLogueado.id_usu, usuarioAModificar).subscribe(resp => {
       console.log(resp)
       this.toastrService.success('Tu información ha sido actualizada')
     })
@@ -131,7 +165,49 @@ export class PerfilComponent implements OnInit {
   }
 
   reset() {
+    console.log(this.myForm.value)
     this.myForm.setValue(globales.usuarioLogueado)
+  }
+
+  async onFileChanged(event: Event) {
+    const target = event.target as HTMLInputElement;
+    const file: File = target.files[0];
+    if (file) {
+      await this.file2Base64(file).then(
+        (res) => {
+          this.recursoDocumento = {
+            id_doc: 0,
+            data: res.data,
+            descripcion: res.descripcion,
+            extensionArchivo: res.fileExtension
+          }
+          globales.usuarioLogueado.picture.data = res.data
+          globales.usuarioLogueado.picture.descripcion = res.descripcion
+          globales.usuarioLogueado.picture.extensionArchivo = res.fileExtension
+        }
+      )
+    }
+    console.log(this.recursoDocumento)
+  }
+
+  file2Base64 = (file: File):Promise<DecodedBase64> => {
+    return new Promise<DecodedBase64>((resolve, reject) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => {
+        let data = reader.result.toString().replace(/^data:(.*,)?/,'');
+        if ((data.length % 4) > 0) {
+          data += '='.repeat(4 - (data.length % 4));
+        }
+        const answer: DecodedBase64 = {
+          data: data,
+          descripcion: file.name,
+          fileExtension: file.type
+        }
+        resolve(answer);
+      };
+      reader.onerror = error => reject(error);
+    });
   }
 
 }

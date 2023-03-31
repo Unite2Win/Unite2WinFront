@@ -7,7 +7,9 @@
         <div class="card">
             <div class="card-body">
                 <div class="mt-4 text-center">
-                    <img src="assets/images/users/user1.jpg" class="rounded-circle" width="150" />
+                    <div *ngIf="globales.picture!=null">
+                        <img [src]="'data: globales.picture.extensionArchivo; base64,'+globales.picture.data | safe" class="rounded-circle" width="150" />
+                    </div>
                     <h4 class="card-title mt-2">{{this.myForm.value.nick}}</h4>
                     <h6 class="card-subtitle">{{this.myForm.value.email}}</h6>
                     <div class="row text-center justify-content-md-center">
@@ -118,7 +120,7 @@
                         <div class="mb-3">
                             <label class="form-label" for="customFile">Foto de Perfil</label>
                             <div class="col-md-12">
-                                <input type="file" class="form-control" id="customFile" formControlName="picture" />
+                                <input type="file" class="form-control" id="customFile" formControlName="picture" (change)="onFileChanged($event)"/>
                             </div>
                         </div>
                         <!-- <div class="mb-3">
