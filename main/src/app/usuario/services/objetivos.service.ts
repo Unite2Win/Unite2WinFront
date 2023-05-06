@@ -16,5 +16,13 @@ export class ObjetivosService {
   public getAll(): Observable<Objetivo[]> {
     return this.http.get<Objetivo[]>(`${this.url}/Objetivos`);
   }
+
+  public getById(id: number): Observable<Objetivo[]> {
+    return this.http.get<Objetivo[]>(`${this.url}/Objetivos/usuario/${id}`);
+  }
+
+  public postObjetivo(objetivo: Objetivo): Observable<Objetivo> {
+    return this.http.post<Objetivo>(`${this.url}/Objetivos`, objetivo);
+  }
   
 }

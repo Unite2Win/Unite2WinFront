@@ -2,19 +2,49 @@
     <div class="p-3">
         <h3 style="font-weight: bold;">Mis objetivos</h3>
     </div>
-    <button type="button" class="btn btn-primary" style="height: 50%;" (click)="modalOpenLogin(modalLogin)">Nuevo objetivo</button>
+    <button type="button" class="btn btn-primary" style="height: 50%;" (click)="modalOpenLogin(modalLogin)">Nuevo
+        objetivo</button>
 </div>
-<div class="tarjeta">
-    <div class="hijo1">
 
+<div class="row">
+    <div class="col-7" >
+        <div class="row" id="tarjeta" *ngFor="let objetivo of misObjetivos">
+            <div class="col-4">
+                {{ objetivo.nombre }}
+            </div>
+            <div class="col-4">
+                {{ objetivo.descripcion }}
+            </div>
+            <div class="col-4" *ngIf="objetivo.duracion == 0">
+                Diario
+            </div>
+            <div class="col-4" *ngIf="objetivo.duracion == 1">
+                Semanal
+            </div>
+            <div class="col-4" *ngIf="objetivo.duracion == 2">
+                Mensual
+            </div>
+        </div>
     </div>
-    <div class="hijo2">
-        
+    <div class="col-1"></div>
+    <div class="col-3" id="leyenda">
+        <h3 class="col" style="border-bottom: 1px solid gray;">
+            Objetivos activos
+        </h3>
+        <div class="col">
+            Diarios: {{ this.diarios }}
+        </div>
+        <div class="col">
+            Semanales: {{ this.semanales }}
+        </div>
+        <div class="col">
+            Mensuales: {{ this.mensuales }}
+        </div>
     </div>
 </div>
 
 <ng-template #modalLogin let-modal>
-    <form>
+    <form [formGroup]="myForm">
         <div class="modal-header justify-content-center mt-2">
             <a href="index.html">
                 <span><img class="me-2" src="assets/images/logo-icon.png" alt="" /><img
@@ -24,17 +54,31 @@
         <div class="modal-body px-4">
             <div class="mb-3">
                 <label for="emailaddress1">Título</label>
-                <input class="form-control" required="true" placeholder="Introduzca el título" />
+                <input class="form-control" required="true" placeholder="Introduzca el título" formControlName="nombre"/>
             </div>
 
             <div class="mb-3">
-                <label for="password1">Descripcion</label>
-                <textarea class="form-control" name="" id="" cols="3" rows="4" placeholder="Introduzca la descrpción"></textarea>
+                <label for="password1">Descripción</label>
+                <textarea class="form-control" name="" id="" cols="3" rows="4"
+                    placeholder="Introduzca la descrpción" formControlName="descripcion"></textarea>
+            </div>
+
+            <div class="mb-3">
+                <label for="">Duración</label>
+                <div class="mb-3">
+                    <select class="form-select" id="inputGroupSelect01" formControlName="duracion">
+                        <!-- <option selected>Elige una duración...</option> -->
+                        <option value="0">Diaria</option>
+                        <option value="1">Semanal</option>
+                        <option value="2">Semanual</option>
+                    </select>
+                </div>
+
             </div>
         </div>
         <div class="modal-footer justify-content-center">
             <button class="btn btn-light-info text-info font-medium" type="submit"
-                (click)="modal.dismiss('Cross click')">
+                [formGroup]="myForm" (click)="onSubmit()">
                 Guardar
             </button>
         </div>

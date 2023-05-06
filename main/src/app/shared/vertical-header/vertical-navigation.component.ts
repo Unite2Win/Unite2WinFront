@@ -123,7 +123,6 @@ export class VerticalNavigationComponent implements AfterViewInit {
 
   logout() {
     this.loginService.logout();
-    // console.log(("paso por aqui"));
 
   }
 }
