@@ -7,6 +7,7 @@ import { ObjetivosComponent } from './objetivos/objetivos.component';
 import { PlanesComponent } from './planes/planes.component';
 import { ComunidadesComponent } from './comunidades/comunidades.component';
 import { PerfilComponent } from './perfil/perfil.component';
+import { FormsModule, } from '@angular/forms';
 
 
 
@@ -20,7 +21,8 @@ import { PerfilComponent } from './perfil/perfil.component';
   ],
   imports: [
     CommonModule,
-    RouterModule.forChild(UsuarioRoutes)
+    RouterModule.forChild(UsuarioRoutes),
+    FormsModule
   ]
 })
 export class UsuarioModule { }
