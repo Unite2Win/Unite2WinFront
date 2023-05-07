@@ -29,7 +29,8 @@ import { PipesModule } from 'app/pipes/pipes.module';
     NgApexchartsModule,
     CommonModule,
     RouterModule.forChild(UsuarioRoutes),
-    PipesModule
+    PipesModule,
+    FormsModule
   ]
 })
 export class UsuarioModule { }
