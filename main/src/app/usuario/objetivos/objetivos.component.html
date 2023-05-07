@@ -1,127 +1,91 @@
 <div class="container-fluid">
-    <div class="row">
-      <div class="col-sm-10">
-        <h1>Objetivos</h1>
-          <!-- <div class="card-body">
+  <div class="row">
+    <div class="col-sm-10">
+      <h1>Objetivos</h1>
+      <!-- <div class="card-body">
             Contenido de la tarjeta
           </div> -->
 
-          <div class="card bg-secondary"
-               *ngFor="let obj of objetivos;let i=index">
-            <div class="card-body">
-              <h5 class="card-title">{{objetivos[i].nombre | uppercase}}</h5>
-              <h6 class="card-subtitle mb-2 text-muted d-flex align-items-center">
-                <i-feather name="map-pin" class="me-2 feather-sm"></i-feather>Duracion: {{objetivos[i].duracion}} dias.
-              </h6>
-              <p class="card-text pt-2">
-                {{objetivos[i].descripcion | titlecase}}
+      <div class="card bg-secondary" *ngFor="let obj of objetivos;let i=index">
+        <div class="card-body">
+          <h5 class="card-title">{{objetivos[i].nombre | uppercase}}</h5>
+          <h6 class="card-subtitle mb-2 text-muted d-flex align-items-center">
+            <i-feather name="map-pin" class="me-2 feather-sm"></i-feather>Duracion: {{objetivos[i].duracion}} dias.
+          </h6>
+          <p class="card-text pt-2">
+            {{objetivos[i].descripcion | titlecase}}
+          </p>
+
+          <div class="col-4">
+
+            <div class="p-3">
+              <h4 class="card-title mb-0">Progreso</h4>
+            </div>
+            <div class="card-body border-top">
+              <p><ngb-progressbar type="success" [value]="25"></ngb-progressbar></p>
+              <p><ngb-progressbar type="info" [value]="50"></ngb-progressbar></p>
+              <p>
+                <ngb-progressbar type="primary" [value]="150" [max]="200"></ngb-progressbar>
               </p>
-
-              <div class="col-4">
-
-                  <div class="p-3">
-                    <h4 class="card-title mb-0">Progreso</h4>
-                  </div>
-                  <div class="card-body border-top">
-                    <p><ngb-progressbar type="success" [value]="25"></ngb-progressbar></p>
-                    <p><ngb-progressbar type="info" [value]="50"></ngb-progressbar></p>
-                    <p>
-                      <ngb-progressbar
-                        type="primary"
-                        [value]="150"
-                        [max]="200"
-                      ></ngb-progressbar>
-                    </p>
-                    <p>
-                      <ngb-progressbar
-                        type="inverse"
-                        [value]="150"
-                        [max]="150"
-                      ></ngb-progressbar>
-                    </p>
-                    <p><ngb-progressbar type="warning" [value]="75"></ngb-progressbar></p>
-                    <p><ngb-progressbar type="danger" [value]="100"></ngb-progressbar></p>
-                  </div>
-              </div>
-
-              <div>
-                <img src="assets/images/background/nyan-cat.gif" alt="">
-              </div>
-
-
-              <div class="btn-group">
-                <button type="button" class="btn btn-light-warning btn-md" (click)="modificar(i)">Modificar</button>
-                <button type="button" class="btn btn-light-danger btn-md m" (click)="eliminar(objetivos[i].id_obj)">Eliminar</button>
-              </div>
-              
+              <p>
+                <ngb-progressbar type="inverse" [value]="150" [max]="150"></ngb-progressbar>
+              </p>
+              <p><ngb-progressbar type="warning" [value]="75"></ngb-progressbar></p>
+              <p><ngb-progressbar type="danger" [value]="100"></ngb-progressbar></p>
             </div>
           </div>
-          
-        <!-- <div class="card-body">
+
+          <div>
+            <img src="assets/images/background/nyan-cat.gif" alt="">
+          </div>
+
+
+          <div class="btn-group">
+            <button type="button" class="btn btn-light-warning btn-md" (click)="modificar(i)">Modificar</button>
+            <button type="button" class="btn btn-light-danger btn-md m"
+              (click)="eliminar(objetivos[i].id_obj)">Eliminar</button>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- <div class="card-body">
             Aqui acaba el contenido de la tarjeta
           </div> -->
-      </div>
-      <div class="col-sm-2">
-        <button type="button" class="btn btn-light-danger btn-lg"
-                (click)="modalOpenRegister(modalRegister)">Nuevo Objetivo</button>
+    </div>
+    <div class="col-sm-2">
+      <button type="button" class="btn btn-light-danger btn-lg" (click)="modalOpenRegister(modalRegister)">Nuevo
+        Objetivo</button>
 
-                <ng-template #modalRegister let-modal>
-                    <form [formGroup]="form1"
-                          (ngSubmit)="onSubmit()">
-                      <div class="modal-header justify-content-center mt-2">
-                        <a href="index.html">
-                          <span
-                            ><img
-                              class="me-2"
-                              src="assets/images/logo-icon.png"
-                              alt="" /><img
-                              src="assets/images/logo-text.png"
-                              alt=""
-                              height="18"
-                          /></span>
-                        </a>
-                      </div>
-                      <div class="modal-body px-4">
-                        <div class="mb-3">
-                          <label for="nombre">Nombre del Objetivo</label>
-                          <input
-                            class="form-control"
-                            type="text"
-                            id="nombre"
-                            required="true"
-                            placeholder="Ponga un nombre al objetivo"
-                            name="nombre"
-                            #nombre [(ngModel)]="nuevoObjetivo.nombre"
-                          />
-                        </div>
-          
-                        <div class="mb-3">
-                          <label for="descripcion">Descripcion</label>
-                          <input
-                            class="form-control"
-                            type="text"
-                            id="descripcion"
-                            required=""
-                            placeholder="Ponga su descripcion aquí"
-                            name="descripcion"
-                            #descripcion [(ngModel)]="nuevoObjetivo.descripcion"
-                          />
-                        </div>
-          
-                        <div class="mb-3">
-                          <label for="duracion">Duracion</label>
-                          <input
-                            class="form-control"
-                            type="number"
-                            required=""
-                            id="duracion"
-                            placeholder="Cuanto durara el reto"
-                            name="duracion"
-                            #duracion [(ngModel)]="nuevoObjetivo.duracion"
-                          />
-                        </div>
-          
-                        <!-- <div class="mb-3">
+      <ng-template #modalRegister let-modal>
+        <form (ngSubmit)="onSubmit()">
+          <div class="modal-header justify-content-center mt-2">
+            <a href="index.html">
+              <span><img class="me-2" src="assets/images/logo-icon.png" alt="" /><img src="assets/images/logo-text.png"
+                  alt="" height="18" /></span>
+            </a>
+          </div>
+          <div class="modal-body px-4">
+            <div class="mb-3">
+              <label for="nombre">Nombre del Objetivo</label>
+              <input class="form-control" type="text" id="nombre" required="true"
+                placeholder="Ponga un nombre al objetivo" name="nombre" #nombre [(ngModel)]="nuevoObjetivo.nombre" />
+            </div>
+
+            <div class="mb-3">
+              <label for="descripcion">Descripcion</label>
+              <input class="form-control" type="text" id="descripcion" required=""
+                placeholder="Ponga su descripcion aquí" name="descripcion" #descripcion
+                [(ngModel)]="nuevoObjetivo.descripcion" />
+            </div>
+
+            <div class="mb-3">
+              <label for="duracion">Duracion</label>
+              <input class="form-control" type="number" required="" id="duracion" placeholder="Cuanto durara el reto"
+                name="duracion" #duracion [(ngModel)]="nuevoObjetivo.duracion" />
+            </div>
+
+            <!-- <div class="mb-3">
                           <div class="form-check">
                             <input
                               type="checkbox"
@@ -135,21 +99,17 @@
                             >
                           </div>
                         </div> -->
-                      </div>
-                      <div class="modal-footer justify-content-center">
-                        <button
-                          class="btn btn-light-info text-info font-medium"
-                          type="button"
-                          (click)="anadir()"
-                        >
-                          GUARDAR
-                        </button>
-                      </div>
-                    </form>
-                  </ng-template>      
-      </div>
+          </div>
+          <div class="modal-footer justify-content-center">
+            <button class="btn btn-light-info text-info font-medium" type="button" (click)="anadir()">
+              GUARDAR
+            </button>
+          </div>
+        </form>
+      </ng-template>
     </div>
   </div>
+</div>
 <!--
 ENEKO:
    <div class="titulo">

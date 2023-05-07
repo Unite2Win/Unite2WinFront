@@ -3,8 +3,6 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import { ObjetivosService } from '../services/objetivos.service';
 import { Objetivo } from '../interfaces/objetivo';
-import { globales } from 'common/globales';
-import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-objetivos',
@@ -100,6 +98,18 @@ nuevoObjetivo:Objetivo;
     this.modalOpenRegister('modalRegister');
   } */
 
+}
+  
+/*   modificar(indice: number) {
+    this.nuevoObjetivo = this.objetivos[indice];
+    this.form1.setValue({
+      nombre: this.nuevoObjetivo.nombre,
+      descripcion: this.nuevoObjetivo.descripcion,
+      duracion: this.nuevoObjetivo.duracion
+    });
+    this.modalOpenRegister('modalRegister');
+  } */
+
 
 
   //ENEKO:
@@ -151,5 +161,3 @@ nuevoObjetivo:Objetivo;
   //   })
   //   this.modalReference.close()
   //   console.log(this.myForm)
-
-}
