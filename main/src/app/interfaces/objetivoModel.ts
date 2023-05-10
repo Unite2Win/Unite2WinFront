@@ -1,9 +1,11 @@
 export interface Objetivo {
-    id_doc: number,
-    data: string,
+    id_obj: number,
+    nombre: string,
     descripcion: string,
-    extensionArchivo: string,
+    duracion: number,
     create_date?: Date,
     last_modified?: Date,
-    delete_date?: Date
+    delete_date?: Date,
+    id_usu: number,
+    complete_date?: Date,
 }

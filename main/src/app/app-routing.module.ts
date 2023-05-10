@@ -25,7 +25,7 @@ export const Approutes: Routes = [
           import("./administracion/administracion.module").then((m) => m.AdministracionModule),
       },
 
-      ////////7
+      ////////
       {
         path: "dashboard",
         loadChildren: () =>

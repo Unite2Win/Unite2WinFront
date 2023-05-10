@@ -1,6 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ObjetivosComponent } from './objetivos.component';
+import { OnInit } from '@angular/core';
+
 
 describe('ObjetivosComponent', () => {
   let component: ObjetivosComponent;
@@ -23,3 +25,8 @@ describe('ObjetivosComponent', () => {
     expect(component).toBeTruthy();
   });
 });
+
+
+
+
+

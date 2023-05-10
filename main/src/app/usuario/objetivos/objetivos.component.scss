@@ -5,9 +5,12 @@
     align-items: center;
 }
 
-.tarjeta {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
+#tarjeta {
+    margin-left: 1%;
+    margin-top: 2%;
+    border-bottom: 1px solid gray;
+}
+
+#leyenda {
+    margin-top: 1%;
 }
