@@ -1,6 +1,6 @@
 import { Component, OnInit, HostListener } from '@angular/core';
 import { Router } from '@angular/router';
-import { configuraciones } from 'common/configuraciones';
+import { globales } from 'common/globales';
 declare var $: any;
 
 import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
@@ -26,7 +26,7 @@ export class FullComponent implements OnInit {
   public showMobileMenu = false;
   public expandLogo = false;
 
-  options = configuraciones.options
+  options = globales.options
 
   Logo() {
     this.expandLogo = !this.expandLogo;

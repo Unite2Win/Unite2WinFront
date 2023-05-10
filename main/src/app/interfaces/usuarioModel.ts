@@ -23,20 +23,20 @@ import { Perfil } from "./perfilModel"
 // }
 
 export interface Usuario {
-    id_usu:              number;
+    id_usu?:              number;
     nick:                string;
     password:            string;
     name:                string;
     surname:             string;
     email:               string;
-    picture:             null;
+    picture:             Documento;
     level:               number;
     active:              boolean;
-    last_login:          null;
-    create_date:         string;
-    last_modified:       null;
-    delete_date:         null;
-    perfil:              null;
-    objetivos:           null;
-    comunidadesUsuarios: null;
+    last_login?:          null;
+    create_date?:         string;
+    last_modified?:       null;
+    delete_date?:         null;
+    perfil?:              null;
+    objetivos?:           null;
+    comunidadesUsuarios?: null;
 }

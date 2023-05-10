@@ -1,1 +1,42 @@
-<p>objetivos works!</p>
+<div class="titulo">
+    <div class="p-3">
+        <h3 style="font-weight: bold;">Mis objetivos</h3>
+    </div>
+    <button type="button" class="btn btn-primary" style="height: 50%;" (click)="modalOpenLogin(modalLogin)">Nuevo objetivo</button>
+</div>
+<div class="tarjeta">
+    <div class="hijo1">
+
+    </div>
+    <div class="hijo2">
+        
+    </div>
+</div>
+
+<ng-template #modalLogin let-modal>
+    <form>
+        <div class="modal-header justify-content-center mt-2">
+            <a href="index.html">
+                <span><img class="me-2" src="assets/images/logo-icon.png" alt="" /><img
+                        src="assets/images/logo-text.png" alt="" height="18" /></span>
+            </a>
+        </div>
+        <div class="modal-body px-4">
+            <div class="mb-3">
+                <label for="emailaddress1">Título</label>
+                <input class="form-control" required="true" placeholder="Introduzca el título" />
+            </div>
+
+            <div class="mb-3">
+                <label for="password1">Descripcion</label>
+                <textarea class="form-control" name="" id="" cols="3" rows="4" placeholder="Introduzca la descrpción"></textarea>
+            </div>
+        </div>
+        <div class="modal-footer justify-content-center">
+            <button class="btn btn-light-info text-info font-medium" type="submit"
+                (click)="modal.dismiss('Cross click')">
+                Guardar
+            </button>
+        </div>
+    </form>
+</ng-template>

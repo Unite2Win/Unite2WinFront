@@ -8,6 +8,7 @@ import {
 import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
 import { TranslateService } from '@ngx-translate/core';
 import { LoginService } from '../../authentication/login/login.service';
+import { globales } from 'common/globales';
 declare var $: any;
 
 @Component({
@@ -20,6 +21,10 @@ export class VerticalNavigationComponent implements AfterViewInit {
   public config: PerfectScrollbarConfigInterface = {};
 
   public showSearch = false;
+
+  get usuarioLogueado() {
+    return globales.usuarioLogueado;
+  }
 
   // This is for Notifications
   notifications: Object[] = [

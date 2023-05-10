@@ -7,6 +7,8 @@ import { catchError, map } from 'rxjs/operators';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { AuthenticatedResponse } from '../../interfaces/authenticatedResponseModel';
 import { LoginModel } from 'app/interfaces/loginModel';
+import { UsuariosService } from '../../usuario/services/usuarios.service';
+import { globales } from 'common/globales';
 
 @Injectable({
   providedIn: 'root'
@@ -22,7 +24,7 @@ export class LoginService {
 
 
 
-  constructor(private http: HttpClient, public router: Router, private jwtHelper: JwtHelperService) { }
+  constructor(private http: HttpClient, public router: Router, private jwtHelper: JwtHelperService, private usuariosService: UsuariosService) { }
 
   signIn(user: LoginModel) {
     this.logout();
@@ -32,6 +34,13 @@ export class LoginService {
       })
       .subscribe({
         next: (response: AuthenticatedResponse) => {
+          //Aquí recojo la inormación del usuario y la guardo en common
+          var usuarioModel = this.usuariosService.getUsuarioById(Number(response.user_ID)).toPromise()
+          usuarioModel.then(resp => {
+            globales.usuarioLogueado = resp;
+            console.log(globales.usuarioLogueado)
+          })
+          //
           localStorage.setItem('access_token', response.token);
           localStorage.setItem('user_id', response.user_ID);
           this.AUTH_TOKEN = this.getToken();

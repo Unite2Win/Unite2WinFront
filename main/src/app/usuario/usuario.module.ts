@@ -10,8 +10,8 @@ import { PerfilComponent } from './perfil/perfil.component';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { NgApexchartsModule } from 'ng-apexcharts';
 import { ConfiguracionComponent } from './configuracion/configuracion.component';
-
-
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { PipesModule } from 'app/pipes/pipes.module';
 
 @NgModule({
   declarations: [
@@ -23,10 +23,13 @@ import { ConfiguracionComponent } from './configuracion/configuracion.component'
     ConfiguracionComponent
   ],
   imports: [
+    FormsModule, 
+    ReactiveFormsModule,
     NgxChartsModule,
     NgApexchartsModule,
     CommonModule,
-    RouterModule.forChild(UsuarioRoutes)
+    RouterModule.forChild(UsuarioRoutes),
+    PipesModule
   ]
 })
 export class UsuarioModule { }

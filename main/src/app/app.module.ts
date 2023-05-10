@@ -41,6 +41,9 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { UsuarioModule } from './usuario/usuario.module';
 import { AuthInterceptor } from './authentication/login/helpers/auth.interceptor';
 import { JwtHelperService, JwtModule } from '@auth0/angular-jwt';
+import { NotifierModule } from 'angular-notifier';
+import { SafePipe } from './pipes/sanitizer.pipe';
+import { PipesModule } from './pipes/pipes.module';
 
 
 export function HttpLoaderFactory(http: HttpClient) {
@@ -72,6 +75,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     HorizontalSidebarComponent
   ],
   imports: [
+    NotifierModule,
     //
     CommonModule,
     BrowserModule,
@@ -103,7 +107,8 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
         allowedDomains: ["http://api-reservas.lksnext.com/api"],
         disallowedRoutes: []
       }
-    })
+    }),
+    PipesModule
   ],
   providers: [
     {
