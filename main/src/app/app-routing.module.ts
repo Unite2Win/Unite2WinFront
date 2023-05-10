@@ -4,7 +4,6 @@ import { Routes, RouterModule } from "@angular/router";
 import { FullComponent } from "./layouts/full/full.component";
 import { BlankComponent } from "./layouts/blank/blank.component";
 import { AuthGuard } from "./authentication/guards/auth.guard";
-import { AdministracionModule } from './administracion/administracion.module';
 
 export const Approutes: Routes = [
   {
@@ -17,12 +16,6 @@ export const Approutes: Routes = [
         canActivate: [AuthGuard], //Estoy hay que ponerlo en las rutas que queramos securizadas con el login
         loadChildren: () =>
           import("./usuario/usuario.module").then((m) => m.UsuarioModule),
-      },
-      {
-        path: "administracion",
-        canActivate: [AuthGuard], //Estoy hay que ponerlo en las rutas que queramos securizadas con el login
-        loadChildren: () =>
-          import("./administracion/administracion.module").then((m) => m.AdministracionModule),
       },
 
       ////////7
