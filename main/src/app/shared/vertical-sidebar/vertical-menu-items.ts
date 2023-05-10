@@ -51,6 +51,27 @@ export const ROUTES: RouteInfo[] = [
     extralink: false,
     submenu: [],
   },
+  {
+    path: "administracion",
+    title: "Administración",
+    icon: "settings",
+    class: "has-arrow zero-level mn-admin",
+    label: "",
+    labelClass: "side-badge badge bg-info",
+    extralink: false,
+    submenu: [
+      {
+        path: "/administracion/comunidades",
+        title: "Comunidades",
+        icon: "users",
+        class: "level-one",
+        label: "",
+        labelClass: "",
+        extralink: false,
+        submenu: [],
+      }
+    ],
+  },
   // {
   //   path: "dashboard",
   //   title: "Dashboards",

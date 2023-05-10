@@ -41,6 +41,7 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { UsuarioModule } from './usuario/usuario.module';
 import { AuthInterceptor } from './authentication/login/helpers/auth.interceptor';
 import { JwtHelperService, JwtModule } from '@auth0/angular-jwt';
+import { AdministracionModule } from './administracion/administracion.module';
 
 
 export function HttpLoaderFactory(http: HttpClient) {
@@ -69,7 +70,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     BreadcrumbComponent,
     VerticalSidebarComponent,
     HorizontalNavigationComponent,
-    HorizontalSidebarComponent
+    HorizontalSidebarComponent,
   ],
   imports: [
     //
@@ -81,6 +82,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     ReactiveFormsModule,
     DataTablesModule,
     HttpClientModule,
+    AdministracionModule,
     NgbModule,
     Ng2SearchPipeModule,
     FeatherModule,
