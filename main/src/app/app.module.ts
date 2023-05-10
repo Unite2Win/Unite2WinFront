@@ -44,6 +44,7 @@ import { JwtHelperService, JwtModule } from '@auth0/angular-jwt';
 import { NotifierModule } from 'angular-notifier';
 import { SafePipe } from './pipes/sanitizer.pipe';
 import { PipesModule } from './pipes/pipes.module';
+import { AdministracionModule } from './administracion/administracion.module';
 
 
 export function HttpLoaderFactory(http: HttpClient) {
@@ -72,7 +73,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     BreadcrumbComponent,
     VerticalSidebarComponent,
     HorizontalNavigationComponent,
-    HorizontalSidebarComponent
+    HorizontalSidebarComponent,
   ],
   imports: [
     NotifierModule,
@@ -85,6 +86,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     ReactiveFormsModule,
     DataTablesModule,
     HttpClientModule,
+    AdministracionModule,
     NgbModule,
     Ng2SearchPipeModule,
     FeatherModule,
