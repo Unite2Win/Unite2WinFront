@@ -5,10 +5,11 @@ import { environment } from 'environments/environment';
 import { Observable, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { JwtHelperService } from '@auth0/angular-jwt';
-import { AuthenticatedResponse } from '../../interfaces/authenticatedResponseModel';
-import { LoginModel } from 'app/interfaces/loginModel';
+import { AuthenticatedResponse } from '../../usuario/interfaces/authenticatedResponseModel';
 import { UsuariosService } from '../../usuario/services/usuarios.service';
 import { globales } from 'common/globales';
+import { Usuario } from 'app/usuario/interfaces/usuarioModel';
+import { LoginModel } from 'app/usuario/interfaces/loginModel';
 
 @Injectable({
   providedIn: 'root'
@@ -17,7 +18,7 @@ export class LoginService {
 
   endpoint: string = environment.url;
   headers = new HttpHeaders().set('Content-Type', 'application/json');
-  currentUser = {};
+  currentUser: Usuario;
 
   public AUTH_TOKEN: string = this.getToken();
   public AUTH_USERID: string = this.getId();
@@ -38,7 +39,8 @@ export class LoginService {
           var usuarioModel = this.usuariosService.getUsuarioById(Number(response.user_ID)).toPromise()
           usuarioModel.then(resp => {
             globales.usuarioLogueado = resp;
-            console.log(globales.usuarioLogueado)
+            console.log(globales.usuarioLogueado);
+            this.currentUser = resp;
           })
           //
           localStorage.setItem('access_token', response.token);

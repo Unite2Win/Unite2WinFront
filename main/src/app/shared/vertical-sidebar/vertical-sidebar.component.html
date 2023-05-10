@@ -8,7 +8,7 @@
             <ul aria-expanded="false" class="collapse" [class.in]="showMenu === 'user'">
                 <li><a routerLink="/usuario/perfil" class="sidebar-link p-0">Mi perfil</a></li>
                 <li><a routerLink="/usuario/configuracion" class="sidebar-link p-0">Configuración</a></li>
-                <li><a href="javascript:void()" class="sidebar-link p-0">Cerrar sesión</a></li>
+                <li><a href="/authentication/login" class="sidebar-link p-0" (click)="logout()">Cerrar sesión</a></li>
             </ul>
         </li>
         <!-- First level menu -->

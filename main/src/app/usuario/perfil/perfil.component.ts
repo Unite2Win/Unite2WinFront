@@ -17,10 +17,10 @@ import {
 } from 'ng-apexcharts';
 import { UsuariosService } from '../services/usuarios.service';
 import { ToastrService } from 'ngx-toastr';
-import { Documento } from 'app/interfaces/documentoModel';
 import { DocumentosService } from '../services/documentos.service';
-import { DecodedBase64 } from 'app/interfaces/decodedBase64Model';
-import { Usuario } from 'app/interfaces/usuarioModel';
+import { Documento } from '../interfaces/documentoModel';
+import { Usuario } from '../interfaces/usuarioModel';
+import { DecodedBase64 } from '../interfaces/decodedBase64Model';
 
 export type ChartOptions = {
   series: ApexAxisChartSeries;

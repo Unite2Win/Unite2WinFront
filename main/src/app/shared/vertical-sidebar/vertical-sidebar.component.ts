@@ -4,6 +4,7 @@ import { VerticalSidebarService } from './vertical-sidebar.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { globales } from '../../../common/globales';
+import { LoginService } from 'app/authentication/login/login.service';
 declare var $: any;
 
 @Component({
@@ -29,7 +30,7 @@ export class VerticalSidebarComponent {
     this.notify.emit(!this.showClass);
   }
 
-  constructor(private menuServise: VerticalSidebarService, private router: Router) {
+  constructor(private menuServise: VerticalSidebarService, private router: Router, private loginService: LoginService) {
     this.menuServise.items.subscribe(menuItems => {
       this.sidebarnavItems = menuItems;
 
@@ -64,5 +65,9 @@ export class VerticalSidebarComponent {
       left: 0,
       behavior: 'smooth'
     });
+  }
+
+  logout() {
+    this.loginService.logout();
   }
 }

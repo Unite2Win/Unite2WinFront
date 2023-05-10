@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Usuario } from 'app/interfaces/usuarioModel';
+import { Usuario } from 'app/usuario/interfaces/usuarioModel';
 import { environment } from 'environments/environment';
 import { Observable, throwError } from 'rxjs';
 import { catchError, retry } from 'rxjs/operators';

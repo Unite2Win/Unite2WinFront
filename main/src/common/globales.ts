@@ -1,4 +1,4 @@
-import { Usuario } from "app/interfaces/usuarioModel";
+import { Usuario } from "app/usuario/interfaces/usuarioModel";
 
 
 export class globales {
