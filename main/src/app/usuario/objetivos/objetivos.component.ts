@@ -3,6 +3,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import { ObjetivosService } from '../services/objetivos.service';
 import { Objetivo } from '../interfaces/objetivo';
+import { number } from 'ngx-custom-validators/src/app/number/validator';
 
 @Component({
   selector: 'app-objetivos',
@@ -12,7 +13,9 @@ import { Objetivo } from '../interfaces/objetivo';
 export class ObjetivosComponent implements OnInit {
 objetivo: Objetivo;
 nuevoObjetivo:Objetivo;
-
+objetivos: Objetivo[]=[]; 
+form1: FormGroup;
+editando: boolean = false;
 /*   objetivos = [
     {
       nombre: 'Dejar de fumar',
@@ -28,56 +31,74 @@ nuevoObjetivo:Objetivo;
     }
   ]; */
 
-  objetivos: Objetivo[]=[]; 
-
-  form1: FormGroup;
-
-
-
   constructor(private modalService: NgbModal, private objetivosService: ObjetivosService ) { }
 
   async ngOnInit() {
 
     await this.objetivosService.getObjetivos();
-    console.log(this.objetivosService.objetivosBd);
+    //console.log(this.objetivosService.objetivosBd);
     this.objetivos = this.objetivosService.objetivosBd;
 
     this.form1 = new FormGroup({
       nombre: new FormControl('', Validators.required),
       descripcion: new FormControl(''),
       duracion: new FormControl('', [Validators.required, Validators.min(0)]),
-      acepta: new FormControl(false)
+      //acepta: new FormControl(false)
     });
+  }
+
+  modalOpenRegister(modalRegister: any, editar: boolean, objetivo?: any) {
+    this.modalService.open(modalRegister);
+  
+    if (editar) {
+      // Si se va a editar un objetivo existente, cargamos los valores en el formulario
+      this.nuevoObjetivo = {
+        id_obj: objetivo.id_obj,
+        nombre: objetivo.nombre,
+        descripcion: objetivo.descripcion,
+        duracion: objetivo.duracion,
+        id_usu: objetivo.id_usu
+      };
+      this.editando = true;
+    } else {
+      // Si se va a añadir un nuevo objetivo, inicializamos los valores a cero o vacío
+      this.nuevoObjetivo = {
+        id_obj: 0,
+        nombre: '',
+        descripcion: '',
+        duracion: 0,
+        id_usu: 1
+      };
+      this.editando = false;
+    }
+  }
+
+  
+  guardar(){
+    if(this.editando){
+      this.modificar(this.nuevoObjetivo.id_obj, this.nuevoObjetivo);
+    }else{
+      this.anadir()
+    }
   }
 
   async anadir() {
     this.form1.reset();
     this.modalService.dismissAll();   
-    console.log("submit disparado");
+    // console.log("submit disparado");
     await this.objetivosService.PostObjetivos(this.nuevoObjetivo).toPromise().then(x => console.log(x));
     this.objetivos = [];
     await this.objetivosService.GetObjetivosBBDD().toPromise().then(x => this.objetivos = x);
 
   }
-
-  modalOpenRegister(modalRegister: any) {
-    this.modalService.open(modalRegister);
-    this.nuevoObjetivo = {
-      id_obj : 0,
-      nombre :'',
-      descripcion:'',
-      duracion:0,
-      id_usu:1
-    };
-  }
-
-  guardar():void {
-    this.objetivosService.UpdateObjetivos(this.objetivo.id_obj, this.objetivo)
-      .subscribe(resultado => {
-        console.log('El objetivo se actualizó correctamente:', resultado);
-      }, error => {
-        console.error('No se pudo actualizar el objetivo:', error);
-      });
+  
+  async modificar(index: number, objetivo: Objetivo) {
+    //console.log("disparado modificar")
+    await this.objetivosService.UpdateObjetivos(index, objetivo).toPromise().then(x => console.log(x));
+    var objetivos_copia = this.objetivos;
+    this.objetivos = [];
+    await this.objetivosService.GetObjetivosBBDD().toPromise().then(x => this.objetivos = x);
+    this.modalService.dismissAll();
   }
 
   async eliminar(index: number) {
@@ -85,8 +106,18 @@ nuevoObjetivo:Objetivo;
     var objetivos_copia = this.objetivos;
     this.objetivos = [];
     this.objetivos = objetivos_copia.filter(x => x.id_obj != index);
+    this.modalService.dismissAll();
 
   }
+
+  modalOpenVC(modalCenter: any) {
+    this.modalService.open(modalCenter, {
+      centered: true,
+    });
+  }
+
+
+  
   
 /*   modificar(indice: number) {
     this.nuevoObjetivo = this.objetivos[indice];

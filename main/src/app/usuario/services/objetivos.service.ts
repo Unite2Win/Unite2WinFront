@@ -29,17 +29,17 @@ export class ObjetivosService {
   }
 
   PostObjetivos(objetivo:Objetivo):Observable<any>{
-    console.log("anadir objetivos disparado");
-    console.log(objetivo.toString());
+    //console.log("anadir objetivos disparado");
+    //console.log(objetivo.toString());
     return this.http.post<Objetivo>(`${this.API_URL}/API/post`,objetivo);
   }
 
   PutObjetivos(objetivo:Objetivo):Observable<any>{
-    return this.http.post<Objetivo>(this.API_URL,objetivo);
+    return this.http.post<Objetivo>(`${this.API_URL}/API/put`,objetivo);
   }
 
   DeleteObjetivos(id: number): Observable<Object>{
-    console.log("eliminar objetivos disparado");
+    //console.log("eliminar objetivos disparado");
      return this.http.put(`${this.API_URL}/delete`,id);
   }
 
