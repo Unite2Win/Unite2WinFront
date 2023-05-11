@@ -93,7 +93,7 @@ editando: boolean = false;
   }
   
   async modificar(index: number, objetivo: Objetivo) {
-    console.log("disparado modificar")
+    //console.log("disparado modificar")
     await this.objetivosService.UpdateObjetivos(index, objetivo).toPromise().then(x => console.log(x));
     var objetivos_copia = this.objetivos;
     this.objetivos = [];

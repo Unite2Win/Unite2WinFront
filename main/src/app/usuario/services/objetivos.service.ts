@@ -40,7 +40,7 @@ export class ObjetivosService {
   }
 
   DeleteObjetivos(id: number): Observable<Object>{
-    console.log("eliminar objetivos disparado");
+    //console.log("eliminar objetivos disparado");
      return this.http.put(`${this.API_URL}/delete`,id);
   }
 
