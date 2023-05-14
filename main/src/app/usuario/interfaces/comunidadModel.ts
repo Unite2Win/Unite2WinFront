@@ -5,9 +5,9 @@ export interface Comunidad {
     nombre: string,
     descripcion: string,
     clave: string,
-    create_date: Date,
-    last_modified: Date,
-    delete_date: Date,
+    create_date?: Date,
+    last_modified?: Date,
+    delete_date?: Date,
     banner: Documento,
     picture: Documento
 }

@@ -1,0 +1,12 @@
+<div class="modal-header">
+    <h4 class="modal-title">{{ titulo }}</h4>
+    <!-- ESTO ES EL BOTÓN DE LA X EN LA PARTE SUPERIOR -->
+    <!-- <button type="button" class="btn-close" aria-label="Close" (click)="cerrar()"></button> -->
+</div>
+<div class="modal-body">
+    {{ mensaje }}
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-danger" (click)="rechazar()">{{ textoBtnCancelar }}</button>
+    <button type="button" class="btn btn-primary" (click)="aceptar()">{{ textoBtnOk }}</button>
+</div>

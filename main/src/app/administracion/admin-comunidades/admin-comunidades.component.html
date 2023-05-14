@@ -6,7 +6,7 @@
                     [(ngModel)]="descripcionBusqueda" />
                 <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
                 </div>
-                <button class="btn btn-primary" (click)="crearComunidad(crearComunidadModal, 'md')">
+                <button class="btn btn-primary" (click)="crearOEditarComunidad(createEditComunidadModal, 'md', null)">
                     Nueva Comunidad
                 </button>
             </div>
@@ -16,9 +16,10 @@
                         <thead>
                             <tr>
                                 <th scope="col">Nombre</th>
-                                <th scope="col">Descripcion</th>
+                                <th scope="col">Descripción</th>
+                                <th scope="col">Clave</th>
+                                <th scope="col">Icono</th>
                                 <th scope="col">Banner</th>
-                                <th scope="col">Picture</th>
                                 <th *ngIf="selectedOption == 1" scope="col">Acciones</th>
                             </tr>
                         </thead>
@@ -39,22 +40,20 @@
                                     </div>
                                 </td>
                                 <td>{{ comunidad.descripcion }}</td>
-                                <td *ngIf="comunidad.banner != null; else noFile">{{ comunidad.banner.descripcion }}
-                                </td>
-                                <td *ngIf="comunidad.picture != null; else noFile">{{ comunidad.picture.descripcion }}
-                                </td>
+                                <td>{{ comunidad.clave }}</td>
+                                <td *ngIf="comunidad.picture != null; else noFile">{{ comunidad.picture.descripcion }}</td>
+                                <td *ngIf="comunidad.banner != null; else noFile">{{ comunidad.banner.descripcion }}</td>
                                 <ng-template #noFile>
                                     <td class="text-danger">NO DATA</td>
                                 </ng-template>
                                 <td *ngIf="selectedOption == 1">
                                     <a href="javascript: void(0);"
-                                        (click)="editarComunidad(editComunidadModal, comunidad)" class="link me-2"
-                                        placement="top" ngbTooltip="Editar comunidad">
+                                        (click)="crearOEditarComunidad(createEditComunidadModal, 'md', comunidad)"
+                                        class="link me-2" placement="top" ngbTooltip="Editar comunidad">
                                         <i-feather name="edit-3" class="feather-sm text-info me-2 pointer"></i-feather>
                                     </a>
                                     <a href="javascript: void(0);" class="link" placement="top"
-                                        (click)="eliminarComunidad(borrarComunidadModal, comunidad)"
-                                        ngbTooltip="Eliminar comunidad">
+                                        (click)="eliminarComunidad(comunidad)" ngbTooltip="Eliminar comunidad">
                                         <i-feather name="trash-2" class="feather-sm text-danger pointer"></i-feather>
                                     </a>
                                 </td>
@@ -74,97 +73,82 @@
             </ng-template>
 
 
-            <ng-template #editComunidadModal let-modal>
-                <!-- <form [formGroup]="miFormIdiomasEditar" (ngSubmit)="editar()">
+            <ng-template #createEditComunidadModal let-modal>
+                <form [formGroup]="miFormComunidades" (ngSubmit)="crearOEditar()">
                     <div class="modal-header">
-                        <h3 class="modal-title" id="editComunidadModal">{{'Idiomaseleccionado' | translate}}: {{
-                            idiomaSeleccionado.descripcion }}</h3>
+                        <h3 class="modal-title" id="editComunidadModal">{{comunidadSeleccionado == null ? "Crear
+                            comunidad" : "Editar " + comunidadSeleccionado.nombre}}</h3>
                         <button type="button" class="btn-close" (click)="closeBtnClick()" aria-label="Close"></button>
                     </div>
 
                     <div class="modal-body">
                         <div class="col-12">
+
                             <div class="row">
                                 <div class="col-12 d-flex flex-column justify-content-center">
-                                    <label for="identificadorIdioma"
-                                        class="form-label">{{'Introduzcaunidentificadorparaelidioma' |
-                                        translate}}*</label>
-                                    <input type="text" id="identificadorIdioma" class="form-control"
-                                        placeholder="Identificador para el idioma"
-                                        formControlName="identificadorIdioma" />
+                                    <label for="nombreComunidad" class="form-label">Introduzca el nombre de la
+                                        comunidad*</label>
+                                    <input type="text" id="nombreComunidad" class="form-control"
+                                        placeholder="Nombre para la comunidad" formControlName="nombre" />
                                 </div>
                             </div>
                             <br>
+
                             <div class="row">
                                 <div class="col-12 d-flex flex-column justify-content-center">
-                                    <label for="formArchivo" class="form-label">{{'Seleccionearchivo' |
-                                        translate}}</label>
+                                    <label for="descripcionComunidad" class="form-label">Introduzca la descripción de la
+                                        comunidad*</label>
+                                    <input type="text" id="descripcionComunidad" class="form-control"
+                                        placeholder="Descripción para la comunidad" formControlName="descripcion" />
+                                </div>
+                            </div>
+                            <br>
+
+                            <div class="row">
+                                <div class="col-12 d-flex flex-column justify-content-center">
+                                    <label for="claveComunidad" class="form-label">Introduzca la clave de seguridad para
+                                        la comunidad*</label>
+                                    <input type="text" id="claveComunidad" class="form-control"
+                                        placeholder="Clave de seguridad para la comunidad" formControlName="clave" />
+                                </div>
+                            </div>
+                            <br>
+
+                            <div class="row">
+                                <div class="col-12 d-flex flex-column justify-content-center">
+                                    <label for="formPicture" class="form-label">Seleccionar icono de la
+                                        comunidad</label>
                                     <div class="col-12 d-flex justify-content-center">
-                                        <input class="form-control" formControlName="archivo" accept="application/JSON"
-                                            type="file" id="formArchivo" (change)="fileChange($event, 'editar')">
+                                        <input class="form-control" formControlName="picture"
+                                            accept="image/png, image/jpeg" type="file" id="formPicture"
+                                            (change)="fileChange($event, 'picture')">
                                     </div>
                                 </div>
                             </div>
                             <br>
+
+                            <div class="row">
+                                <div class="col-12 d-flex flex-column justify-content-center">
+                                    <label for="formBanner" class="form-label">Seleccionar banner de la
+                                        comunidad</label>
+                                    <div class="col-12 d-flex justify-content-center">
+                                        <input class="form-control" formControlName="banner"
+                                            accept="image/png, image/jpeg" type="file" id="formBanner"
+                                            (change)="fileChange($event, 'banner')">
+                                    </div>
+                                </div>
+                            </div>
+                            <br>
+
                         </div>
                     </div>
 
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" (click)="closeBtnClick()">{{'Cerrar' |
-                            translate}}</button>
-                        <button [disabled]="miFormIdiomasEditar.invalid" class="btn btn-danger" type="submit">{{'Editar'
-                            | translate}}</button>
+                        <button type="button" class="btn btn-secondary" (click)="closeBtnClick()">Cerrar</button>
+                        <button [disabled]="miFormComunidades.invalid || miFormComunidades.untouched" class="btn btn-danger"
+                            type="submit">Aceptar</button>
                     </div>
-                </form> -->
-            </ng-template>
-
-            <ng-template #crearComunidadModal let-modal>
-                <!-- <form [formGroup]="miFormIdiomasCrear" (ngSubmit)="crear()">
-                    <div class="modal-header">
-                        <h3 class="modal-title" id="borrarComunidadModal">{{'Creaciondeidioma' | translate}}</h3>
-                        <button type="button" class="btn-close" (click)="closeBtnClick()" aria-label="Close"></button>
-                    </div>
-
-                    <div class="modal-body">
-                        <div class="col-12">
-                            <div class="row">
-                                <div class="col-12 d-flex flex-column justify-content-center">
-                                    <label for="descripcionIdioma"
-                                        class="form-label">{{'Introduzcaunadescripcionparaelidioma' |
-                                        translate}}*</label>
-                                    <input type="text" id="descripcionIdioma" class="form-control"
-                                        placeholder="Descripción para el idioma" formControlName="descripcionIdioma" />
-                                </div>
-                            </div>
-                            <br>
-                            <div class="row">
-                                <div class="col-12 d-flex flex-column justify-content-center">
-                                    <label for="codigoIdioma" class="form-label">{{'Introduzcauncodigodeidioma' |
-                                        translate}}*</label>
-                                    <input type="text" id="codigoIdioma" class="form-control"
-                                        placeholder="Codigo para el idioma" formControlName="codigoIdioma" />
-                                </div>
-                            </div>
-                            <br>
-                            <div class="row">
-                                <div class="col-12 d-flex flex-column justify-content-center">
-                                    <label for="formArchivo" class="form-label">{{'Seleccionearchivo' |
-                                        translate}}*</label>
-                                    <input class="form-control" formControlName="archivo" accept="application/JSON"
-                                        type="file" id="formArchivo" (change)="fileChange($event, 'crear')">
-                                </div>
-                            </div>
-                            <br>
-                        </div>
-                    </div>
-
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" (click)="closeBtnClick()">{{'Cerrar' |
-                            translate}}</button>
-                        <button [disabled]="miFormIdiomasCrear.invalid" class="btn btn-danger" type="submit">{{'Crear' |
-                            translate}}</button>
-                    </div>
-                </form> -->
+                </form>
             </ng-template>
 
             <ng-template #loading>

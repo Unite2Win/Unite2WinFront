@@ -1,6 +1,5 @@
 import { Comunidad } from "./comunidadModel"
 import { Documento } from "./documentoModel"
-import { Objetivo } from "./ObjetivoModel"
 import { Perfil } from "./perfilModel"
 
 // export interface Usuario {

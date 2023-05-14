@@ -8,6 +8,7 @@ import { AdminComunidadesService } from './admin-comunidades.service';
 import { Comunidad } from 'app/usuario/interfaces/comunidadModel';
 import { Documento } from 'app/usuario/interfaces/documentoModel';
 import { DecodedBase64 } from 'app/usuario/interfaces/decodedBase64Model';
+import { VentanaConfirmacionService } from '../ventana-confirmacion/ventana-confirmacion.service';
 
 @Component({
   selector: 'app-admin-comunidades',
@@ -49,15 +50,12 @@ export class AdminComunidadesComponent implements OnInit {
   }
 
   //ESTO ES PARA LOS MODALES DE EDICION, CREADO Y BORRADO
-  miFormComunidadesCrear: FormGroup = this.fb.group({
-    descripcionIdioma: ['', Validators.required],
-    codigoIdioma: ['', Validators.required],
-    archivo: ['', Validators.required]
-  });
-
-  miFormComunidadesEditar: FormGroup = this.fb.group({
-    identificadorIdioma: ['', Validators.required],
-    archivo: ''
+  miFormComunidades: FormGroup = this.fb.group({
+    nombre: ['', Validators.required],
+    descripcion: ['', Validators.required],
+    clave: ['', [Validators.required, Validators.minLength(8), Validators.maxLength(50)]],
+    banner: [''],
+    picture: ['']
   });
 
   comunidadesOBJ: Comunidad[] = [];
@@ -69,11 +67,11 @@ export class AdminComunidadesComponent implements OnInit {
   mensajeModalDelete: string = ""
   tituloModalDelete: string = ""
 
-  docCrear: Documento = null;
-  docEditar: Documento = null;
+  docPicture: Documento = null;
+  docBanner: Documento = null;
   ///////////////////////////////////////////////////
 
-  constructor(private loginService: LoginService, private modalService: NgbModal, private fb: FormBuilder, private manejoDocsService: ManejoDocsService, private comunidadesService: ComunidadesService, private adminComunidadesService: AdminComunidadesService) { }
+  constructor(private ventanaConfirmacionService: VentanaConfirmacionService, private loginService: LoginService, private modalService: NgbModal, private fb: FormBuilder, private manejoDocsService: ManejoDocsService, private comunidadesService: ComunidadesService, private adminComunidadesService: AdminComunidadesService) { }
 
   async ngOnInit(): Promise<void> {
 
@@ -115,79 +113,84 @@ export class AdminComunidadesComponent implements OnInit {
   }
 
   //ESTO ES PARA LOS MODALES DE EDICION, CREADO Y BORRADO
-  crearComunidad(modal: string, size: string) {
-    this.miFormComunidadesCrear.reset();
+  crearOEditarComunidad(modal: string, size: string, comunidad: Comunidad) {
+    this.docPicture = null;
+    this.docBanner = null;
+    this.comunidadSeleccionado = comunidad;
+    this.miFormComunidades.reset();
+
+    if (this.comunidadSeleccionado != null) {
+      this.miFormComunidades.get("nombre").setValue(this.comunidadSeleccionado.nombre);
+      this.miFormComunidades.get("descripcion").setValue(this.comunidadSeleccionado.descripcion);
+      this.miFormComunidades.get("clave").setValue(this.comunidadSeleccionado.clave);
+    }
+
     this.openModal(modal, size);
   }
 
-  async crear() {
-    if (this.miFormComunidadesCrear.invalid) {
+  async crearOEditar() {
+    if (this.miFormComunidades.invalid || this.miFormComunidades.untouched) {
       return;
     }
 
-    //AQUI FALTA TODA LA LOGICA PARA COGER LOS DATOS DE LA NUEVA COMUNIDAD
+    if (this.comunidadSeleccionado == null) {
 
-    var nuevaComunidad: Comunidad = {
-      id_com: 0,
-      nombre: '',
-      descripcion: '',
-      clave: '',
-      create_date: undefined,
-      last_modified: undefined,
-      delete_date: undefined,
-      banner: undefined,
-      picture: undefined
-    };
+      var nuevaComunidad: Comunidad = {
+        id_com: 0,
+        nombre: this.miFormComunidades.get("nombre").value,
+        descripcion: this.miFormComunidades.get("descripcion").value,
+        clave: this.miFormComunidades.get("clave").value,
+        banner: this.docBanner,
+        picture: this.docPicture
+      };
 
-    await this.comunidadesService.PostComunidadBBDD(nuevaComunidad).toPromise().then();
-    this.closeBtnClick();
-  }
+      await this.comunidadesService.PostComunidadBBDD(nuevaComunidad).toPromise().then();
+      this.closeBtnClick();
 
-  editarComunidad(modal: string, comunidad: Comunidad) {
-    this.miFormComunidadesEditar.reset();
+    } else {
 
-    //AQUI HABRIA QUE RELLENAR LOS CAMPOS DEL FORMULARIO PARA EDITAR
+      if (this.miFormComunidades.get('picture').touched && this.docPicture != null) {
+        console.log('Edito picture');
+        //AQUI HAY QUE AÑADIR EL PICTURE
+      }
 
-    this.comunidadSeleccionado = comunidad;
-    this.openModal(modal, 'md');
-  }
+      if (this.miFormComunidades.get('banner').touched && this.docBanner != null) {
+        console.log('Edito banner');
+        //AQUI HAY QUE AÑADIR EL BANNER
+      }
 
-  async editar() {
-    if (this.miFormComunidadesEditar.invalid || this.miFormComunidadesEditar.untouched) {
-      return;
+      var comunidadAEditar: Comunidad = {
+        id_com: this.comunidadSeleccionado.id_com,
+        nombre: this.miFormComunidades.get("nombre").value,
+        descripcion: this.miFormComunidades.get("descripcion").value,
+        clave: this.miFormComunidades.get("clave").value,
+        create_date: this.comunidadSeleccionado.create_date,
+        last_modified: this.comunidadSeleccionado.last_modified,
+        delete_date: this.comunidadSeleccionado.delete_date,
+        banner: this.docBanner,
+        picture: this.docPicture
+      };
+
+      console.log(comunidadAEditar);
+
+      await this.comunidadesService.PutComunidadIdBBDD(this.comunidadSeleccionado.id_com, comunidadAEditar).toPromise().then();
+      this.closeBtnClick();
     }
 
-    //AQUI FALTA TODA LA LOGICA PARA COGER LOS DATOS DE LA COMUNIDAD A EDITAR
-
-    var nuevaComunidad: Comunidad = {
-      id_com: 0,
-      nombre: '',
-      descripcion: '',
-      clave: '',
-      create_date: undefined,
-      last_modified: undefined,
-      delete_date: undefined,
-      banner: undefined,
-      picture: undefined
-    };
-
-    await this.comunidadesService.PutComunidadIdBBDD(this.comunidadSeleccionado.id_com, nuevaComunidad).toPromise().then();
-    this.closeBtnClick();
   }
 
   async eliminarComunidad(comunidad: Comunidad) {
     this.comunidadSeleccionado = comunidad;
 
-    // var r = await this.notify.confirm({
-    //   title: '¡Aviso!',
-    //   message: '¿Seguro que desea eliminar el idioma ' + this.idiomaSeleccionado.descripcion + '?',
-    //   okText: 'Confirmar',
-    //   cancelText: 'Volver',
-    // })
+    let flag: boolean = false;
 
-    // if (!r) {
-    //   return;
-    // }
+    await this.ventanaConfirmacionService.confirmar('Borrar comunidad', `¿Seguro que desea borrar la comunidad "${comunidad.nombre}"?`)
+      .then((confirmado) => flag = confirmado)
+      .catch(() => console.log('El usuario ha cerrado la ventana (ej., usando ESC, clickando en la X o pulsando fuera de la ventana)'));
+
+    if (!flag) {
+      return;
+    }
 
     await this.comunidadesService.DeleteComunidadBBDD(this.comunidadSeleccionado.id_com, this.comunidadSeleccionado).toPromise().then();
     this.OnPageChange(this.page)
@@ -200,16 +203,16 @@ export class AdminComunidadesComponent implements OnInit {
     if (file) {
       await this.file2Base64(file).then(
         (res) => {
-          if (funcion.toLowerCase().trim() == 'crear') {
-            this.docCrear = {
+          if (funcion.toLowerCase().trim() == 'picture') {
+            this.docPicture = {
               id_doc: 0,
               data: res.data,
               descripcion: res.descripcion,
               extensionArchivo: res.fileExtension
             };
           }
-          else if (funcion.toLowerCase().trim() == 'editar') {
-            this.docEditar = {
+          else if (funcion.toLowerCase().trim() == 'banner') {
+            this.docBanner = {
               id_doc: 0,
               data: res.data,
               descripcion: res.descripcion,

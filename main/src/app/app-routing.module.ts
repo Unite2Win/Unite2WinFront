@@ -13,16 +13,16 @@ export const Approutes: Routes = [
     children: [
       { path: "", redirectTo: "/authentication/login", pathMatch: "full" },
       {
-        path: "usuario",
-        canActivate: [AuthGuard], //Estoy hay que ponerlo en las rutas que queramos securizadas con el login
-        loadChildren: () =>
-          import("./usuario/usuario.module").then((m) => m.UsuarioModule),
-      },
-      {
         path: "administracion",
         canActivate: [AuthGuard], //Estoy hay que ponerlo en las rutas que queramos securizadas con el login
         loadChildren: () =>
           import("./administracion/administracion.module").then((m) => m.AdministracionModule),
+      },
+      {
+        path: "usuario",
+        canActivate: [AuthGuard], //Estoy hay que ponerlo en las rutas que queramos securizadas con el login
+        loadChildren: () =>
+          import("./usuario/usuario.module").then((m) => m.UsuarioModule),
       },
 
       ////////
@@ -33,7 +33,7 @@ export const Approutes: Routes = [
             (m) => m.DashboardModule
           ),
       },
-      
+
       {
         path: "starter",
         loadChildren: () =>
