@@ -2,23 +2,22 @@
   <div class="row">
     <div class="col-sm-10">
       <h1>Objetivos</h1>
-        <!-- <div class="card-body">
+      <!-- <div class="card-body">
           Contenido de la tarjeta
         </div> -->
 
-        <div class="card bg-secondary"
-             *ngFor="let obj of objetivos;let i=index">
-          <div class="card-body">
-            <div class="row">
-              <div class="col-8">
-            <h5 class="card-title">{{objetivos[i].nombre | uppercase}}</h5>
-            <h6 class="card-subtitle mb-2 text-muted d-flex align-items-center">
-              <i-feather name="map-pin" class="me-2 feather-sm"></i-feather>Duracion: {{objetivos[i].duracion}} dias.
-            </h6>
-            <p class="card-text pt-2">
-              {{objetivos[i].descripcion | titlecase}}
-            </p>
-                <!-- <div class="p-3">
+      <div class="card bg-secondary" *ngFor="let obj of objetivos;let i=index">
+        <div class="card-body">
+          <div class="row">
+            <div class="col-8">
+              <h5 class="card-title">{{objetivos[i].nombre | uppercase}}</h5>
+              <h6 class="card-subtitle mb-2 text-muted d-flex align-items-center">
+                <i-feather name="map-pin" class="me-2 feather-sm"></i-feather>Duracion: {{objetivos[i].duracion}} dias.
+              </h6>
+              <p class="card-text pt-2">
+                {{objetivos[i].descripcion | titlecase}}
+              </p>
+              <!-- <div class="p-3">
                   <h4 class="card-title mb-0">Progreso</h4>
                 </div>
                 <div class="card-body border-top">
@@ -41,123 +40,84 @@
                   <p><ngb-progressbar type="warning" [value]="75"></ngb-progressbar></p>
                   <p><ngb-progressbar type="danger" [value]="100"></ngb-progressbar></p>
                 </div> -->
-              </div>
-
-              <div class="col-4">
-                <img src="assets/images/background/nyan-cat.gif" alt="">
-              </div>
             </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-light-warning btn-md " (click)="modalOpenRegister(modalRegister, true, objetivos[i])">Modificar</button>
-              <!-- <button type="button" class="btn btn-light-danger btn-md m" (click)="eliminar(objetivos[i].id_obj)">Eliminar</button> -->
-              <button type="button" class="btn btn-light-danger btn-md m" (click)="modalOpenVC(modalCenter)">Eliminar</button>
 
-              <!-- Modal Eliminar -->
-              <ng-template #modalCenter let-modal>
-                <div class="modal-header">
-                  <h4 class="modal-title" id="modal-basic-title">
-                    BORRAR OBJETIVO
-                  </h4>
-                  <button
-                    type="button"
-                    class="btn text-danger close"
-                    aria-label="Close"
-                    (click)="modal.dismiss('Cross click')"
-                  >
-                    <i-feather name="x"></i-feather>
-                    X
-                  </button>
-                </div>
-                <div class="modal-body">
-                  <p>
-                  ¿ESTA SEGURO?
-                  No podra volver a recuperar su objetivo.
-                  </p>
-                </div>
-                <div class="modal-footer">
-                  <button
-                    type="button"
-                    class="btn btn-light-warning btn-md"
-                    (click)="modal.close()"
-                  >
-                    Cancelar
-                  </button>
-                  <button
-                    type="button"
-                    class="btn btn-light-danger btn-md m"
-                    (click)="eliminar(objetivos[i].id_obj)"
-                  >
-                    BORRAR
-                  </button>
-
-                </div>
-              </ng-template>
-              <!-- Aqui acaba el modal de eliminar -->
-
+            <div class="col-4">
+              <img src="assets/images/background/nyan-cat.gif" alt="">
             </div>
           </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-light-warning btn-md "
+              (click)="modalOpenRegister(modalRegister, true, objetivos[i])">Modificar</button>
+            <!-- <button type="button" class="btn btn-light-danger btn-md m" (click)="eliminar(objetivos[i].id_obj)">Eliminar</button> -->
+            <button type="button" class="btn btn-light-danger btn-md m"
+              (click)="modalOpenVC(modalCenter)">Eliminar</button>
+
+            <!-- Modal Eliminar -->
+            <ng-template #modalCenter let-modal>
+              <div class="modal-header">
+                <h4 class="modal-title" id="modal-basic-title">
+                  BORRAR OBJETIVO
+                </h4>
+                <button type="button" class="btn text-danger close" aria-label="Close"
+                  (click)="modal.dismiss('Cross click')">
+                  <i-feather name="x"></i-feather>
+                  X
+                </button>
+              </div>
+              <div class="modal-body">
+                <p>
+                  ¿ESTA SEGURO?
+                  No podra volver a recuperar su objetivo.
+                </p>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-light-warning btn-md" (click)="modal.close()">
+                  Cancelar
+                </button>
+                <button type="button" class="btn btn-light-danger btn-md m" (click)="eliminar(objetivos[i].id_obj)">
+                  BORRAR
+                </button>
+
+              </div>
+            </ng-template>
+            <!-- Aqui acaba el modal de eliminar -->
+
+          </div>
         </div>
+      </div>
     </div>
     <div class="col-sm-2">
-      <button type="button" class="btn btn-light-danger btn-lg"
-              (click)="modalOpenRegister(modalRegister, false)">Nuevo Objetivo</button>
+      <button type="button" class="btn btn-light-danger btn-lg" (click)="modalOpenRegister(modalRegister, false)">Nuevo
+        Objetivo</button>
 
-              <ng-template #modalRegister let-modal>
-                  <form [formGroup]="form1"
-                        (ngSubmit)="onSubmit()">
-                    <div class="modal-header justify-content-center mt-2">
-                      <a href="index.html">
-                        <span
-                          ><img
-                            class="me-2"
-                            src="assets/images/logo-icon.png"
-                            alt="" /><img
-                            src="assets/images/logo-text.png"
-                            alt=""
-                            height="18"
-                        /></span>
-                      </a>
-                    </div>
-                    <div class="modal-body px-4">
-                      <div class="mb-3">
-                        <label for="nombre">Nombre del Objetivo</label>
-                        <input
-                          class="form-control"
-                          type="text"
-                          id="nombre"
-                          required="true"
-                          placeholder="Ponga un nombre al objetivo"
-                          name="nombre"
-                          #nombre [(ngModel)]="nuevoObjetivo.nombre"
-                        />
-                      </div>
-        
-                      <div class="mb-3">
-                        <label for="descripcion">Descripcion</label>
-                        <input
-                          class="form-control"
-                          type="text"
-                          id="descripcion"
-                          required=""
-                          placeholder="Ponga su descripcion aquí"
-                          name="descripcion"
-                          #descripcion [(ngModel)]="nuevoObjetivo.descripcion"
-                        />
-                      </div>
-        
-                      <div class="mb-3">
-                        <label for="duracion">Duracion</label>
-                        <input
-                          class="form-control"
-                          type="number"
-                          required=""
-                          id="duracion"
-                          placeholder="Cuanto durara el reto"
-                          name="duracion"
-                          #duracion [(ngModel)]="nuevoObjetivo.duracion"
-                        />
-                      </div>
-                      <!-- <div class="mb-3">
+      <ng-template #modalRegister let-modal>
+        (ngSubmit)="onSubmit()">
+        <div class="modal-header justify-content-center mt-2">
+          <a href="index.html">
+            <span><img class="me-2" src="assets/images/logo-icon.png" alt="" /><img src="assets/images/logo-text.png"
+                alt="" height="18" /></span>
+          </a>
+        </div>
+        <div class="modal-body px-4">
+          <div class="mb-3">
+            <label for="nombre">Nombre del Objetivo</label>
+            <input class="form-control" type="text" id="nombre" required="true"
+              placeholder="Ponga un nombre al objetivo" name="nombre" #nombre [(ngModel)]="nuevoObjetivo.nombre" />
+          </div>
+
+          <div class="mb-3">
+            <label for="descripcion">Descripcion</label>
+            <input class="form-control" type="text" id="descripcion" required="" placeholder="Ponga su descripcion aquí"
+              name="descripcion" #descripcion [(ngModel)]="nuevoObjetivo.descripcion" />
+          </div>
+
+          <div class="mb-3">
+            <label for="duracion">Duracion</label>
+            <input class="form-control" type="number" required="" id="duracion" placeholder="Cuanto durara el reto"
+              name="duracion" #duracion [(ngModel)]="nuevoObjetivo.duracion" />
+          </div>
+          <!-- <div class="mb-3">
                         <div class="form-check">
                           <input
                             type="checkbox"
@@ -171,27 +131,18 @@
                           >
                         </div>
                       </div> -->
-                    </div>
-                    <div class="modal-footer justify-content-center">
-                      <button
-                      type="button"
-                      class="btn btn-light-warning btn-md m"
-                      (click)="modal.close()"
-                    >
-                      Cancelar
-                    </button>
-                      <button
-                        class="btn btn-light-danger btn-md m"
-                        type="button"
-                        (click)="guardar()"
-                      >
-                        GUARDAR
-                      </button>
-                    </div>
-                  </form>
-                </ng-template>      
+        </div>
+        <div class="modal-footer justify-content-center">
+          <button type="button" class="btn btn-light-warning btn-md m" (click)="modal.close()">
+            Cancelar
+          </button>
+          <button class="btn btn-light-danger btn-md m" type="button" (click)="guardar()">
+            GUARDAR
+          </button>
+        </div>
+      </ng-template>
 
-                
+
     </div>
   </div>
 </div>
