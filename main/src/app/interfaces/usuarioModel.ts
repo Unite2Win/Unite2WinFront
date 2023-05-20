@@ -1,6 +1,5 @@
 import { Comunidad } from "./comunidadModel"
 import { Documento } from "./documentoModel"
-import { Objetivo } from "./ObjetivoModel"
 import { Perfil } from "./perfilModel"
 
 // export interface Usuario {
@@ -29,7 +28,7 @@ export interface Usuario {
     name:                string;
     surname:             string;
     email:               string;
-    picture:             Documento;
+    picture?:             Documento;
     level:               number;
     active:              boolean;
     last_login?:          null;

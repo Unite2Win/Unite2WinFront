@@ -142,7 +142,7 @@ export class PerfilComponent implements OnInit {
   }
 
   async submit() {
-    await this.postDocumento(this.recursoDocumento)
+    // await this.postDocumento(this.recursoDocumento)
     console.log(globales.usuarioLogueado.id_usu)
     console.log(this.myForm.value)
     console.log(this.recursoDocumento)
@@ -152,11 +152,12 @@ export class PerfilComponent implements OnInit {
       name: this.myForm.controls['name'].value,
       surname: this.myForm.controls['surname'].value,
       email: this.myForm.controls['email'].value,
-      picture: this.recursoDocumento,
+      // picture: globales.usuarioLogueado.picture,
       level: globales.usuarioLogueado.level,
       active: globales.usuarioLogueado.active
     }
     console.log(usuarioAModificar)
+    console.log(globales.usuarioLogueado.id_usu)
     await this.usuariosService.putUsuario(globales.usuarioLogueado.id_usu, usuarioAModificar).subscribe(resp => {
       console.log(resp)
       this.toastrService.success('Tu información ha sido actualizada')
