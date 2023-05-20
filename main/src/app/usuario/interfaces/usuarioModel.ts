@@ -28,7 +28,8 @@ export interface Usuario {
     name:                string;
     surname:             string;
     email:               string;
-    picture:             Documento;
+    pictureid_doc?:      number;
+    picture?:             Documento;
     level:               number;
     active:              boolean;
     last_login?:          null;

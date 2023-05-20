@@ -142,26 +142,61 @@ export class PerfilComponent implements OnInit {
   }
 
   async submit() {
-    await this.postDocumento(this.recursoDocumento)
-    console.log(globales.usuarioLogueado.id_usu)
-    console.log(this.myForm.value)
-    console.log(this.recursoDocumento)
-    var usuarioAModificar : Usuario = {
-      nick: this.myForm.controls['nick'].value,
-      password: this.myForm.controls['password'].value,
-      name: this.myForm.controls['name'].value,
-      surname: this.myForm.controls['surname'].value,
-      email: this.myForm.controls['email'].value,
-      picture: this.recursoDocumento,
-      level: globales.usuarioLogueado.level,
-      active: globales.usuarioLogueado.active
+    if (this.myForm.controls['password'].value.length < 8) {
+      this.toastrService.error('La contraseña debe de tener al menos 8 carácteres')
+      return;
     }
-    console.log(usuarioAModificar)
-    await this.usuariosService.putUsuario(globales.usuarioLogueado.id_usu, usuarioAModificar).subscribe(resp => {
-      console.log(resp)
-      this.toastrService.success('Tu información ha sido actualizada')
-    })
-    globales.usuarioLogueado = this.myForm.value
+    if (this.recursoDocumento.id_doc != -1) {
+      await this.postDocumento(this.recursoDocumento)
+      console.log(globales.usuarioLogueado)
+      console.log(this.myForm.value)
+      console.log(this.recursoDocumento)
+      var usuarioAModificar : Usuario = {
+        id_usu: globales.usuarioLogueado.id_usu,
+        nick: this.myForm.controls['nick'].value,
+        password: this.myForm.controls['password'].value,
+        name: this.myForm.controls['name'].value,
+        surname: this.myForm.controls['surname'].value,
+        email: this.myForm.controls['email'].value,
+        pictureid_doc: this.recursoDocumento.id_doc,
+        level: globales.usuarioLogueado.level,
+        active: globales.usuarioLogueado.active
+      }
+      console.log(usuarioAModificar)
+      await this.usuariosService.putUsuario(globales.usuarioLogueado.id_usu, usuarioAModificar).subscribe(resp => {
+        console.log(resp)
+        this.toastrService.success('Tu información ha sido actualizada')
+      })
+      globales.usuarioLogueado.name = usuarioAModificar.name
+      globales.usuarioLogueado.surname = usuarioAModificar.surname
+      globales.usuarioLogueado.nick = usuarioAModificar.nick
+      globales.usuarioLogueado.password = usuarioAModificar.password
+      globales.usuarioLogueado.email = usuarioAModificar.email
+      globales.usuarioLogueado.pictureid_doc = usuarioAModificar.pictureid_doc
+      globales.usuarioLogueado.picture = this.recursoDocumento
+    } else {
+      console.log(globales.usuarioLogueado)
+      console.log(this.myForm.value)
+      console.log(this.recursoDocumento)
+      var usuarioAModificar : Usuario = {
+        id_usu: globales.usuarioLogueado.id_usu,
+        nick: this.myForm.controls['nick'].value,
+        password: this.myForm.controls['password'].value,
+        name: this.myForm.controls['name'].value,
+        surname: this.myForm.controls['surname'].value,
+        email: this.myForm.controls['email'].value,
+        // picture: this.recursoDocumento,
+        level: globales.usuarioLogueado.level,
+        active: globales.usuarioLogueado.active
+      }
+      console.log(usuarioAModificar)
+      await this.usuariosService.putUsuario(globales.usuarioLogueado.id_usu, usuarioAModificar).subscribe(resp => {
+        console.log(resp)
+        this.toastrService.success('Tu información ha sido actualizada')
+      })
+      globales.usuarioLogueado = this.myForm.value
+    }
+    
   }
 
   reset() {
@@ -181,9 +216,8 @@ export class PerfilComponent implements OnInit {
             descripcion: res.descripcion,
             extensionArchivo: res.fileExtension
           }
-          globales.usuarioLogueado.picture.data = res.data
-          globales.usuarioLogueado.picture.descripcion = res.descripcion
-          globales.usuarioLogueado.picture.extensionArchivo = res.fileExtension
+          console.log(res)
+          globales.usuarioLogueado.picture = this.recursoDocumento
         }
       )
     }
