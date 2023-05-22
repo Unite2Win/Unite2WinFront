@@ -32,8 +32,8 @@ export const ROUTES: RouteInfo[] = [
     submenu: [],
   },
   {
-    path: "/usuario/planes",
-    title: "Mis Planes",
+    path: "/usuario/eventos",
+    title: "Mis Eventos",
     icon: "book",
     class: "",
     label: "",
@@ -42,8 +42,8 @@ export const ROUTES: RouteInfo[] = [
     submenu: [],
   },
   {
-    path: "/usuario/comunidades",
-    title: "Comunidades",
+    path: "/usuario/miscomunidades",
+    title: "Mis Comunidades",
     icon: "users",
     class: "",
     label: "",

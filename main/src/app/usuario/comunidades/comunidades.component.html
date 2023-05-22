@@ -1,1 +1,80 @@
-<p>comunidades works!</p>
+<h1>Mis Comunidades</h1>
+<hr>
+<div class="row">
+    <div class="col-12">
+        <div class="">
+            <div class="d-flex justify-content-between mb-4 mt-3">
+                <input type="text" class="form-control w-50" placeholder="Buscar por nombre"
+                    [(ngModel)]="descripcionBusqueda" />
+                <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+                </div>
+            </div>
+            <div *ngIf="!loadingFlag; else loading">
+                <div class="table-responsive table-bordered">
+                    <table class="table table-striped mb-0 text-nowrap align-middle">
+                        <thead>
+                            <tr>
+                                <th scope="col">Icono</th>
+                                <th scope="col">Nombre</th>
+                                <th scope="col">Descripción</th>
+                                <th *ngIf="selectedOption == 1" scope="col">Acceder</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="
+                      let comunidad of comunidadesFiltrados
+                        | slice
+                          : (page - 1) * pageSize
+                          : (page - 1) * pageSize + pageSize
+                    ">
+                                <td *ngIf="comunidad.picture != null; else noFile">
+                                    <img [src]="'data: comunidad.picture.extensionArchivo; base64,'+comunidad.picture.data | safe"
+                                        class="img-responsive rounded"style="max-height: 120px; max-width: 120px;" />
+                                </td>
+                                <ng-template #noFile>
+                                    <td>
+                                        <img src="assets\images\404\comunidadDefaultSquareNoBKG.png" class="img-responsive rounded"
+                                            width="60%" style="max-height: 120px;" />
+                                    </td>
+                                </ng-template>
+                                <td>
+                                    <div class="d-flex align-items-center">
+                                        <div>
+                                            <p class="font-medium mb-0">
+                                                {{ comunidad.nombre.length > 30 ? comunidad.nombre.slice(0,30) + "..." :
+                                                comunidad.nombre }}
+                                            </p>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>{{ comunidad.descripcion.length > 50 ? comunidad.descripcion.slice(0,50) + "..." :
+                                    comunidad.descripcion }}</td>
+                                <td *ngIf="selectedOption == 1">
+                                    <a [href]="irAComunidad(comunidad)" class="link" ngbTooltip="Ver Comunidad"
+                                        (click)="mostrarComunidad(comunidad)">
+                                        Ver
+                                        <i-feather name="log-in" class="feather text-info pointer ms-1"></i-feather>
+                                    </a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="d-flex justify-content-center mt-5">
+                <ngb-pagination [(page)]="page" [pageSize]="pageSize" [collectionSize]="size" maxSize="1" rotate="true"
+                    (pageChange)="OnPageChange($event)"></ngb-pagination>
+            </div>
+
+            <ng-template #noHay>
+                <h3 style="display: flex; justify-content: center;">No hay datos</h3>
+            </ng-template>
+
+            <ng-template #loading>
+                <div *ngIf="!noDataFlag; else noHay" class="d-flex justify-content-center">
+                    <div class="spinner-border text-danger" role="status">
+                        <span class="sr-only">Cargando...</span>
+                    </div>
+                </div>
+            </ng-template>

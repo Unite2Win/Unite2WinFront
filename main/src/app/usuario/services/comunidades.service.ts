@@ -19,6 +19,12 @@ export class ComunidadesService {
       .pipe(retry(1), catchError(this.errorHandl));
   }
 
+  GetComunidadById(comunidadId: number): Observable<Comunidad> {
+    return this.http
+      .get<Comunidad>(`${this.baseurl}/Comunidades/${comunidadId}`)
+      .pipe(retry(1), catchError(this.errorHandl));
+  }
+
   //COUNT
   GetComunidadesCount(): Observable<number> {
     return this.http
@@ -35,12 +41,12 @@ export class ComunidadesService {
 
   PutComunidadIdBBDD(
     ComunidadId: number,
-    language: Comunidad
+    comunidad: Comunidad
   ): Observable<Comunidad> {
     return this.http
       .put<Comunidad>(
         `${this.baseurl}/Comunidades/${ComunidadId}`,
-        language
+        comunidad
       )
       .pipe(retry(1), catchError(this.errorHandl));
   }

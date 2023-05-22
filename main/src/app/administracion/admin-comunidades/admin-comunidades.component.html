@@ -34,12 +34,12 @@
                                     <div class="d-flex align-items-center">
                                         <div>
                                             <p class="font-medium mb-0">
-                                                {{ comunidad.nombre }}
+                                                {{ comunidad.nombre.length > 30 ? comunidad.nombre.slice(0,30) + "..." : comunidad.nombre }}
                                             </p>
                                         </div>
                                     </div>
                                 </td>
-                                <td>{{ comunidad.descripcion }}</td>
+                                <td>{{ comunidad.descripcion.length > 30 ? comunidad.descripcion.slice(0,30) + "..." : comunidad.descripcion }}</td>
                                 <td>{{ comunidad.clave }}</td>
                                 <td *ngIf="comunidad.picture != null; else noFile">{{ comunidad.picture.descripcion }}</td>
                                 <td *ngIf="comunidad.banner != null; else noFile">{{ comunidad.banner.descripcion }}</td>

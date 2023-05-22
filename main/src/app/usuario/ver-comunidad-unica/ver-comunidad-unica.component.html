@@ -1,0 +1,17 @@
+<div class="card m-3">
+    <div *ngIf="comunidadActual.banner != null; else noBanner">
+        <img [src]="'data: comunidadActual.banner.extensionArchivo; base64,'+comunidadActual.banner.data | safe"
+            class="card-img-top" />
+    </div>
+
+    <ng-template #noBanner>
+        <img src="assets\images\404\banner404.png" class="card-img-top" />
+    </ng-template>
+
+    <div class="card-body">
+        <h5 class="card-title">Card title</h5>
+        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
+            content.</p>
+        <a href="#" class="btn btn-primary">Go somewhere</a>
+    </div>
+</div>

@@ -5,6 +5,7 @@ import { InicioComponent } from './inicio/inicio.component';
 import { ObjetivosComponent } from './objetivos/objetivos.component';
 import { PerfilComponent } from './perfil/perfil.component';
 import { PlanesComponent } from './planes/planes.component';
+import { VerComunidadUnicaComponent } from './ver-comunidad-unica/ver-comunidad-unica.component';
 
 export const UsuarioRoutes: Routes = [
   {
@@ -35,19 +36,27 @@ export const UsuarioRoutes: Routes = [
         }
       },
       {
-        path: 'planes',
+        path: 'eventos',
         component: PlanesComponent,
         data: {
-          title: 'Mis Planes',
-          urls: [{ title: 'Mis Planes', url: '/usuario' }, { title: 'Mis Planes' }]
+          title: 'Mis Eventos',
+          urls: [{ title: 'Mis Eventos', url: '/usuario' }, { title: 'Mis Eventos' }]
         }
       },
       {
-        path: 'comunidades',
+        path: 'miscomunidades',
         component: ComunidadesComponent,
         data: {
           title: 'Mis Comunidades',
           urls: [{ title: 'Mis Comunidades', url: '/usuario' }, { title: 'Mis Comunidades' }]
+        }
+      },
+      {
+        path: 'comunidad/:id',
+        component: VerComunidadUnicaComponent,
+        data: {
+          title: 'Comunidad',
+          urls: [{ title: 'Comunidad', url: '/usuario' }, { title: 'Comunidad' }]
         }
       },
       {

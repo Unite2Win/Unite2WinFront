@@ -8,6 +8,8 @@ export interface Comunidad {
     create_date?: Date,
     last_modified?: Date,
     delete_date?: Date,
-    banner: Documento,
-    picture: Documento
+    bannerid_doc?: number;
+    banner?: Documento,
+    pictureid_doc?: number;
+    picture?: Documento
 }

@@ -9,6 +9,8 @@ import { Comunidad } from 'app/usuario/interfaces/comunidadModel';
 import { Documento } from 'app/usuario/interfaces/documentoModel';
 import { DecodedBase64 } from 'app/usuario/interfaces/decodedBase64Model';
 import { VentanaConfirmacionService } from '../ventana-confirmacion/ventana-confirmacion.service';
+import { DocumentosService } from 'app/usuario/services/documentos.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-admin-comunidades',
@@ -69,9 +71,11 @@ export class AdminComunidadesComponent implements OnInit {
 
   docPicture: Documento = null;
   docBanner: Documento = null;
+  docPictureEditado: Documento = null;
+  docBannerEditado: Documento = null;
   ///////////////////////////////////////////////////
 
-  constructor(private ventanaConfirmacionService: VentanaConfirmacionService, private loginService: LoginService, private modalService: NgbModal, private fb: FormBuilder, private manejoDocsService: ManejoDocsService, private comunidadesService: ComunidadesService, private adminComunidadesService: AdminComunidadesService) { }
+  constructor(private documentosService: DocumentosService, private ventanaConfirmacionService: VentanaConfirmacionService, private loginService: LoginService, private modalService: NgbModal, private fb: FormBuilder, private manejoDocsService: ManejoDocsService, private comunidadesService: ComunidadesService, private adminComunidadesService: AdminComunidadesService, private toastrService: ToastrService) { }
 
   async ngOnInit(): Promise<void> {
 
@@ -99,6 +103,7 @@ export class AdminComunidadesComponent implements OnInit {
         await this.comunidadesService.GetComunidadesPaginados(0, this.pageSize).toPromise().then(resp => {
           resp.forEach(comunidad => {
             this.todosComunidades.push(comunidad)
+            console.log(comunidad);
           })
           console.log(resp);
         });
@@ -116,6 +121,8 @@ export class AdminComunidadesComponent implements OnInit {
   crearOEditarComunidad(modal: string, size: string, comunidad: Comunidad) {
     this.docPicture = null;
     this.docBanner = null;
+    this.docPictureEditado = null;
+    this.docBannerEditado = null;
     this.comunidadSeleccionado = comunidad;
     this.miFormComunidades.reset();
 
@@ -145,19 +152,13 @@ export class AdminComunidadesComponent implements OnInit {
       };
 
       await this.comunidadesService.PostComunidadBBDD(nuevaComunidad).toPromise().then();
+      this.toastrService.success('La comunidad ha sido creada')
       this.closeBtnClick();
 
     } else {
 
-      if (this.miFormComunidades.get('picture').touched && this.docPicture != null) {
-        console.log('Edito picture');
-        //AQUI HAY QUE AÑADIR EL PICTURE
-      }
-
-      if (this.miFormComunidades.get('banner').touched && this.docBanner != null) {
-        console.log('Edito banner');
-        //AQUI HAY QUE AÑADIR EL BANNER
-      }
+      var idDocPicture: number = 0;
+      var idDocBanner: number = 0;
 
       var comunidadAEditar: Comunidad = {
         id_com: this.comunidadSeleccionado.id_com,
@@ -166,14 +167,27 @@ export class AdminComunidadesComponent implements OnInit {
         clave: this.miFormComunidades.get("clave").value,
         create_date: this.comunidadSeleccionado.create_date,
         last_modified: this.comunidadSeleccionado.last_modified,
-        delete_date: this.comunidadSeleccionado.delete_date,
-        banner: this.docBanner,
-        picture: this.docPicture
+        delete_date: this.comunidadSeleccionado.delete_date
       };
 
-      console.log(comunidadAEditar);
+      if (this.miFormComunidades.get('picture').touched && this.docPicture != null) {
+        console.log('Edito picture');
+        //AQUI HAY QUE AÑADIR EL PICTURE
+        this.docPictureEditado = await this.documentosService.postDocumento(this.docPicture).toPromise()
+        comunidadAEditar.pictureid_doc = this.docPictureEditado.id_doc;
+      }
 
-      await this.comunidadesService.PutComunidadIdBBDD(this.comunidadSeleccionado.id_com, comunidadAEditar).toPromise().then();
+      if (this.miFormComunidades.get('banner').touched && this.docBanner != null) {
+        console.log('Edito banner');
+        //AQUI HAY QUE AÑADIR EL BANNER
+        this.docBannerEditado = await this.documentosService.postDocumento(this.docBanner).toPromise()
+        comunidadAEditar.bannerid_doc = this.docBannerEditado.id_doc;
+      }
+
+      await this.comunidadesService.PutComunidadIdBBDD(this.comunidadSeleccionado.id_com, comunidadAEditar).toPromise().then(resp => {
+        console.log(resp);
+      });
+      this.toastrService.success('La comunidad ha sido actualizada')
       this.closeBtnClick();
     }
 
@@ -194,6 +208,7 @@ export class AdminComunidadesComponent implements OnInit {
 
     await this.comunidadesService.DeleteComunidadBBDD(this.comunidadSeleccionado.id_com, this.comunidadSeleccionado).toPromise().then();
     this.OnPageChange(this.page)
+    this.toastrService.success('La comunidad ha sido eliminada')
     this.closeBtnClick();
   }
 

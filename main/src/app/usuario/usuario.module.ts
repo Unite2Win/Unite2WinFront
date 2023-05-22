@@ -12,6 +12,9 @@ import { NgApexchartsModule } from 'ng-apexcharts';
 import { ConfiguracionComponent } from './configuracion/configuracion.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PipesModule } from 'app/pipes/pipes.module';
+import { VerComunidadUnicaComponent } from './ver-comunidad-unica/ver-comunidad-unica.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { FeatherModule } from 'angular-feather';
 
 @NgModule({
   declarations: [
@@ -20,7 +23,8 @@ import { PipesModule } from 'app/pipes/pipes.module';
     PlanesComponent,
     ComunidadesComponent,
     PerfilComponent,
-    ConfiguracionComponent
+    ConfiguracionComponent,
+    VerComunidadUnicaComponent
   ],
   imports: [
     FormsModule, 
@@ -30,7 +34,9 @@ import { PipesModule } from 'app/pipes/pipes.module';
     CommonModule,
     RouterModule.forChild(UsuarioRoutes),
     PipesModule,
-    FormsModule
+    FormsModule,
+    NgbModule,
+    FeatherModule
   ]
 })
 export class UsuarioModule { }
