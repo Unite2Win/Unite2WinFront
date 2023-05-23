@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Objetivo } from '../interfaces/objetivo';
+import { ObjetivosService } from '../services/objetivos.service';
 
 @Component({
   selector: 'app-inicio',
@@ -6,10 +8,13 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./inicio.component.scss']
 })
 export class InicioComponent implements OnInit {
+  objetivo: Objetivo;
+  objetivos: Objetivo[] = [];
 
-  constructor() { }
+  constructor(private objetivosService: ObjetivosService) { }
+  async ngOnInit() {
 
-  ngOnInit(): void {
-  }
-
+    await this.objetivosService.getObjetivos();
+  this.objetivos = this.objetivosService.objetivosBd;
+}
 }

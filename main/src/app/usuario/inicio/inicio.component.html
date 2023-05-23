@@ -1,1 +1,37 @@
-<p>inicio works!</p>
+<div class="row">
+    <div class="col-5">
+        <h2 class="row justify-content-center">Proximos eventos</h2>
+
+        
+    </div>
+    <div class="col-2"></div>
+    <div class="col-5">
+        <h2 class="row justify-content-center">Hasbulla Magomedovich</h2>
+        <img class="d-block mx-auto" style="max-width: 100px;min-width: 100px; clip-path: circle(50px);"
+            src="assets/images/users/user1.jpg">
+        <div class="row justify-content-center">Nivel: 21</div>
+        <hr class="row w-70">
+        
+        <h3 class="row justify-content-center">Objetivos activos</h3>
+        <div class="row w-70 card bg-secondary" *ngFor="let obj of objetivos;let i=index">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-10">
+                        <h5 class="card-title">{{objetivos[i].nombre | uppercase}}</h5>
+                        <h6 class="card-subtitle mb-2 text-muted d-flex align-items-center">
+                            <i-feather name="map-pin" class="me-2 feather-sm"></i-feather>Duracion: {{objetivos[i].duracion}}
+                            dias.
+                        </h6>
+                        <p class="card-text pt-2">
+                            {{objetivos[i].descripcion | titlecase}}
+                        </p>
+        
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row mx-auto" style="max-width:50%;">
+            <a href="/usuario/objetivos" class="btn btn-primary">Ver objetivos...</a>
+        </div>
+    </div>
+</div>
