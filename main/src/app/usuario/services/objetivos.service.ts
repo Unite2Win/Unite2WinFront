@@ -1,7 +1,11 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Injectable, Component } from '@angular/core';
 import { Observable} from 'rxjs';
 import { Objetivo } from '../interfaces/objetivo';
+import { number } from 'ngx-custom-validators/src/app/number/validator';
+import { globales } from 'common/globales';
+import { Usuario } from '../interfaces/usuarioModel';
+import { ObjetivosComponent } from '../objetivos/objetivos.component';
 
 @Injectable({
   providedIn: 'root'
@@ -12,20 +16,28 @@ export class ObjetivosService {
 
   public objetivosBd: Objetivo[] = [];
 
+  public usuario: number = globales.usuarioLogueado.id_usu
+
   constructor(private http: HttpClient) { }
 
   async getObjetivos() {
-  await this.GetObjetivosBBDD().toPromise().then(res => this.objetivosBd = res);
+  await this.GetObjetivosUsuario(this.usuario).toPromise().then(res => this.objetivosBd = res);
   }
   // async getObjetivos() {
-  //   await this.GetObjetivosBBDD().toPromise().then(res => {
+  // await this.GetObjetivosBBDD().toPromise().then(res => {
   //     this.objetivosBd = res.filter(objetivo => objetivo.delete_date == null);
   //   });
   // }
-  // Lo suyo es no trerse todos los elementos sino filtrar en el back los que no tangan a null el delete_date y no del array que hemos llenado previamente con todos. El metodo anterior (getObjetivos()) es provisional
-
+  // Lo suyo es no trerse todos los elementos sino filtrar en el back los que no tengan
+  // a null el delete_date y no del array que hemos llenado previamente con todos.
+  // El metodo anterior (getObjetivos()) es provisional
   GetObjetivosBBDD(){
     return this.http.get<Objetivo[]>(this.API_URL);
+  }
+  
+  GetObjetivosUsuario(id: number){
+    const url = `${this.API_URL}/${id}/usuarioId`;
+    return this.http.get<Objetivo[]>(url);
   }
 
   PostObjetivos(objetivo:Objetivo):Observable<any>{
@@ -43,13 +55,11 @@ export class ObjetivosService {
      return this.http.put(`${this.API_URL}/delete`,id);
   }
 
-  
   UpdateObjetivos(id: number, objetivoActualizado: Objetivo): Observable<Objetivo> {
     const url = `${this.API_URL}/${id}`;
     return this.http.put<Objetivo>(url, objetivoActualizado);
   }
   
-
   //ENEKO
 
   // url = environment.url
