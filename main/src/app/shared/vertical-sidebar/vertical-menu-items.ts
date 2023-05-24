@@ -52,6 +52,16 @@ export const ROUTES: RouteInfo[] = [
     submenu: [],
   },
   {
+    path: "/usuario/chatgpt",
+    title: "UniteAI",
+    icon: "mdi mdi-robot",
+    class: "",
+    label: "BOT",
+    labelClass: "side-badge badge bg-success",
+    extralink: false,
+    submenu: [],
+  },
+  {
     path: "administracion",
     title: "Administración",
     icon: "settings",

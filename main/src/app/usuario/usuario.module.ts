@@ -21,6 +21,7 @@ import { PersonasComponent } from './ver-comunidad-unica/components/personas/per
 import { EventosComponent } from './ver-comunidad-unica/components/eventos/eventos.component';
 import { MultimediaComponent } from './ver-comunidad-unica/components/multimedia/multimedia.component';
 import { TooltipModule } from 'primeng/tooltip';
+import { CustomerSupportComponent } from './customer-support/customer-support.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import { TooltipModule } from 'primeng/tooltip';
     FeedComponent,
     PersonasComponent,
     EventosComponent,
-    MultimediaComponent
+    MultimediaComponent,
+    CustomerSupportComponent
   ],
   imports: [
     FormsModule, 
