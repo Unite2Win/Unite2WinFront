@@ -13,6 +13,7 @@ import { ToastrService } from 'ngx-toastr';
 import { ComunidadesUsuariosService } from '../services/comunidades-usuarios.service';
 import { globales } from 'common/globales';
 import { ComunidadUsuario } from '../interfaces/comunidadUsuarioModel';
+import { VentanaConfirmacionService } from '../../administracion/ventana-confirmacion/ventana-confirmacion.service';
 
 @Component({
   selector: 'app-ver-comunidad-unica',
@@ -32,7 +33,9 @@ export class VerComunidadUnicaComponent implements OnInit {
     descripcion: '',
     clave: '',
     banner: null,
-    picture: null
+    picture: null,
+    isVisible: true,
+    isPublica: true
   };
 
   items: MenuItem[];
@@ -48,7 +51,7 @@ export class VerComunidadUnicaComponent implements OnInit {
 
   usuariosTotales: number = 0;
 
-  constructor(private toastrService: ToastrService, private fb: FormBuilder, private modalService: NgbModal, private router: Router, private activatedRoute: ActivatedRoute, private loginService: LoginService, private comunidadesService: ComunidadesService, private comunidadesUsuariosService: ComunidadesUsuariosService) { }
+  constructor(private ventanaConfirmacionService: VentanaConfirmacionService, private toastrService: ToastrService, private fb: FormBuilder, private modalService: NgbModal, private router: Router, private activatedRoute: ActivatedRoute, private loginService: LoginService, private comunidadesService: ComunidadesService, private comunidadesUsuariosService: ComunidadesUsuariosService) { }
 
   async ngOnInit(): Promise<void> {
     var url: string[] = window.location.pathname.split('/');
@@ -115,6 +118,17 @@ export class VerComunidadUnicaComponent implements OnInit {
   }
 
   async salirmeDeLaComunidad() {
+
+    let flag: boolean = false;
+
+    await this.ventanaConfirmacionService.confirmar('¡ALERTA!', `¿Seguro que desea salir de la comunidad?`)
+      .then((confirmado) => flag = confirmado)
+      .catch(() => console.log('El usuario ha cerrado la ventana (ej., usando ESC, clickando en la X o pulsando fuera de la ventana)'));
+
+    if (!flag) {
+      return;
+    }
+
     await this.comunidadesUsuariosService.GetComunidadesUsuariosByUsuarioYComunidad(globales.usuarioLogueado.id_usu, this.idComunidadActual).toPromise().then(async resp => {
       await this.comunidadesUsuariosService.DeleteComunidadBBDD(resp.id_com_usu, resp).toPromise().then(resp => {
       })

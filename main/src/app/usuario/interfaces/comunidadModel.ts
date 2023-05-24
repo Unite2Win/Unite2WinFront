@@ -11,5 +11,7 @@ export interface Comunidad {
     bannerid_doc?: number;
     banner?: Documento,
     pictureid_doc?: number;
-    picture?: Documento
+    picture?: Documento;
+    isVisible: boolean;
+    isPublica: boolean;
 }

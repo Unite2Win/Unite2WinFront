@@ -12,7 +12,7 @@ export class VentanaConfirmacionService {
   public confirmar(
     titulo: string,
     mensaje: string,
-    textoBtnOk: string = 'OK',
+    textoBtnOk: string = 'Confirmar',
     textoBtnCancelar: string = 'Cancelar',
     tamanioModal: 'sm' | 'lg' = 'sm'): Promise<boolean> {
     const modalRef = this.modalService.open(VentanaConfirmacionComponent, {

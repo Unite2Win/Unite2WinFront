@@ -7,6 +7,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AdministracionRoutes } from './administracion.routing';
 import { FeatherModule } from 'angular-feather';
 import { VentanaConfirmacionComponent } from './ventana-confirmacion/ventana-confirmacion.component';
+import { TooltipModule } from 'primeng/tooltip';
+import { RadioButtonModule } from 'primeng/radiobutton';
 
 
 
@@ -17,6 +19,8 @@ import { VentanaConfirmacionComponent } from './ventana-confirmacion/ventana-con
   ],
   imports: [
     CommonModule,
+    RadioButtonModule,
+    TooltipModule,
     RouterModule.forChild(AdministracionRoutes),
     NgbModule,
     ReactiveFormsModule,

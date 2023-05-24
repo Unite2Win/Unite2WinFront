@@ -57,7 +57,9 @@ export class AdminComunidadesComponent implements OnInit {
     descripcion: ['', Validators.required],
     clave: ['', [Validators.required, Validators.minLength(8), Validators.maxLength(50)]],
     banner: [''],
-    picture: ['']
+    picture: [''],
+    isVisible: [true, Validators.required],
+    isPublica: [true, Validators.required]
   });
 
   comunidadesOBJ: Comunidad[] = [];
@@ -113,6 +115,10 @@ export class AdminComunidadesComponent implements OnInit {
     }
   }
 
+  mostrarFormulario() {
+    console.log(this.miFormComunidades.value);
+  }
+
   filtrarIdiomas(v: string) {
     return this.todosComunidades.filter(x => x.nombre.toLowerCase().indexOf(v.toLowerCase()) !== -1);
   }
@@ -130,6 +136,8 @@ export class AdminComunidadesComponent implements OnInit {
       this.miFormComunidades.get("nombre").setValue(this.comunidadSeleccionado.nombre);
       this.miFormComunidades.get("descripcion").setValue(this.comunidadSeleccionado.descripcion);
       this.miFormComunidades.get("clave").setValue(this.comunidadSeleccionado.clave);
+      this.miFormComunidades.get("isVisible").setValue(this.comunidadSeleccionado.isVisible);
+      this.miFormComunidades.get("isPublica").setValue(this.comunidadSeleccionado.isPublica);
     }
 
     this.openModal(modal, size);
@@ -148,7 +156,9 @@ export class AdminComunidadesComponent implements OnInit {
         descripcion: this.miFormComunidades.get("descripcion").value,
         clave: this.miFormComunidades.get("clave").value,
         banner: this.docBanner,
-        picture: this.docPicture
+        picture: this.docPicture,
+        isVisible: this.miFormComunidades.get("isVisible").value,
+        isPublica: this.miFormComunidades.get("isPublica").value
       };
 
       await this.comunidadesService.PostComunidadBBDD(nuevaComunidad).toPromise().then();
@@ -167,7 +177,9 @@ export class AdminComunidadesComponent implements OnInit {
         clave: this.miFormComunidades.get("clave").value,
         create_date: this.comunidadSeleccionado.create_date,
         last_modified: this.comunidadSeleccionado.last_modified,
-        delete_date: this.comunidadSeleccionado.delete_date
+        delete_date: this.comunidadSeleccionado.delete_date,
+        isVisible: this.miFormComunidades.get("isVisible").value,
+        isPublica: this.miFormComunidades.get("isPublica").value
       };
 
       if (this.miFormComunidades.get('picture').touched && this.docPicture != null) {
@@ -176,7 +188,9 @@ export class AdminComunidadesComponent implements OnInit {
         this.docPictureEditado = await this.documentosService.postDocumento(this.docPicture).toPromise()
         comunidadAEditar.pictureid_doc = this.docPictureEditado.id_doc;
       } else {
-        comunidadAEditar.pictureid_doc = this.comunidadSeleccionado.picture.id_doc;
+        if (this.comunidadSeleccionado.picture != null) {
+          comunidadAEditar.pictureid_doc = this.comunidadSeleccionado.picture.id_doc;
+        }
       }
 
       if (this.miFormComunidades.get('banner').touched && this.docBanner != null) {
@@ -185,7 +199,9 @@ export class AdminComunidadesComponent implements OnInit {
         this.docBannerEditado = await this.documentosService.postDocumento(this.docBanner).toPromise()
         comunidadAEditar.bannerid_doc = this.docBannerEditado.id_doc;
       } else {
-        comunidadAEditar.bannerid_doc = this.comunidadSeleccionado.banner.id_doc;
+        if (this.comunidadSeleccionado.banner != null) {
+          comunidadAEditar.pictureid_doc = this.comunidadSeleccionado.banner.id_doc;
+        }
       }
 
       await this.comunidadesService.PutComunidadIdBBDD(this.comunidadSeleccionado.id_com, comunidadAEditar).toPromise().then(resp => {
@@ -276,6 +292,7 @@ export class AdminComunidadesComponent implements OnInit {
     this.modalService.dismissAll();
     // this.ngOnInit();
     this.OnPageChange(this.page)
+    this.mostrarFormulario();
   }
 
   OnPageChange(event) {

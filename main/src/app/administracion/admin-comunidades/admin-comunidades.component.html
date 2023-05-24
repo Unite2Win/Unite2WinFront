@@ -20,6 +20,7 @@
                                 <th scope="col">Clave</th>
                                 <th scope="col">Icono</th>
                                 <th scope="col">Banner</th>
+                                <th scope="col">Estado</th>
                                 <th *ngIf="selectedOption == 1" scope="col">Acciones</th>
                             </tr>
                         </thead>
@@ -33,8 +34,10 @@
                                 <td>
                                     <div class="d-flex align-items-center">
                                         <div>
-                                            <p *ngIf="comunidad.nombre != null; else noFileNombre" class="font-medium mb-0">
-                                                {{ comunidad.nombre.length > 30 ? comunidad.nombre.slice(0,30) + "..." : comunidad.nombre }}
+                                            <p *ngIf="comunidad.nombre != null; else noFileNombre"
+                                                class="font-medium mb-0">
+                                                {{ comunidad.nombre.length > 30 ? comunidad.nombre.slice(0,30) + "..." :
+                                                comunidad.nombre }}
                                             </p>
                                             <ng-template #noFileNombre>
                                                 <p class="text-danger font-medium mb-0">NO DATA</p>
@@ -42,13 +45,30 @@
                                         </div>
                                     </div>
                                 </td>
-                                <td *ngIf="comunidad.descripcion != null; else noFile">{{ comunidad.descripcion.length > 30 ? comunidad.descripcion.slice(0,30) + "..." : comunidad.descripcion }}</td>
+                                <td *ngIf="comunidad.descripcion != null; else noFile">{{ comunidad.descripcion.length >
+                                    30 ? comunidad.descripcion.slice(0,30) + "..." : comunidad.descripcion }}</td>
                                 <td>{{ comunidad.clave }}</td>
-                                <td *ngIf="comunidad.picture != null; else noFile">{{ comunidad.picture.descripcion }}</td>
-                                <td *ngIf="comunidad.banner != null; else noFile">{{ comunidad.banner.descripcion }}</td>
+                                <td *ngIf="comunidad.picture != null; else noFile">{{ comunidad.picture.descripcion }}
+                                </td>
+                                <td *ngIf="comunidad.banner != null; else noFile">{{ comunidad.banner.descripcion }}
+                                </td>
                                 <ng-template #noFile>
                                     <td class="text-danger">NO DATA</td>
                                 </ng-template>
+                                <td>
+                                    <i-feather *ngIf="comunidad.isVisible"
+                                        class="mdi mdi-eye feather-sm text-success me-2" pTooltip="Comunidad visible"
+                                        tooltipPosition="top"></i-feather>
+                                    <i-feather *ngIf="!comunidad.isVisible"
+                                        class="mdi mdi-eye-off feather-sm text-danger me-2"
+                                        pTooltip="Comunidad no visible" tooltipPosition="top"></i-feather>
+                                    <i-feather *ngIf="comunidad.isPublica"
+                                        class="mdi mdi-earth feather-sm text-success me-2" pTooltip="Comunidad publica"
+                                        tooltipPosition="top"></i-feather>
+                                    <i-feather *ngIf="!comunidad.isPublica"
+                                        class="mdi mdi-earth-off feather-sm text-danger me-2"
+                                        pTooltip="Comunidad privada" tooltipPosition="top"></i-feather>
+                                </td>
                                 <td *ngIf="selectedOption == 1">
                                     <a href="javascript: void(0);"
                                         (click)="crearOEditarComunidad(createEditComunidadModal, 'md', comunidad)"
@@ -102,7 +122,8 @@
                                     <label for="descripcionComunidad" class="form-label">Introduzca la descripción de la
                                         comunidad*</label>
                                     <textarea type="text" id="descripcionComunidad" class="form-control"
-                                        placeholder="Descripción para la comunidad" formControlName="descripcion"></textarea>
+                                        placeholder="Descripción para la comunidad"
+                                        formControlName="descripcion"></textarea>
                                 </div>
                             </div>
                             <br>
@@ -113,6 +134,46 @@
                                         la comunidad*</label>
                                     <input type="text" id="claveComunidad" class="form-control"
                                         placeholder="Clave de seguridad para la comunidad" formControlName="clave" />
+                                </div>
+                            </div>
+                            <br>
+
+                            <div class="row">
+                                <div class="col-12 d-flex flex-column justify-content-center">
+                                    <label for="claveComunidad" class="form-label">Seleccione una opcion de visibilidad*</label>
+                                    <div class="row">
+                                        <div class="col-3">
+                                            <p-radioButton [value]="true" formControlName="isVisible"
+                                                inputId="visible"></p-radioButton>
+                                            <label for="visible" class="ml-2 ms-2">Visible</label>
+                                        </div>
+
+                                        <div class="col-3">
+                                            <p-radioButton [value]="false" formControlName="isVisible"
+                                                inputId="noVisible"></p-radioButton>
+                                            <label for="noVisible" class="ml-2 ms-2">No visible</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <br>
+
+                            <div class="row">
+                                <div class="col-12 d-flex flex-column justify-content-center">
+                                    <label for="claveComunidad" class="form-label">Seleccione una opcion de accesibilidad*</label>
+                                    <div class="row">
+                                        <div class="col-3">
+                                            <p-radioButton [value]="true" formControlName="isPublica"
+                                                inputId="publica"></p-radioButton>
+                                            <label for="publica" class="ml-2 ms-2">Publica</label>
+                                        </div>
+
+                                        <div class="col-3">
+                                            <p-radioButton [value]="false" formControlName="isPublica"
+                                                inputId="noPublica"></p-radioButton>
+                                            <label for="noPublica" class="ml-2 ms-2">Privada</label>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                             <br>
@@ -148,8 +209,8 @@
 
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" (click)="closeBtnClick()">Cerrar</button>
-                        <button [disabled]="miFormComunidades.invalid || miFormComunidades.untouched" class="btn btn-danger"
-                            type="submit">Aceptar</button>
+                        <button [disabled]="miFormComunidades.invalid || miFormComunidades.untouched"
+                            class="btn btn-danger" type="submit">Aceptar</button>
                     </div>
                 </form>
             </ng-template>

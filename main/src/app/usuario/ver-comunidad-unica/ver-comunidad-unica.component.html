@@ -48,8 +48,8 @@
                 </ng-template>
 
                 <div class="card d-flex flex-row ms-4 mt-4" pTooltip="Miembros totales" tooltipPosition="top">
-                    <i-feather class="mdi mdi-account"></i-feather>
-                    <h5 class="card-title" style="margin-top: 2px;">{{usuariosTotales}}</h5>
+                    <i-feather class="mdi mdi-account fs-5"></i-feather>
+                    <h5 class="card-title" style="margin-top: 3.2px;">{{usuariosTotales}}</h5>
                 </div>
             </div>
 
@@ -68,7 +68,7 @@
             </div>
         </div>
         <!-- <app-feed style="margin-top: -20px;"></app-feed> ESTO ES POR SI QUEREMOS QUE ESTE PEGADO AL NAVBAR -->
-        <app-feed *ngIf="mostrarFeed"></app-feed>
+        <app-feed [comunidadActual]="comunidadActual" [isMiembro]="yaSoyMiembro" *ngIf="mostrarFeed"></app-feed>
         <app-personas *ngIf="mostrarPersonas"></app-personas>
         <app-eventos *ngIf="mostrarEventos"></app-eventos>
         <app-multimedia *ngIf="mostrarMultimedia"></app-multimedia>

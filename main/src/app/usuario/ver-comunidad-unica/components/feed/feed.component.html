@@ -1,27 +1,167 @@
 <div class="m-3">
-
     <div class="row d-flex flex-row justify-content-between">
+        <div class="col-8">
+            <div class="row">
+                <!-- ESCRIBIR EL POST -->
+                <div class="card col-12">
+                    <div *ngIf="isMiembro; else noMemberPost" class="card-body">
+                        <h4 class="card-title">Cuenta algo a la comunidad</h4>
+                        <hr>
+                        <form [formGroup]="miFormCompartir">
+                            <div class="row d-flex flex-row justify-content-center">
+                                <div class="col-1" style="margin-top: 5px;">
+                                    <img *ngIf="usuarioActual.picture !=null; else defaultIMG"
+                                        [src]="'data: usuarioActual.picture.extensionArchivo; base64,'+usuarioActual.picture.data | safe"
+                                        class="img-responsive rounded"
+                                        style="max-height: 60px; max-width: 60px; clip-path: circle(25px);"
+                                        [pTooltip]="usuarioActual.name + ' ' + usuarioActual.surname"
+                                        tooltipPosition="top" />
+                                    <ng-template #defaultIMG>
+                                        <img src="assets\images\404\user404.png" class="img-responsive rounded"
+                                            style="max-height: 60px; max-width: 60px; clip-path: circle(25px);" />
+                                    </ng-template>
+                                </div>
+                                <div class="col-10" style="margin-top: 5px;">
+                                    <div class="input-group">
+                                        <textarea type="text" id="inputURL" class="form-control" aria-label="Username"
+                                            aria-describedby="basic-addon1" placeholder="Escribe algo..."
+                                            formControlName="url"></textarea>
+                                        <button class="input-group-text btn btn-secondary" id="basic-addon1"
+                                            type="button" pTooltip="Adjuntar imagen" tooltipPosition="top"><i-feather
+                                                name="paperclip" class="feather-sm"></i-feather></button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12 mt-3 d-flex flex-row justify-content-center">
+                                    <button class="btn btn-info" type="submit">Publicar <i-feather
+                                            class="mdi mdi-send"></i-feather></button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <ng-template #noMemberPost>
+                        <div class="card-body">
+                            <h4 class="card-title">Cuenta algo a la comunidad</h4>
+                            <hr>
+                            <p class="fs-5 text-danger text-center">Tienes que ser miembro de la comunidad para poder
+                                postear algo.</p>
+                        </div>
+                    </ng-template>
+                </div>
+                <!-- ACABA EL ESCRIBIR EL POST -->
 
-        <div class="card col-8">
-            <div class="card-body">
-                <h5 class="card-title">FEED</h5>
-                <p class="card-text">Some quick example text to build on the FEED and make up the bulk of the
-                    card's
-                    content.</p>
-                <a href="#" class="btn btn-primary">Go somewhere</a>
+                <div class="card col-12 mt-3">
+                    <div class="card-body">
+                        <div class="row d-flex flex-row justify-content-center">
+
+                            <div class="col-6">
+                                <div class="row">
+                                    <div class="col-2">
+                                        <img *ngIf="usuarioActual.picture !=null; else defaultIMG"
+                                            [src]="'data: usuarioActual.picture.extensionArchivo; base64,'+usuarioActual.picture.data | safe"
+                                            class="img-responsive rounded"
+                                            style="max-height: 60px; max-width: 60px; clip-path: circle(25px);"
+                                            [pTooltip]="usuarioActual.name + ' ' + usuarioActual.surname"
+                                            tooltipPosition="top" />
+                                        <ng-template #defaultIMG>
+                                            <img src="assets\images\404\user404.png" class="img-responsive rounded"
+                                                style="max-height: 60px; max-width: 60px; clip-path: circle(25px);" />
+                                        </ng-template>
+                                    </div>
+                                    <div class="col-10" style="margin-top: 10px;">
+                                        <div class="d-flex flex-column">
+                                            <h5>{{usuarioActual.name}} {{usuarioActual.surname}}</h5>
+                                            <h6>24/09/2000</h6>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-6">
+                                <div class="row">
+                                    <div class="col-12 d-flex justify-content-end" style="margin-top: 10px;">
+                                        <a href="javascript: void(0);" class="link btn btn-danger" placement="top"
+                                            style="color: white;">
+                                            Eliminar post
+                                            <i-feather name="trash-2" class="feather-sm pointer"
+                                                style="color: white;"></i-feather>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <hr>
+
+                        <h2>AAAAAAAAAAAAA</h2>
+
+                        <hr>
+
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="card d-flex flex-row justify-content-center">
+                                    <i-feather class="mdi mdi-heart fs-6" style="cursor: pointer;"
+                                        (click)="holi()"></i-feather>
+                                    <i-feather class="mdi mdi-heart-outline fs-6" style="cursor: pointer;"
+                                        (click)="holi()"></i-feather>
+                                    <h5 class="card-title" style="margin-top: 5px; cursor: pointer;" (click)="holi()">0
+                                        likes</h5>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
 
-        <div class="card col-3">
+        <div class="card col-4" style="max-width: 350px;">
             <div class="card-body">
-                <h5 class="card-title">FEED</h5>
-                <p class="card-text">Some quick example text to build on the FEED and make up the bulk of the
-                    card's
-                    content.</p>
-                <a href="#" class="btn btn-primary">Go somewhere</a>
+                <h3 class="card-title">Información</h3>
+                <hr>
+
+                <div *ngIf="comunidadActual.isPublica" class="row">
+                    <i-feather class="mdi mdi-earth col-1 fs-6"></i-feather>
+                    <h4 class="card-title col-10 ms-2" style="margin-top: 4px;">Pública</h4>
+                    <div class="row">
+                        <p class="d-flex flex-wrap col-12">A esta comunidad puede unirse cualquiera.</p>
+                    </div>
+                </div>
+
+
+                <div *ngIf="!comunidadActual.isPublica" class="row">
+                    <i-feather class="mdi mdi-earth-off col-1 fs-6"></i-feather>
+                    <h4 class="card-title col-10 ms-2" style="margin-top: 4px;">Privada</h4>
+                    <div class="row">
+                        <p class="d-flex flex-wrap col-12">Esta comunidad requiere aprobación para unirse.</p>
+                    </div>
+                </div>
+
+                <div *ngIf="comunidadActual.isVisible" class="row">
+                    <i-feather class="mdi mdi-eye col-1 fs-6"></i-feather>
+                    <h4 class="card-title col-10 ms-2" style="margin-top: 4px;">Visible</h4>
+                    <div class="row">
+                        <p class="d-flex flex-wrap col-12">Esta comunidad le aparece en el buscador a cualquiera.</p>
+                    </div>
+                </div>
+
+                <div *ngIf="!comunidadActual.isVisible" class="row">
+                    <i-feather class="mdi mdi-eye-off col-1 fs-6"></i-feather>
+                    <h4 class="card-title col-10 ms-2" style="margin-top: 4px;">No Visible</h4>
+                    <div class="row">
+                        <p class="d-flex flex-wrap col-12">Esta comunidad solo aparece mediante la URL.</p>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <i-feather class="mdi mdi-cake-variant col-1 fs-6"></i-feather>
+                    <h4 class="card-title col-10 ms-2" style="margin-top: 7px;">Aniversario</h4>
+                    <div class="row">
+                        <p class="d-flex flex-wrap col-12">Comunidad creada el {{aniversario}}.</p>
+                    </div>
+                </div>
             </div>
         </div>
-
     </div>
-
 </div>

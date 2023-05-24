@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { UsuarioRoutes } from './usuario.routing';
 import { InicioComponent } from './inicio/inicio.component';
@@ -49,6 +49,7 @@ import { TooltipModule } from 'primeng/tooltip';
     FormsModule,
     NgbModule,
     FeatherModule
-  ]
+  ],
+  providers: [DatePipe],
 })
 export class UsuarioModule { }
