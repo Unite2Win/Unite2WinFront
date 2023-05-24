@@ -116,8 +116,16 @@ export class ObjetivosComponent implements OnInit {
     });
   }
 
-
-
+  getProgressBarValue(objetivo: Objetivo): number {
+    const fechaString = objetivo.create_date;
+    const fecha = new Date(fechaString);
+    console.log(fecha);
+    const diferenciaEnDias = Math.floor((new Date().getTime() - fecha.getTime()) / (1000 * 60 * 60 * 24));
+    console.log(diferenciaEnDias)
+    let progreso = (diferenciaEnDias / objetivo.duracion) * 100;
+    progreso = Math.min(progreso, 100); // Para que no supere el 100%
+    return progreso;
+  }
 
   /*   modificar(indice: number) {
       this.nuevoObjetivo = this.objetivos[indice];
