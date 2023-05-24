@@ -4,6 +4,7 @@ import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import { ObjetivosService } from '../services/objetivos.service';
 import { Objetivo } from '../interfaces/objetivo';
 import { number } from 'ngx-custom-validators/src/app/number/validator';
+import { globales } from 'common/globales';
 
 @Component({
   selector: 'app-objetivos',
@@ -16,6 +17,7 @@ export class ObjetivosComponent implements OnInit {
   objetivos: Objetivo[] = [];
   form1: FormGroup;
   editando: boolean = false;
+  usuario: number = globales.usuarioLogueado.id_usu;
   /*   objetivos = [
       {
         nombre: 'Dejar de fumar',
@@ -34,10 +36,8 @@ export class ObjetivosComponent implements OnInit {
   constructor(private modalService: NgbModal, private objetivosService: ObjetivosService) { }
 
   async ngOnInit() {
-
-    await this.objetivosService.getObjetivos();
-    //console.log(this.objetivosService.objetivosBd);
-    this.objetivos = this.objetivosService.objetivosBd;
+    
+    await this.objetivosService.GetObjetivosUsuario(globales.usuarioLogueado.id_usu).toPromise().then(x => this.objetivos = x);
 
     this.form1 = new FormGroup({
       nombre: new FormControl('', Validators.required),
@@ -67,12 +67,11 @@ export class ObjetivosComponent implements OnInit {
         nombre: '',
         descripcion: '',
         duracion: 0,
-        id_usu: 1
+        id_usu: globales.usuarioLogueado.id_usu,
       };
       this.editando = false;
     }
   }
-
 
   guardar() {
     if (this.editando) {
@@ -88,16 +87,15 @@ export class ObjetivosComponent implements OnInit {
     // console.log("submit disparado");
     await this.objetivosService.PostObjetivos(this.nuevoObjetivo).toPromise().then(x => console.log(x));
     this.objetivos = [];
-    await this.objetivosService.GetObjetivosBBDD().toPromise().then(x => this.objetivos = x);
+    await this.objetivosService.GetObjetivosUsuario(globales.usuarioLogueado.id_usu).toPromise().then(x => this.objetivos = x);
 
   }
 
   async modificar(index: number, objetivo: Objetivo) {
     //console.log("disparado modificar")
     await this.objetivosService.UpdateObjetivos(index, objetivo).toPromise().then(x => console.log(x));
-    var objetivos_copia = this.objetivos;
     this.objetivos = [];
-    await this.objetivosService.GetObjetivosBBDD().toPromise().then(x => this.objetivos = x);
+    await this.objetivosService.GetObjetivosUsuario(globales.usuarioLogueado.id_usu).toPromise().then(x => this.objetivos = x);
     this.modalService.dismissAll();
   }
 
@@ -119,9 +117,9 @@ export class ObjetivosComponent implements OnInit {
   getProgressBarValue(objetivo: Objetivo): number {
     const fechaString = objetivo.create_date;
     const fecha = new Date(fechaString);
-    console.log(fecha);
+    //console.log(fecha);
     const diferenciaEnDias = Math.floor((new Date().getTime() - fecha.getTime()) / (1000 * 60 * 60 * 24));
-    console.log(diferenciaEnDias)
+    //console.log(diferenciaEnDias);
     let progreso = (diferenciaEnDias / objetivo.duracion) * 100;
     progreso = Math.min(progreso, 100); // Para que no supere el 100%
     return progreso;

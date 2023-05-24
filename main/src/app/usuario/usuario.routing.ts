@@ -6,6 +6,7 @@ import { ObjetivosComponent } from './objetivos/objetivos.component';
 import { PerfilComponent } from './perfil/perfil.component';
 import { PlanesComponent } from './planes/planes.component';
 import { VerComunidadUnicaComponent } from './ver-comunidad-unica/ver-comunidad-unica.component';
+import { CustomerSupportComponent } from './customer-support/customer-support.component';
 
 export const UsuarioRoutes: Routes = [
   {
@@ -49,6 +50,14 @@ export const UsuarioRoutes: Routes = [
         data: {
           title: 'Mis Comunidades',
           urls: [{ title: 'Mis Comunidades', url: '/usuario' }, { title: 'Mis Comunidades' }]
+        }
+      },
+      {
+        path: 'chatgpt',
+        component: CustomerSupportComponent,
+        data: {
+          title: 'Chat GPT',
+          urls: [{ title: 'Chat GPT', url: '/usuario' }, { title: 'Chat GPT' }]
         }
       },
       {
