@@ -175,6 +175,8 @@ export class AdminComunidadesComponent implements OnInit {
         //AQUI HAY QUE AÑADIR EL PICTURE
         this.docPictureEditado = await this.documentosService.postDocumento(this.docPicture).toPromise()
         comunidadAEditar.pictureid_doc = this.docPictureEditado.id_doc;
+      } else {
+        comunidadAEditar.pictureid_doc = this.comunidadSeleccionado.picture.id_doc;
       }
 
       if (this.miFormComunidades.get('banner').touched && this.docBanner != null) {
@@ -182,6 +184,8 @@ export class AdminComunidadesComponent implements OnInit {
         //AQUI HAY QUE AÑADIR EL BANNER
         this.docBannerEditado = await this.documentosService.postDocumento(this.docBanner).toPromise()
         comunidadAEditar.bannerid_doc = this.docBannerEditado.id_doc;
+      } else {
+        comunidadAEditar.bannerid_doc = this.comunidadSeleccionado.banner.id_doc;
       }
 
       await this.comunidadesService.PutComunidadIdBBDD(this.comunidadSeleccionado.id_com, comunidadAEditar).toPromise().then(resp => {

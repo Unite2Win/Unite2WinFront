@@ -1,10 +1,18 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { LoginService } from 'app/authentication/login/login.service';
 import { switchMap } from 'rxjs/operators';
 import { ComunidadesService } from '../services/comunidades.service';
 import { Comunidad } from '../interfaces/comunidadModel';
 import { DecodedBase64 } from '../interfaces/decodedBase64Model';
+import { MenuItem } from 'primeng/api';
+import { TabMenu } from 'primeng/tabmenu';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
+import { ComunidadesUsuariosService } from '../services/comunidades-usuarios.service';
+import { globales } from 'common/globales';
+import { ComunidadUsuario } from '../interfaces/comunidadUsuarioModel';
 
 @Component({
   selector: 'app-ver-comunidad-unica',
@@ -12,6 +20,10 @@ import { DecodedBase64 } from '../interfaces/decodedBase64Model';
   styleUrls: ['./ver-comunidad-unica.component.scss']
 })
 export class VerComunidadUnicaComponent implements OnInit {
+
+  miFormCompartir: FormGroup = this.fb.group({
+    url: ''
+  });
 
   idComunidadActual: number = 0;
   comunidadActual: Comunidad = {
@@ -23,7 +35,20 @@ export class VerComunidadUnicaComponent implements OnInit {
     picture: null
   };
 
-  constructor(private activatedRoute: ActivatedRoute, private loginService: LoginService, private comunidadesService: ComunidadesService) { }
+  items: MenuItem[];
+  activeItem: MenuItem;
+
+  mostrarFeed: boolean = false;
+  mostrarPersonas: boolean = false;
+  mostrarEventos: boolean = false;
+  mostrarMultimedia: boolean = false;
+
+  yaSoyMiembro: boolean = false;
+  salirmeDeComunidad: boolean = false;
+
+  usuariosTotales: number = 0;
+
+  constructor(private toastrService: ToastrService, private fb: FormBuilder, private modalService: NgbModal, private router: Router, private activatedRoute: ActivatedRoute, private loginService: LoginService, private comunidadesService: ComunidadesService, private comunidadesUsuariosService: ComunidadesUsuariosService) { }
 
   async ngOnInit(): Promise<void> {
     var url: string[] = window.location.pathname.split('/');
@@ -31,8 +56,93 @@ export class VerComunidadUnicaComponent implements OnInit {
 
     await this.comunidadesService.GetComunidadById(this.idComunidadActual).toPromise().then(comunidad => {
       this.comunidadActual = comunidad;
-      console.log(this.comunidadActual);
+    }, (error) => {
+      this.router.navigate(['/usuario/miscomunidades'])
     })
+
+    this.items = [
+      { label: 'Feed', icon: 'mdi mdi-comment-processing' },
+      { label: 'Personas', icon: 'mdi mdi-account' },
+      { label: 'Eventos', icon: 'mdi mdi-coffee' },
+      { label: 'Multimedia', icon: 'mdi mdi-image' },
+    ];
+    this.activeItem = this.items[0];
+    this.mostrarFeed = true;
+
+    this.comunidadesUsuariosService.GetComunidadesUsuariosCountByComunidad(this.idComunidadActual).toPromise().then(resp => {
+      this.usuariosTotales = resp;
+    })
+
+    this.comunidadesUsuariosService.GetComunidadesUsuariosIsMember(globales.usuarioLogueado.id_usu, this.idComunidadActual).toPromise().then(resp => {
+      this.yaSoyMiembro = resp;
+    })
+  }
+
+  compartirComunidad(targetModal: string, size: string) {
+    console.log(window.location.href);
+    this.miFormCompartir.get('url').setValue(window.location.href);
+    this.openModal(targetModal, size);
+  }
+
+  sobreUnirme() {
+    this.salirmeDeComunidad = true;
+  }
+
+  fueraUnirme() {
+    this.salirmeDeComunidad = false;
+  }
+
+  async unirmeAComunidad() {
+
+    let nuevaComunidadUsuario: ComunidadUsuario = {
+      id_com_usu: 0,
+      id_com: this.idComunidadActual,
+      id_usu: globales.usuarioLogueado.id_usu,
+      // comunidad: this.comunidadActual,
+      // usuario: globales.usuarioLogueado,
+      apodo: globales.usuarioLogueado.name,
+      nivel: 1,
+      tipoUsuario: 3
+    }
+
+    console.log(nuevaComunidadUsuario);
+
+    await this.comunidadesUsuariosService.PostComunidadBBDD(nuevaComunidadUsuario).toPromise().then(resp => {
+      console.log(resp);
+    })
+
+    this.ngOnInit();
+  }
+
+  async salirmeDeLaComunidad() {
+    await this.comunidadesUsuariosService.GetComunidadesUsuariosByUsuarioYComunidad(globales.usuarioLogueado.id_usu, this.idComunidadActual).toPromise().then(async resp => {
+      await this.comunidadesUsuariosService.DeleteComunidadBBDD(resp.id_com_usu, resp).toPromise().then(resp => {
+      })
+    })
+    this.ngOnInit();
+  }
+
+  copiarUrl() {
+    navigator.clipboard.writeText(this.miFormCompartir.get('url').value)
+      .then(() => {
+      })
+    this.toastrService.success('Enlace de la comunidad copiado')
+  }
+
+  onActiveItemChange(event: TabMenu) {
+    switch (event.activeItem.label) {
+      case 'Feed': this.noMostrarNada(); this.mostrarFeed = true; break;
+      case 'Personas': this.noMostrarNada(); this.mostrarPersonas = true; break;
+      case 'Eventos': this.noMostrarNada(); this.mostrarEventos = true; break;
+      case 'Multimedia': this.noMostrarNada(); this.mostrarMultimedia = true; break;
+    }
+  }
+
+  noMostrarNada() {
+    this.mostrarFeed = false;
+    this.mostrarPersonas = false;
+    this.mostrarMultimedia = false;
+    this.mostrarEventos = false;
   }
 
   file2Base64 = (file: File): Promise<DecodedBase64> => {
@@ -53,6 +163,18 @@ export class VerComunidadUnicaComponent implements OnInit {
       };
       reader.onerror = error => reject(error);
     });
+  }
+
+  openModal(targetModal: string, size: string) {
+    this.modalService.open(targetModal, {
+      centered: true,
+      backdrop: 'static',
+      size: size
+    });
+  }
+
+  closeBtnClick() {
+    this.modalService.dismissAll();
   }
 
 }

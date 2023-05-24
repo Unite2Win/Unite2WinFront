@@ -33,13 +33,16 @@
                                 <td>
                                     <div class="d-flex align-items-center">
                                         <div>
-                                            <p class="font-medium mb-0">
+                                            <p *ngIf="comunidad.nombre != null; else noFileNombre" class="font-medium mb-0">
                                                 {{ comunidad.nombre.length > 30 ? comunidad.nombre.slice(0,30) + "..." : comunidad.nombre }}
                                             </p>
+                                            <ng-template #noFileNombre>
+                                                <p class="text-danger font-medium mb-0">NO DATA</p>
+                                            </ng-template>
                                         </div>
                                     </div>
                                 </td>
-                                <td>{{ comunidad.descripcion.length > 30 ? comunidad.descripcion.slice(0,30) + "..." : comunidad.descripcion }}</td>
+                                <td *ngIf="comunidad.descripcion != null; else noFile">{{ comunidad.descripcion.length > 30 ? comunidad.descripcion.slice(0,30) + "..." : comunidad.descripcion }}</td>
                                 <td>{{ comunidad.clave }}</td>
                                 <td *ngIf="comunidad.picture != null; else noFile">{{ comunidad.picture.descripcion }}</td>
                                 <td *ngIf="comunidad.banner != null; else noFile">{{ comunidad.banner.descripcion }}</td>
@@ -98,8 +101,8 @@
                                 <div class="col-12 d-flex flex-column justify-content-center">
                                     <label for="descripcionComunidad" class="form-label">Introduzca la descripción de la
                                         comunidad*</label>
-                                    <input type="text" id="descripcionComunidad" class="form-control"
-                                        placeholder="Descripción para la comunidad" formControlName="descripcion" />
+                                    <textarea type="text" id="descripcionComunidad" class="form-control"
+                                        placeholder="Descripción para la comunidad" formControlName="descripcion"></textarea>
                                 </div>
                             </div>
                             <br>

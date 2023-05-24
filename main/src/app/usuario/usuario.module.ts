@@ -15,6 +15,12 @@ import { PipesModule } from 'app/pipes/pipes.module';
 import { VerComunidadUnicaComponent } from './ver-comunidad-unica/ver-comunidad-unica.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FeatherModule } from 'angular-feather';
+import { TabMenuModule } from 'primeng/tabmenu';
+import { FeedComponent } from './ver-comunidad-unica/components/feed/feed.component';
+import { PersonasComponent } from './ver-comunidad-unica/components/personas/personas.component';
+import { EventosComponent } from './ver-comunidad-unica/components/eventos/eventos.component';
+import { MultimediaComponent } from './ver-comunidad-unica/components/multimedia/multimedia.component';
+import { TooltipModule } from 'primeng/tooltip';
 
 @NgModule({
   declarations: [
@@ -24,11 +30,17 @@ import { FeatherModule } from 'angular-feather';
     ComunidadesComponent,
     PerfilComponent,
     ConfiguracionComponent,
-    VerComunidadUnicaComponent
+    VerComunidadUnicaComponent,
+    FeedComponent,
+    PersonasComponent,
+    EventosComponent,
+    MultimediaComponent
   ],
   imports: [
     FormsModule, 
     ReactiveFormsModule,
+    TabMenuModule,
+    TooltipModule,
     NgxChartsModule,
     NgApexchartsModule,
     CommonModule,

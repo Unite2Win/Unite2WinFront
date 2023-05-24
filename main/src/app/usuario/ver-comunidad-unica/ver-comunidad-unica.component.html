@@ -1,17 +1,102 @@
-<div class="card m-3">
-    <div *ngIf="comunidadActual.banner != null; else noBanner">
-        <img [src]="'data: comunidadActual.banner.extensionArchivo; base64,'+comunidadActual.banner.data | safe"
-            class="card-img-top" />
+<div class="m-3">
+
+    <div class="card">
+        <div *ngIf="comunidadActual.banner != null; else noBanner">
+            <img [src]="'data: comunidadActual.banner.extensionArchivo; base64,'+comunidadActual.banner.data | safe"
+                class="card-img-top" />
+        </div>
+
+        <ng-template #noBanner>
+            <img src="assets\images\404\banner404.png" class="card-img-top" />
+        </ng-template>
+
+        <div class="card-body m-3 d-flex flex-row justify-content-between">
+
+            <div class="d-flex flex-row align-items-center">
+                <img *ngIf="comunidadActual.picture != null; else noFile"
+                    [src]="'data: comunidadActual.picture.extensionArchivo; base64,'+comunidadActual.picture.data | safe"
+                    class="img-responsive rounded"
+                    style="max-height: 120px; max-width: 120px; clip-path: circle(50px);" />
+                <ng-template #noFile>
+                    <img src="assets\images\404\comunidadDefaultSquareNoBKG.png" class="img-responsive rounded"
+                        style="max-height: 120px; max-width: 120px; clip-path: circle(50px);" />
+                </ng-template>
+
+                <div class="d-flex flex-column flex-wrap" style="width: 70%;">
+                    <h3 class="card-title ms-4 fw-bold">{{comunidadActual.nombre}}</h3>
+                    <p class="card-text ms-4">{{comunidadActual.descripcion}}</p>
+                </div>
+            </div>
+
+            <div class="d-flex flex-row align-items-center">
+                <a *ngIf="!yaSoyMiembro; else yaUnido" (click)="unirmeAComunidad()" class="btn btn-info">
+                    Unirme
+                </a>
+
+                <ng-template #yaUnido>
+                    <a *ngIf="!salirmeDeComunidad; else salirme" class="btn btn-secondary" disabled="true" (mouseover)="sobreUnirme()">
+                        <i-feather class="mdi mdi-checkbox-marked-circle-outline"></i-feather>
+                        Ya eres miembro
+                    </a>
+                </ng-template>
+
+                <ng-template #salirme>
+                    <a class="btn btn-danger" (click)="salirmeDeLaComunidad()" (mouseout)="fueraUnirme()">
+                        <i-feather class="mdi mdi-exit-to-app"></i-feather>
+                        Salir de la comunidad
+                    </a>
+                </ng-template>
+
+                <div class="card d-flex flex-row ms-4 mt-4" pTooltip="Miembros totales" tooltipPosition="top">
+                    <i-feather class="mdi mdi-account"></i-feather>
+                    <h5 class="card-title" style="margin-top: 2px;">{{usuariosTotales}}</h5>
+                </div>
+            </div>
+
+        </div>
     </div>
 
-    <ng-template #noBanner>
-        <img src="assets\images\404\banner404.png" class="card-img-top" />
-    </ng-template>
-
-    <div class="card-body">
-        <h5 class="card-title">Card title</h5>
-        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
-            content.</p>
-        <a href="#" class="btn btn-primary">Go somewhere</a>
+    <div class="d-flex flex-column">
+        <div class="d-flex flex-row justify-content-between">
+            <p-tabMenu #tab [model]="items" [activeItem]="activeItem" class="card"
+                (click)="onActiveItemChange(tab)"></p-tabMenu>
+            <div class="p-3">
+                <button class="btn btn-info" (click)="compartirComunidad(compartirModal, 'md')">
+                    <i-feather class="mdi mdi-share-variant"></i-feather>
+                    Compartir
+                </button>
+            </div>
+        </div>
+        <!-- <app-feed style="margin-top: -20px;"></app-feed> ESTO ES POR SI QUEREMOS QUE ESTE PEGADO AL NAVBAR -->
+        <app-feed *ngIf="mostrarFeed"></app-feed>
+        <app-personas *ngIf="mostrarPersonas"></app-personas>
+        <app-eventos *ngIf="mostrarEventos"></app-eventos>
+        <app-multimedia *ngIf="mostrarMultimedia"></app-multimedia>
     </div>
+
 </div>
+
+<ng-template #compartirModal let-modal>
+    <div class="modal-header">
+        <h3 class="modal-title" id="compartirComunidadModal">Compartir la comunidad: {{comunidadActual.titulo}}</h3>
+        <button type="button" class="btn-close" (click)="closeBtnClick()" aria-label="Close"></button>
+    </div>
+
+    <div class="modal-body">
+
+        <form [formGroup]="miFormCompartir" class="p-3">
+            <label for="inputURL" class="form-label">URL del sitio para compartir:</label>
+            <div class="input-group">
+                <input type="text" id="inputURL" class="form-control" aria-label="Username"
+                    aria-describedby="basic-addon1" [readonly]="!falseVar" formControlName="url">
+                <button class="input-group-text btn btn-secondary" id="basic-addon1" type="button" (click)="copiarUrl()"
+                    pTooltip="Haz click para copiar"><i-feather class="mdi mdi-clipboard"></i-feather></button>
+            </div>
+        </form>
+
+    </div>
+
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="closeBtnClick()">Cerrar</button>
+    </div>
+</ng-template>

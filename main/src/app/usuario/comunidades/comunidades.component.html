@@ -29,26 +29,34 @@
                     ">
                                 <td *ngIf="comunidad.picture != null; else noFile">
                                     <img [src]="'data: comunidad.picture.extensionArchivo; base64,'+comunidad.picture.data | safe"
-                                        class="img-responsive rounded"style="max-height: 120px; max-width: 120px;" />
+                                        class="img-responsive rounded" style="max-height: 120px; max-width: 120px; clip-path: circle(50px);" />
                                 </td>
                                 <ng-template #noFile>
                                     <td>
-                                        <img src="assets\images\404\comunidadDefaultSquareNoBKG.png" class="img-responsive rounded"
-                                            width="60%" style="max-height: 120px;" />
+                                        <img src="assets\images\404\comunidadDefaultSquareNoBKG.png"
+                                            class="img-responsive rounded" style="max-height: 120px; max-width: 120px; clip-path: circle(50px);" />
                                     </td>
                                 </ng-template>
                                 <td>
                                     <div class="d-flex align-items-center">
                                         <div>
-                                            <p class="font-medium mb-0">
+                                            <p *ngIf="comunidad.nombre != null; else noFileNombre"
+                                                class="font-medium mb-0">
                                                 {{ comunidad.nombre.length > 30 ? comunidad.nombre.slice(0,30) + "..." :
                                                 comunidad.nombre }}
                                             </p>
+                                            <ng-template #noFileNombre>
+                                                <p class="text-danger font-medium mb-0">NO DATA</p>
+                                            </ng-template>
                                         </div>
                                     </div>
                                 </td>
-                                <td>{{ comunidad.descripcion.length > 50 ? comunidad.descripcion.slice(0,50) + "..." :
+                                <td *ngIf="comunidad.descripcion != null; else noFile">{{ comunidad.descripcion.length >
+                                    50 ? comunidad.descripcion.slice(0,50) + "..." :
                                     comunidad.descripcion }}</td>
+                                <ng-template #noFile>
+                                    <td class="text-danger">NO DATA</td>
+                                </ng-template>
                                 <td *ngIf="selectedOption == 1">
                                     <a [href]="irAComunidad(comunidad)" class="link" ngbTooltip="Ver Comunidad"
                                         (click)="mostrarComunidad(comunidad)">
