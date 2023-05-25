@@ -3,26 +3,27 @@
         <div class="col-md-12">
             <br>
                 <div class="card">
-                    <h4 class="card-header center text-primary">Chatting With Mr BOT powered by ChatGPT</h4>
+                    <h1 style="background-image:url(assets/images/bannerGPT.jpg);padding: 2%;color:white;"><pre><p>UniteAI</p><hr><p style="font-size: 24px;">Powered by ChatGPT - OpenAI©</p></pre></h1>
+                    <!-- <h4 class="card-header center text-primary">Chatting With Mr BOT powered by ChatGPT</h4> -->
                     <div class="card-body">
-                        <h6 class="card-title text-success center">You are now chatting with Mr.BOT by ChatGPT</h6>
+                        <!-- <h6 class="card-title text-success center">You are now chatting with Mr.BOT by ChatGPT</h6> -->
                         <div class="row">
                             <div class="col-md-2"></div>
                             <div class="col-md-8">
-                                <div class="frame-box">
+                                <div class="frame-box" style="border-color: purple; border-style: solid; border-width: 1px;">
                                     <div *ngFor="let item of chatConversation">
                                         <p class="card-text padding" [ngClass]="item.cssClass">
                                             {{item.person}} :  {{getText(item.response)}}                                                                                                            
                                         </p>
                                         
                                     </div>
-                                    <div><img src="../../assets/images/ZNeT.gif" *ngIf="showSpinner" width="50px" height="50px"></div>
+                                    <div><img src="../../assets/images/loading.gif" *ngIf="showSpinner" width="50px" height="50px"></div>
                                     
                                 </div>
                                 <br>
-                                    <textarea row="3" cols="15" class="form-control" [(ngModel)]="promptText" placeholder="Start by asking what you are looking for"></textarea>
+                                    <textarea row="3" cols="15" class="form-control" [(ngModel)]="promptText" placeholder="Chatea con UniteAI!" (keydown.enter)="checkResponse()"></textarea>
                                     <br>
-                                        <button class="btn btn-primary push-right" (click)="checkResponse()">Send</button>
+                                        <button class="btn btn-primary push-right" (click)="checkResponse()" style="background-color: palevioletred; border-color: palevioletred;">Enviar</button>
                                     </div>
                                     <div class="col-md-2">
                                       
