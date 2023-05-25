@@ -1,10 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, SimpleChanges } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import { ObjetivosService } from '../services/objetivos.service';
 import { Objetivo } from '../interfaces/objetivo';
 import { number } from 'ngx-custom-validators/src/app/number/validator';
 import { globales } from 'common/globales';
+import { interval } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-objetivos',
@@ -18,6 +20,7 @@ export class ObjetivosComponent implements OnInit {
   form1: FormGroup;
   editando: boolean = false;
   usuario: number = globales.usuarioLogueado.id_usu;
+  progressValue: number;
   /*   objetivos = [
       {
         nombre: 'Dejar de fumar',
@@ -39,12 +42,19 @@ export class ObjetivosComponent implements OnInit {
     
     await this.objetivosService.GetObjetivosUsuario(globales.usuarioLogueado.id_usu).toPromise().then(x => this.objetivos = x);
 
+
     this.form1 = new FormGroup({
       nombre: new FormControl('', Validators.required),
       descripcion: new FormControl(''),
       duracion: new FormControl('', [Validators.required, Validators.min(0)]),
       //acepta: new FormControl(false)
     });
+  }
+
+  async ngOnChanges(changes: SimpleChanges): Promise<void> {
+    if (changes.objetivo) {
+      this.progressValue = await this.getProgressBarValue(this.objetivo);
+    }
   }
 
   modalOpenRegister(modalRegister: any, editar: boolean, objetivo?: any) {
@@ -56,6 +66,7 @@ export class ObjetivosComponent implements OnInit {
         id_obj: objetivo.id_obj,
         nombre: objetivo.nombre,
         descripcion: objetivo.descripcion,
+        create_date:objetivo.create_date,
         duracion: objetivo.duracion,
         id_usu: objetivo.id_usu
       };
@@ -84,7 +95,6 @@ export class ObjetivosComponent implements OnInit {
   async anadir() {
     this.form1.reset();
     this.modalService.dismissAll();
-    // console.log("submit disparado");
     await this.objetivosService.PostObjetivos(this.nuevoObjetivo).toPromise().then(x => console.log(x));
     this.objetivos = [];
     await this.objetivosService.GetObjetivosUsuario(globales.usuarioLogueado.id_usu).toPromise().then(x => this.objetivos = x);
@@ -92,7 +102,7 @@ export class ObjetivosComponent implements OnInit {
   }
 
   async modificar(index: number, objetivo: Objetivo) {
-    //console.log("disparado modificar")
+    console.log(objetivo);
     await this.objetivosService.UpdateObjetivos(index, objetivo).toPromise().then(x => console.log(x));
     this.objetivos = [];
     await this.objetivosService.GetObjetivosUsuario(globales.usuarioLogueado.id_usu).toPromise().then(x => this.objetivos = x);
