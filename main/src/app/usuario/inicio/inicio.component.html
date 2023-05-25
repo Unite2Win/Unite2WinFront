@@ -1,18 +1,23 @@
 <div class="row">
     <div class="col-5">
-        <h2 class="row justify-content-center">Proximos eventos</h2>
+        <h1 class="row justify-content-center">Proximos eventos</h1>
 
         
     </div>
     <div class="col-2"></div>
     <div class="col-5">
-        <h2 class="row justify-content-center">Hasbulla Magomedovich</h2>
-        <img class="d-block mx-auto" style="max-width: 100px;min-width: 100px; clip-path: circle(50px);"
-            src="assets/images/users/user1.jpg">
-        <div class="row justify-content-center">Nivel: 21</div>
+        <h1 class="row justify-content-center">{{usuario.nick}}</h1>
+        <img *ngIf="usuario.picture != null; else noFile" class="d-block mx-auto img-responsive" style="max-width: 100px;min-width: 100px;min-height: 100px; max-height: 100px; clip-path: circle(50px);"
+            [src]="'data: usuario.picture.extensionArchivo; base64,'+usuario.picture.data | safe">
+            <ng-template #noFile>
+                    <img src="assets\images\profilepic.jpg" class="d-block mx-auto img-responsive"
+                        style="max-height: 100px; max-width: 100px; clip-path: circle(50px);" />
+            </ng-template>
+        <div class="row justify-content-center">Nivel: {{usuario.level}}</div>
         <hr class="row w-70">
         
-        <h3 class="row justify-content-center">Objetivos activos</h3>
+        <h3 class="row justify-content-center">{{ObjetivosTitulo}}</h3>
+        
         <div class="row w-70 card bg-secondary" *ngFor="let obj of objetivos;let i=index">
             <div class="card-body">
                 <div class="row">
@@ -22,16 +27,21 @@
                             <i-feather name="map-pin" class="me-2 feather-sm"></i-feather>Duracion: {{objetivos[i].duracion}}
                             dias.
                         </h6>
-                        <p class="card-text pt-2">
+                        <div class="card-text pt-2">
                             {{objetivos[i].descripcion | titlecase}}
-                        </p>
-        
+                        </div>
+                        <div class="p-3">
+                            <h5 class="card-title mb-0">Progreso</h5>
+                        </div>
+                        <div class="card-body border-top">
+                            <div><ngb-progressbar type="danger" [value]="getProgressBarValue(objetivos[i])"></ngb-progressbar></div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
         <div class="row mx-auto" style="max-width:50%;">
-            <a href="/usuario/objetivos" class="btn btn-primary">Ver objetivos...</a>
+            <a href="/usuario/objetivos" class="btn btn-outline-info">{{TextoBoton}}</a>
         </div>
     </div>
 </div>
