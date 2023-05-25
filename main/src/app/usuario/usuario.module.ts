@@ -22,6 +22,7 @@ import { EventosComponent } from './ver-comunidad-unica/components/eventos/event
 import { MultimediaComponent } from './ver-comunidad-unica/components/multimedia/multimedia.component';
 import { TooltipModule } from 'primeng/tooltip';
 import { CustomerSupportComponent } from './customer-support/customer-support.component';
+import { QRCodeModule } from 'angularx-qrcode';
 
 @NgModule({
   declarations: [
@@ -50,7 +51,8 @@ import { CustomerSupportComponent } from './customer-support/customer-support.co
     PipesModule,
     FormsModule,
     NgbModule,
-    FeatherModule
+    FeatherModule,
+    QRCodeModule
   ],
   providers: [DatePipe],
 })

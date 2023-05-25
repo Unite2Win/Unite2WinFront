@@ -14,6 +14,7 @@ import { ComunidadesUsuariosService } from '../services/comunidades-usuarios.ser
 import { globales } from 'common/globales';
 import { ComunidadUsuario } from '../interfaces/comunidadUsuarioModel';
 import { VentanaConfirmacionService } from '../../administracion/ventana-confirmacion/ventana-confirmacion.service';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-ver-comunidad-unica',
@@ -25,6 +26,8 @@ export class VerComunidadUnicaComponent implements OnInit {
   miFormCompartir: FormGroup = this.fb.group({
     url: ''
   });
+
+  url = environment.baseUrl
 
   idComunidadActual: number = 0;
   comunidadActual: Comunidad = {

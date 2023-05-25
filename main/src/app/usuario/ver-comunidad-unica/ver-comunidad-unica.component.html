@@ -92,6 +92,9 @@
                 <button class="input-group-text btn btn-secondary" id="basic-addon1" type="button" (click)="copiarUrl()"
                     pTooltip="Haz click para copiar"><i-feather class="mdi mdi-clipboard"></i-feather></button>
             </div>
+            <div class="d-flex justify-content-center">
+                <qrcode [qrdata]="url + '/usuario/comunidad/' + idComunidadActual" [width]="256" [errorCorrectionLevel]="'M'" [elementType]="'canvas'" [imageSrc]="'./assets/images/logo-light-icon.png'"></qrcode>
+            </div>
         </form>
 
     </div>
