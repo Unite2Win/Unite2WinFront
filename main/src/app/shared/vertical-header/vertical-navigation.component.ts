@@ -9,6 +9,8 @@ import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
 import { TranslateService } from '@ngx-translate/core';
 import { LoginService } from '../../authentication/login/login.service';
 import { globales } from 'common/globales';
+import { ObjetivosService } from 'app/usuario/services/objetivos.service';
+import { Router } from '@angular/router';
 declare var $: any;
 
 @Component({
@@ -108,10 +110,22 @@ export class VerticalNavigationComponent implements AfterViewInit {
     icon: 'es'
   }]
 
+  objetivos
 
-
-  constructor(private modalService: NgbModal, private translate: TranslateService, private loginService: LoginService) {
+  constructor(private modalService: NgbModal, private translate: TranslateService, private loginService: LoginService, private objetivosService: ObjetivosService, private router: Router) {
     translate.setDefaultLang('en');
+    this.objetivosService.GetObjetivosUsuario(globales.usuarioLogueado.id_usu).toPromise().then(x => {
+      if (x.length >= 3) {
+        this.objetivos = x.slice(0, 3);
+      } else {
+        this.objetivos = x;
+      }
+      console.log(this.objetivos)
+    })
+  }
+
+  irObjetivos() {
+    this.router.navigate(['/usuario/objetivos']);
   }
 
   changeLanguage(lang: any) {

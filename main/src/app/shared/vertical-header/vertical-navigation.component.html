@@ -65,11 +65,12 @@
       aria-haspopup="true"
       aria-expanded="false"
     >
-      <i class="mdi mdi-message"></i>
+      <i class="mdi mdi-calendar-blank"></i>
       <div class="notify">
         <span class="heartbit"></span> <span class="point"></span>
       </div>
     </a>
+    <!-- notificaciones -->
     <div
       class="dropdown-menu mailbox dropdown-menu-end dropdown-menu-animate-up"
       ngbDropdownMenu
@@ -79,9 +80,9 @@
       </span>
       <ul class="list-style-none">
         <li>
-          <div class="drop-title bg-primary text-white">
-            <h4 class="mb-0 mt-1 text-white">4 New</h4>
-            <span class="fw-light">Notifications</span>
+          <div class="drop-title text-white" style="background-color: palevioletred;">
+            <h4 class="mb-0 mt-1 text-white">3 Objetivos</h4>
+            <span class="fw-light">Últimos añadidos</span>
           </div>
         </li>
         <li>
@@ -90,27 +91,33 @@
             <a
               href="javascript:void(0)"
               class="message-item border-bottom d-block text-decoration-none"
-              *ngFor="let notification of notifications"
+              *ngFor="let objetivo of objetivos"
             >
-              <span
+              <!-- <span
                 class="btn btn-circle rounded-circle {{ notification.btn }}"
-              >
-                <i class="{{ notification.icon }}"></i>
+              > -->
+                <!-- <i class="{{ notification.icon }}"></i> -->
+              <!-- </span> -->
+              <span style="display: inline-block; text-align: center; line-height: 0;">
+                <img src="assets\images\icon\circle.png"  class ="img-fluid" alt="icon" style="padding-bottom: 10%; max-width: 30px;" >
               </span>
               <span class="mail-contnet d-inline-block w-75 ps-3 align-middle">
-                <h5 class="message-title">{{ notification.title }}</h5>
-                <span class="mail-desc fs-2 d-block text-muted text-truncate">{{
-                  notification.subject
+                <h5 class="message-title">{{ objetivo.nombre }}</h5>
+                <span class="mail-desc fs-2 d-block text-muted text-truncate" *ngIf="objetivo.descripcion != null">{{
+                  objetivo.descripcion
                 }}</span>
-                <span class="time fs-2 d-block text-muted text-truncate">{{
-                  notification.time
-                }}</span>
+                <span class="mail-desc fs-2 d-block text-muted text-truncate" *ngIf="objetivo.descripcion == null">
+                  No hay descripción
+                </span>
+                <span class="time fs-2 d-block text-muted text-truncate">Duración: {{
+                  objetivo.duracion
+                }} dias</span>
               </span>
             </a>
           </div>
         </li>
         <li class="border-top p-3 d-grid">
-          <button class="btn btn-info">Check all notifications</button>
+          <button class="btn btn-info" (click)="irObjetivos()">Ver objetivos</button>
         </li>
       </ul>
     </div>
@@ -131,7 +138,7 @@
       aria-haspopup="true"
       aria-expanded="false"
     >
-      <i class="mdi mdi-email"></i>
+      <i class="mdi mdi-book-multiple"></i>
       <div class="notify">
         <span class="heartbit"></span> <span class="point"></span>
       </div>
@@ -146,9 +153,9 @@
       </span>
       <ul class="list-style-none">
         <li>
-          <div class="drop-title text-white bg-danger">
-            <h4 class="mb-0 mt-1 text-white">5 New</h4>
-            <span class="fw-light">Messages</span>
+          <div class="drop-title text-white" style="background-color: palevioletred;">
+            <h4 class="mb-0 mt-1 text-white">5 Eventos</h4>
+            <span class="fw-light">Últimos añadidos</span>
           </div>
         </li>
         <li>
@@ -194,7 +201,7 @@
             "
             href="javascript:void(0);"
           >
-            <b>See all e-Mails</b>
+            <b>Ver mis eventos</b>
             <i class="fa fa-angle-right ms-1"></i>
           </a>
         </li>
