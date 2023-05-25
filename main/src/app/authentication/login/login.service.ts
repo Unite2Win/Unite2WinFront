@@ -10,6 +10,7 @@ import { UsuariosService } from '../../usuario/services/usuarios.service';
 import { globales } from 'common/globales';
 import { Usuario } from 'app/usuario/interfaces/usuarioModel';
 import { LoginModel } from 'app/usuario/interfaces/loginModel';
+import { Documento } from 'app/usuario/interfaces/documentoModel';
 
 @Injectable({
   providedIn: 'root'
@@ -39,7 +40,17 @@ export class LoginService {
           var usuarioModel = this.usuariosService.getUsuarioById(Number(response.user_ID)).toPromise()
           usuarioModel.then(resp => {
             globales.usuarioLogueado = resp;
-            console.log(globales.usuarioLogueado);
+            // console.log(globales.usuarioLogueado);
+            // if (resp.picture == null || resp.picture == undefined) {
+            //   var a : Documento = {
+            //     id_doc: 38,
+            //     data: environment.profilePic,
+            //     descripcion: 'profilepic.jpg',
+            //     extensionArchivo: 'image/jpeg'
+            //   }
+            //   globales.usuarioLogueado.picture = a
+            // }
+            // console.log(globales.usuarioLogueado);
             this.currentUser = resp;
           })
           //

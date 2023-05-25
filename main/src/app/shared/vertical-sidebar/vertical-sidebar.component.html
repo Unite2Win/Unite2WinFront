@@ -3,8 +3,15 @@
         <!-- User Profile-->
         <li class="sidebar-item user-profile" [class.active]="showMenu === 'user'">
             <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)"
-                (click)="addExpandClass('user')" aria-expanded="false"><span><div *ngIf="usuarioLogueado.picture!=null"><img [src]="'data: usuarioLogueado.picture.extensionArchivo; base64,'+usuarioLogueado.picture.data | safe"
-                    alt="user" /></div></span><span class="hide-menu">{{usuarioLogueado.name}} {{usuarioLogueado.surname}}</span></a>
+                (click)="addExpandClass('user')" aria-expanded="false"><span>
+                    <div *ngIf="usuarioLogueado.picture!=null else defaultIMG"><img
+                            [src]="'data: usuarioLogueado.picture.extensionArchivo; base64,'+usuarioLogueado.picture.data | safe"
+                            alt="user" /></div>
+                            <ng-template #defaultIMG>
+                                <img src="assets\images\profilepic.jpg" class="img-responsive rounded"
+                                    style="max-height: 60px; max-width: 60px; clip-path: circle(25px);" />
+                            </ng-template>
+                </span><span class="hide-menu">{{usuarioLogueado.name}} {{usuarioLogueado.surname}}</span></a>
             <ul aria-expanded="false" class="collapse" [class.in]="showMenu === 'user'">
                 <li><a routerLink="/usuario/perfil" class="sidebar-link p-0">Mi perfil</a></li>
                 <li><a routerLink="/usuario/configuracion" class="sidebar-link p-0">Configuración</a></li>
@@ -17,8 +24,8 @@
             (click)="sidebarnavItem.submenu.length != 0 ? '' : handleNotify()"
             [routerLinkActive]="sidebarnavItem.submenu.length != 0 ? '' : 'active'">
             <div class="nav-small-cap" *ngIf="sidebarnavItem.extralink === true"><i
-                    [ngClass]="[sidebarnavItem.icon]"></i><span
-                    class="hide-menu">{{sidebarnavItem.title | translate}}</span></div>
+                    [ngClass]="[sidebarnavItem.icon]"></i><span class="hide-menu">{{sidebarnavItem.title |
+                    translate}}</span></div>
             <a class="sidebar-link waves-effect waves-dark"
                 [routerLink]="sidebarnavItem.class === '' ? [sidebarnavItem.path] : null"
                 [ngClass]="[sidebarnavItem.class]" *ngIf="!sidebarnavItem.extralink;"
@@ -35,7 +42,7 @@
             <ul aria-expanded="false" class="collapse first-level" *ngIf="sidebarnavItem.submenu.length > 0"
                 [ngClass]="{'in' : showMenu === sidebarnavItem.title }">
                 <li class="sidebar-item" *ngFor="let sidebarnavSubItem of sidebarnavItem.submenu"
-                (click)="sidebarnavSubItem.submenu.length != 0 ? '' : handleNotify()"
+                    (click)="sidebarnavSubItem.submenu.length != 0 ? '' : handleNotify()"
                     [class.active]="showSubMenu === sidebarnavSubItem.title"
                     [routerLinkActive]="sidebarnavSubItem.submenu.length > 0 ? '' : 'active'">
                     <a class="sidebar-link"
@@ -50,7 +57,8 @@
                     <ul aria-expanded="false" class="collapse Second-level" *ngIf="sidebarnavSubItem.submenu.length > 0"
                         [ngClass]="{'in' : showSubMenu === sidebarnavSubItem.title }">
                         <li class="sidebar-item" *ngFor="let sidebarnavSubsubItem of sidebarnavSubItem.submenu"
-                            [routerLinkActive]="sidebarnavSubsubItem.submenu.length > 0 ? '' : 'active'" [ngClass]="[sidebarnavSubsubItem.class]">
+                            [routerLinkActive]="sidebarnavSubsubItem.submenu.length > 0 ? '' : 'active'"
+                            [ngClass]="[sidebarnavSubsubItem.class]">
                             <a class="sidebar-link" [routerLink]="[sidebarnavSubsubItem.path]"
                                 *ngIf="!sidebarnavSubsubItem.extralink;"
                                 [routerLinkActive]="sidebarnavSubsubItem.submenu.length > 0 ? '' : 'router-link-active'">
