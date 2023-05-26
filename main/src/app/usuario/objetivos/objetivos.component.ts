@@ -54,6 +54,7 @@ export class ObjetivosComponent implements OnInit {
   async ngOnChanges(changes: SimpleChanges): Promise<void> {
     if (changes.objetivo) {
       this.progressValue = await this.getProgressBarValue(this.objetivo);
+      if(this.progressValue == 100){ this.objetivo.complete_date == new Date()}
     }
   }
 
@@ -102,7 +103,9 @@ export class ObjetivosComponent implements OnInit {
   }
 
   async modificar(index: number, objetivo: Objetivo) {
-    console.log(objetivo);
+    if (objetivo.duracion === 100) {
+      objetivo.complete_date = new Date();
+    }
     await this.objetivosService.UpdateObjetivos(index, objetivo).toPromise().then(x => console.log(x));
     this.objetivos = [];
     await this.objetivosService.GetObjetivosUsuario(globales.usuarioLogueado.id_usu).toPromise().then(x => this.objetivos = x);
@@ -132,7 +135,19 @@ export class ObjetivosComponent implements OnInit {
     //console.log(diferenciaEnDias);
     let progreso = (diferenciaEnDias / objetivo.duracion) * 100;
     progreso = Math.min(progreso, 100); // Para que no supere el 100%
+    if (progreso === 100) { //Aqui se comprueba si esta ya al 100% el objetivo para modificarlo en la bd
+      objetivo.complete_date = new Date();
+    }
     return progreso;
+    
+  }
+
+  setStatusToComplete(objetivo: Objetivo){
+    this.nuevoObjetivo = objetivo;
+    this.nuevoObjetivo.complete_date = new Date();    
+    this.nuevoObjetivo.duracion = 0;
+    this.modificar(this.nuevoObjetivo.id_obj, this.nuevoObjetivo);
+
   }
 
   /*   modificar(indice: number) {

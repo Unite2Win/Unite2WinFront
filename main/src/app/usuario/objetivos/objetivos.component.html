@@ -9,7 +9,7 @@
       <div class="card bg-secondary" *ngFor="let obj of objetivos;let i=index">
         <div class="card-body">
           <div class="row">
-            <div class="col-11">
+            <div class="col-10">
               <h5 class="card-title">{{objetivos[i].nombre | uppercase}}</h5>
               <h6 class="card-subtitle mb-2 text-muted d-flex align-items-center">
                 <i-feather name="map-pin" class="me-2 feather-sm"></i-feather>Duracion: {{objetivos[i].duracion}} dias.
@@ -17,8 +17,6 @@
               <p class="card-text pt-2">
                 {{objetivos[i].descripcion | titlecase}}
               </p>
-
-
               <div class="p-3">
                   <h4 class="card-title mb-0">Progreso</h4>
               </div>
@@ -26,13 +24,15 @@
                   <p><ngb-progressbar type="danger" [value]="getProgressBarValue(objetivos[i])"></ngb-progressbar></p>
               </div>
 
-
             </div>
-            <div class="col-1">
-              <img src="assets\images\icon\circle.png"  class ="img-fluid" alt="icon" style="padding-bottom: 10%;">
+            <div class="col-2">
+              <img *ngIf="objetivos[i].complete_date !== null || objetivos[i].completado == true" src="assets\images\icon\checked.gif" class="img-fluid" alt="icon" style="padding-bottom: 10%;">
+              <img *ngIf="objetivos[i].complete_date == null" src="assets\images\icon\Red.gif"  class ="img-fluid" alt="icon" style="padding-bottom: 10%;">
             </div>
           </div>
           <div class="modal-footer">
+            <button type="button" class="btn btn-light-info btn-md "
+              (click)="setStatusToComplete(objetivos[i])">Marcar como completado</button>
             <button type="button" class="btn btn-light-warning btn-md "
               (click)="modalOpenRegister(modalRegister, true, objetivos[i])">Modificar</button>
             <!-- <button type="button" class="btn btn-light-danger btn-md m" (click)="eliminar(objetivos[i].id_obj)">Eliminar</button> -->

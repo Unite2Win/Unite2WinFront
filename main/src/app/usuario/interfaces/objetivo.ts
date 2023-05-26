@@ -7,4 +7,5 @@ export interface Objetivo {
     last_modified?: Date;
     delete_date?: Date;
     id_usu?: number;
+    complete_date?: Date;
 }
