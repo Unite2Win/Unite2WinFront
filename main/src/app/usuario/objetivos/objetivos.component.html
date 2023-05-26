@@ -31,7 +31,7 @@
             </div>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-light-info btn-md "
+            <button *ngIf="objetivos[i].complete_date == null" type="button" class="btn btn-light-info btn-md "
               (click)="setStatusToComplete(objetivos[i])">Marcar como completado</button>
             <button type="button" class="btn btn-light-warning btn-md "
               (click)="modalOpenRegister(modalRegister, true, objetivos[i])">Modificar</button>
