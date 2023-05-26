@@ -34,7 +34,8 @@
                 </a>
 
                 <ng-template #yaUnido>
-                    <a *ngIf="!salirmeDeComunidad; else salirme" class="btn btn-secondary" disabled="true" (mouseover)="sobreUnirme()">
+                    <a *ngIf="!salirmeDeComunidad; else salirme" class="btn btn-secondary" disabled="true"
+                        (mouseover)="sobreUnirme()">
                         <i-feather class="mdi mdi-checkbox-marked-circle-outline"></i-feather>
                         Ya eres miembro
                     </a>
@@ -69,7 +70,7 @@
         </div>
         <!-- <app-feed style="margin-top: -20px;"></app-feed> ESTO ES POR SI QUEREMOS QUE ESTE PEGADO AL NAVBAR -->
         <app-feed [comunidadActual]="comunidadActual" [isMiembro]="yaSoyMiembro" *ngIf="mostrarFeed"></app-feed>
-        <app-personas *ngIf="mostrarPersonas"></app-personas>
+        <app-personas [usuariosTotales]="usuariosTotales" [comunidadActual]="comunidadActual" *ngIf="mostrarPersonas"></app-personas>
         <app-eventos *ngIf="mostrarEventos"></app-eventos>
         <app-multimedia *ngIf="mostrarMultimedia"></app-multimedia>
     </div>
@@ -93,7 +94,9 @@
                     pTooltip="Haz click para copiar"><i-feather class="mdi mdi-clipboard"></i-feather></button>
             </div>
             <div class="d-flex justify-content-center">
-                <qrcode [qrdata]="url + '/usuario/comunidad/' + idComunidadActual" [width]="256" [errorCorrectionLevel]="'M'" [elementType]="'canvas'" [imageSrc]="'./assets/images/logo-light-icon.png'"></qrcode>
+                <qrcode [qrdata]="url + '/usuario/comunidad/' + idComunidadActual" [width]="256"
+                    [errorCorrectionLevel]="'M'" [elementType]="'canvas'"
+                    [imageSrc]="'./assets/images/logo-light-icon.png'" id="qrURL"></qrcode>
             </div>
         </form>
 

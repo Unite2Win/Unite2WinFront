@@ -8,16 +8,18 @@
             <div class="card-body">
                 <div class="mt-4 text-center">
                     <div *ngIf="globales.picture!=null else defaultIMG">
-                        <img [src]="'data: globales.picture.extensionArchivo; base64,'+globales.picture.data | safe" class="rounded-circle" width="150" />
-                        
+                        <img [src]="'data: globales.picture.extensionArchivo; base64,'+globales.picture.data | safe"
+                            style="max-height: 260px; max-width: 260px; clip-path: circle(120px);" />
+
                     </div>
                     <ng-template #defaultIMG>
                         <img src="assets\images\profilepic.jpg" class="img-responsive rounded"
-                            style="max-height: 60px; max-width: 60px; clip-path: circle(25px);" />
-                      </ng-template>
-                    <h4 class="card-title mt-2">{{this.myForm.value.nick}}</h4>
+                            style="max-height: 260px; max-width: 260px; clip-path: circle(120px);" />
+                    </ng-template>
+                    <h4 class="card-title mt-2">@{{this.myForm.value.nick}}</h4>
+                    <h4 class="card-title">{{this.myForm.value.name}} {{this.myForm.value.surname}}</h4>
                     <h6 class="card-subtitle">{{this.myForm.value.email}}</h6>
-                    <div class="row text-center justify-content-md-center">
+                    <div class="row text-center justify-content-md-center mt-5">
                         <div class="col-4">
                             <a routerLink="/usuario/objetivos" class="link">
                                 <i class="far fa-calendar"></i>
@@ -25,7 +27,7 @@
                             </a>
                         </div>
                         <div class="col-4">
-                            <a routerLink="/usuario/comunidades" class="link">
+                            <a routerLink="/usuario/miscomunidades" class="link">
                                 <i class="icon-people me-2"></i>
                                 <p style="font-size: 14px;">Comunidades</p>
 
@@ -125,7 +127,8 @@
                         <div class="mb-3">
                             <label class="form-label" for="customFile">Foto de Perfil</label>
                             <div class="col-md-12">
-                                <input type="file" class="form-control" id="customFile" formControlName="picture" (change)="onFileChanged($event)"/>
+                                <input type="file" class="form-control" id="customFile" formControlName="picture"
+                                    (change)="onFileChanged($event)" />
                             </div>
                         </div>
                         <!-- <div class="mb-3">

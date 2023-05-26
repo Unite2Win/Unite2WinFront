@@ -23,6 +23,7 @@ import { MultimediaComponent } from './ver-comunidad-unica/components/multimedia
 import { TooltipModule } from 'primeng/tooltip';
 import { CustomerSupportComponent } from './customer-support/customer-support.component';
 import { QRCodeModule } from 'angularx-qrcode';
+import { TarjetaUsuarioComponent } from './ver-comunidad-unica/components/personas/tarjeta-usuario/tarjeta-usuario.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +38,8 @@ import { QRCodeModule } from 'angularx-qrcode';
     PersonasComponent,
     EventosComponent,
     MultimediaComponent,
-    CustomerSupportComponent
+    CustomerSupportComponent,
+    TarjetaUsuarioComponent,
   ],
   imports: [
     FormsModule, 

@@ -17,8 +17,10 @@
                                         [pTooltip]="usuarioActual.name + ' ' + usuarioActual.surname"
                                         tooltipPosition="top" />
                                     <ng-template #defaultIMG>
-                                        <img src="assets\images\404\user404.png" class="img-responsive rounded"
-                                            style="max-height: 60px; max-width: 60px; clip-path: circle(25px);" />
+                                        <img src="assets\images\profilepic.jpg" class="img-responsive rounded"
+                                            style="max-height: 60px; max-width: 60px; clip-path: circle(25px);"
+                                            [pTooltip]="usuarioActual.name + ' ' + usuarioActual.surname"
+                                            tooltipPosition="top" />
                                     </ng-template>
                                 </div>
                                 <div class="col-10" style="margin-top: 5px;">
@@ -65,8 +67,10 @@
                                             [pTooltip]="usuarioActual.name + ' ' + usuarioActual.surname"
                                             tooltipPosition="top" />
                                         <ng-template #defaultIMG>
-                                            <img src="assets\images\404\user404.png" class="img-responsive rounded"
-                                                style="max-height: 60px; max-width: 60px; clip-path: circle(25px);" />
+                                            <img src="assets\images\profilepic.jpg" class="img-responsive rounded"
+                                                style="max-height: 60px; max-width: 60px; clip-path: circle(25px);"
+                                                [pTooltip]="usuarioActual.name + ' ' + usuarioActual.surname"
+                                                tooltipPosition="top" />
                                         </ng-template>
                                     </div>
                                     <div class="col-10" style="margin-top: 10px;">
@@ -116,7 +120,7 @@
             </div>
         </div>
 
-        <div class="card col-4" style="max-width: 350px;">
+        <div class="card col-4" style="max-width: 350px; max-height: 400px;">
             <div class="card-body">
                 <h3 class="card-title">Información</h3>
                 <hr>

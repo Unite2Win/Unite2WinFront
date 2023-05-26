@@ -200,7 +200,7 @@ export class AdminComunidadesComponent implements OnInit {
         comunidadAEditar.bannerid_doc = this.docBannerEditado.id_doc;
       } else {
         if (this.comunidadSeleccionado.banner != null) {
-          comunidadAEditar.pictureid_doc = this.comunidadSeleccionado.banner.id_doc;
+          comunidadAEditar.bannerid_doc = this.comunidadSeleccionado.banner.id_doc;
         }
       }
 
