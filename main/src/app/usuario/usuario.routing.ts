@@ -7,6 +7,7 @@ import { PerfilComponent } from './perfil/perfil.component';
 import { PlanesComponent } from './planes/planes.component';
 import { VerComunidadUnicaComponent } from './ver-comunidad-unica/ver-comunidad-unica.component';
 import { CustomerSupportComponent } from './customer-support/customer-support.component';
+import { ExplorarComponent } from './explorar/explorar.component';
 
 export const UsuarioRoutes: Routes = [
   {
@@ -42,6 +43,14 @@ export const UsuarioRoutes: Routes = [
         data: {
           title: 'Mis Eventos',
           urls: [{ title: 'Mis Eventos', url: '/usuario' }, { title: 'Mis Eventos' }]
+        }
+      },
+      {
+        path: 'explorar',
+        component: ExplorarComponent,
+        data: {
+          title: 'Explorar',
+          urls: [{ title: 'Explorar', url: '/usuario' }, { title: 'Explorar' }]
         }
       },
       {

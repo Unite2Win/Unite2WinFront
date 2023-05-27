@@ -1,23 +1,23 @@
 import { Component, OnInit } from '@angular/core';
+import { Comunidad } from '../interfaces/comunidadModel';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { LoginService } from 'app/authentication/login/login.service';
-import { ComunidadesService } from 'app/usuario/services/comunidades.service';
-import { ManejoDocsService } from 'app/usuario/services/manejo-docs.service';
-import { Comunidad } from 'app/usuario/interfaces/comunidadModel';
-import { Documento } from 'app/usuario/interfaces/documentoModel';
-import { DecodedBase64 } from 'app/usuario/interfaces/decodedBase64Model';
+import { Documento } from '../interfaces/documentoModel';
 import { VentanaConfirmacionService } from 'app/administracion/ventana-confirmacion/ventana-confirmacion.service';
+import { LoginService } from 'app/authentication/login/login.service';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ManejoDocsService } from '../services/manejo-docs.service';
+import { ComunidadesService } from '../services/comunidades.service';
 import { AdminComunidadesService } from 'app/administracion/admin-comunidades/admin-comunidades.service';
+import { DecodedBase64 } from '../interfaces/decodedBase64Model';
 import { ComunidadesUsuariosService } from '../services/comunidades-usuarios.service';
 import { globales } from 'common/globales';
 
 @Component({
-  selector: 'app-comunidades',
-  templateUrl: './comunidades.component.html',
-  styleUrls: ['./comunidades.component.scss']
+  selector: 'app-explorar',
+  templateUrl: './explorar.component.html',
+  styleUrls: ['./explorar.component.scss']
 })
-export class ComunidadesComponent implements OnInit {
+export class ExplorarComponent implements OnInit {
 
   selectedOption = 1;
 
@@ -90,9 +90,8 @@ export class ComunidadesComponent implements OnInit {
       this.loadingFlag = true;
       this.noDataFlag = false;
 
-      let a = this.comunidadesUsuariosService.GetComunidadesUsuariosCount(this.globales.id_usu).toPromise()
+      let a = this.comunidadesService.GetComunidadesCount().toPromise()
       await a.then(count => {
-        console.log(count)
         this.size = count
         if (this.size === 0) {
           this.noDataFlag = true;
@@ -103,22 +102,28 @@ export class ComunidadesComponent implements OnInit {
 
       if (this.noDataFlag == false) {
         var idsComunidades
-        console.log('YEE')
-        await this.comunidadesUsuariosService.GetComunidadesUsuariosPaginado(0, this.pageSize, this.globales.id_usu).toPromise().then(resp => {
+        await this.comunidadesUsuariosService.GetComunidadesUsuariosPaginadoExplorar(0, this.pageSize, this.globales.id_usu).toPromise().then(resp => {
           console.log(resp)
           idsComunidades = resp
         });
         console.log(idsComunidades);
+        const arraySinDuplicados = idsComunidades.reduce((accumulator, current) => {
+          const duplicate = accumulator.find(obj => obj.id_com === current.id_com);
+          if (!duplicate) {
+            return accumulator.concat(current);
+          }
+          return accumulator;
+        }, []);
 
-        idsComunidades.forEach(comunidad => {
-          this.comunidadesService.GetComunidadById(comunidad.id_com).toPromise().then(resp => {
+        arraySinDuplicados.forEach(async comunidad => {
+          await this.comunidadesService.GetComunidadById(comunidad.id_com).toPromise().then(resp => {
+            console.log(resp)
             this.todosComunidades.push(resp)
           })
-          
+
           console.log(comunidad);
         })
         console.log(this.todosComunidades);
-
         this.loadingFlag = false;
       }
       this.comunidadesFiltrados = this.todosComunidades;
@@ -207,5 +212,4 @@ export class ComunidadesComponent implements OnInit {
       }
     })
   }
-
 }

@@ -42,6 +42,16 @@ export const ROUTES: RouteInfo[] = [
     submenu: [],
   },
   {
+    path: "/usuario/explorar",
+    title: "Explorar",
+    icon: "compass",
+    class: "",
+    label: "",
+    labelClass: "side-badge badge bg-success",
+    extralink: false,
+    submenu: [],
+  },
+  {
     path: "/usuario/miscomunidades",
     title: "Mis Comunidades",
     icon: "users",
