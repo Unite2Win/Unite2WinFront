@@ -25,6 +25,12 @@ export class ComunidadesService {
       .pipe(retry(1), catchError(this.errorHandl));
   }
 
+  GetComunidadesByIdArray(arrayId: number[]): Observable<Comunidad[]> {
+    return this.http
+      .post<Comunidad[]>(`${this.baseurl}/Comunidades/comunidades/getbyid/array`, arrayId)
+      .pipe(retry(1), catchError(this.errorHandl));
+  }
+
   //COUNT
   GetComunidadesCount(): Observable<number> {
     return this.http

@@ -25,6 +25,8 @@ import { CustomerSupportComponent } from './customer-support/customer-support.co
 import { QRCodeModule } from 'angularx-qrcode';
 import { TarjetaUsuarioComponent } from './ver-comunidad-unica/components/personas/tarjeta-usuario/tarjeta-usuario.component';
 import { ExplorarComponent } from './explorar/explorar.component';
+import { TarjetaEventoComponent } from './ver-comunidad-unica/components/eventos/tarjeta-evento/tarjeta-evento.component';
+import { SpeedDialModule } from 'primeng/speeddial';
 
 @NgModule({
   declarations: [
@@ -42,12 +44,14 @@ import { ExplorarComponent } from './explorar/explorar.component';
     CustomerSupportComponent,
     TarjetaUsuarioComponent,
     ExplorarComponent,
+    TarjetaEventoComponent,
   ],
   imports: [
     FormsModule, 
     ReactiveFormsModule,
     TabMenuModule,
     TooltipModule,
+    SpeedDialModule,
     NgxChartsModule,
     NgApexchartsModule,
     CommonModule,

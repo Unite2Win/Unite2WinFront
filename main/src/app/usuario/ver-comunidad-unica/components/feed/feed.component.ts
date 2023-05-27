@@ -23,11 +23,15 @@ export class FeedComponent implements OnInit {
 
   aniversario: string;
 
+  loadingFlag: boolean = true;
+
   constructor(private dp: DatePipe, private fb: FormBuilder) { }
 
   ngOnInit(): void {
     this.aniversario = this.dp.transform(this.comunidadActual.create_date, 'dd-MM-yyyy', 'es-ES');
     this.aniversario = this.aniversario.replace(new RegExp('-', 'g'),'/');
+
+    this.loadingFlag = false;
   }
 
   holi() {

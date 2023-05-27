@@ -41,10 +41,13 @@ export class PersonasComponent implements OnInit {
     this.usuariosFiltrados = this.filtrarIdiomas(this.descripcionBusqueda);
   }
 
+  loadingFlag: boolean = true;
+
   constructor(private usuariosService: UsuariosService, private comunidadesUsuariosService: ComunidadesUsuariosService) { }
 
   async ngOnInit(): Promise<void> {
-    this.inicializarUsuarios();
+    await this.inicializarUsuarios();
+    this.loadingFlag = false;
   }
 
   async inicializarUsuarios() {
@@ -83,8 +86,6 @@ export class PersonasComponent implements OnInit {
   }
 
   filtrarIdiomas(v: string) {
-    console.log('Campo ' + this._descripcionBusqueda.length);
-    console.log('Filtrado ' + this.usuariosFiltrados.length);
     return this.todosUsuarios.filter(x => x.name.toLowerCase().indexOf(v.toLowerCase()) !== -1 || x.surname.toLowerCase().indexOf(v.toLowerCase()) !== -1);
   }
 

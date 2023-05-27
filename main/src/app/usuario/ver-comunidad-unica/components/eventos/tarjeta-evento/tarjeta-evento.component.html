@@ -1,0 +1,48 @@
+<div class="card row mt-4">
+    <div class="card-body col-12">
+        <div class="row">
+
+            <div class="col-12">
+                <div class="row">
+                    <div class="col-12 d-flex flex-row justify-content-between">
+                        <h3 class="card-title">{{eventoActual.titulo}} | {{eventoActual.fechaInicio | date}} -
+                            {{eventoActual.fechaFin | date}}
+                        </h3>
+                        <div *ngIf="tooltipItems.length > 0" class="me-5" style="margin-top: -20px;">
+                            <p-speedDial [model]="tooltipItems" showIcon="pi pi-bars" hideIcon="pi pi-times" direction="down" [radius]="80" buttonClassName="p-button-secondary p-button-text"></p-speedDial>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <hr class="mt-2 mb-4">
+
+            <div *ngIf="eventoActual.imagen !=null;" class="col-12 d-flex flex-row justify-content-center">
+                <img [src]="'data: eventoActual.imagen.extensionArchivo; base64,'+eventoActual.imagen.data | safe"
+                    class="img-responsive" style="max-height: 350px;" />
+                <!-- <ng-template #defaultIMG>
+                    <img src="assets\images\profilepic.jpg" class="img-responsive" style="max-height: 150px;" />
+                </ng-template> -->
+            </div>
+
+            <hr *ngIf="eventoActual.imagen !=null;" class="mt-4">
+
+            <div class="col-12">
+                <h5 class="card-text fw-bold"> Descripcion del evento: </h5>
+                <p class="card-text"> {{eventoActual.descripcion}} </p>
+                <h5 class="card-text fw-bold"> Fecha y Hora de Inicio: </h5>
+                <p class="card-text"> {{parsearFecha(eventoActual.fechaInicio)}} -
+                    {{parsearHora(eventoActual.fechaInicio)}} </p>
+                <h5 class="card-text fw-bold"> Fecha y Hora de Finalización: </h5>
+                <p class="card-text"> {{parsearFecha(eventoActual.fechaFin)}} - {{parsearHora(eventoActual.fechaFin)}}
+                </p>
+                <h5 class="card-text fw-bold"> Ubicación del evento: </h5>
+                <p class="card-text"> {{eventoActual.ubicacion}} </p>
+                <!-- <h5 class="card-text fw-bold"> Numero de asistentes actualmente: </h5>
+                <p class="card-text"> {{eventoActual.asistentes}} </p> -->
+            </div>
+
+        </div>
+    </div>
+</div>

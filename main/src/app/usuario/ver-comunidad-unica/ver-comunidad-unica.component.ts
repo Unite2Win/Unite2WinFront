@@ -54,6 +54,8 @@ export class VerComunidadUnicaComponent implements OnInit {
 
   usuariosTotales: number = 0;
 
+  loadingFlag: boolean = true;
+
   constructor(private ventanaConfirmacionService: VentanaConfirmacionService, private toastrService: ToastrService, private fb: FormBuilder, private modalService: NgbModal, private router: Router, private activatedRoute: ActivatedRoute, private loginService: LoginService, private comunidadesService: ComunidadesService, private comunidadesUsuariosService: ComunidadesUsuariosService) { }
 
   async ngOnInit(): Promise<void> {
@@ -72,8 +74,8 @@ export class VerComunidadUnicaComponent implements OnInit {
       { label: 'Eventos', icon: 'mdi mdi-coffee' },
       { label: 'Multimedia', icon: 'mdi mdi-image' },
     ];
-    this.activeItem = this.items[0];
-    this.mostrarFeed = true;
+    this.activeItem = this.items[2];
+    this.mostrarEventos = true;
 
     this.comunidadesUsuariosService.GetComunidadesUsuariosCountByComunidad(this.idComunidadActual).toPromise().then(resp => {
       this.usuariosTotales = resp;
@@ -82,6 +84,8 @@ export class VerComunidadUnicaComponent implements OnInit {
     this.comunidadesUsuariosService.GetComunidadesUsuariosIsMember(globales.usuarioLogueado.id_usu, this.idComunidadActual).toPromise().then(resp => {
       this.yaSoyMiembro = resp;
     })
+
+    this.loadingFlag = false;
   }
 
   compartirComunidad(targetModal: string, size: string) {
