@@ -1,16 +1,14 @@
-<div class="m-3">
+<div *ngIf="!loadingFlag; else loading" class="m-3">
     <div class="row d-flex flex-row justify-content-center">
         <div class="col-7">
             <div class="row">
                 <div class="card col-12">
                     <div class="card-body">
-
                         <div class="d-flex flex-row justify-content-start">
                             <h4 class="card-title" style="margin-top: 4px;">MIEMBROS |</h4>
                             <i-feather class="mdi mdi-account fs-5 ms-1"></i-feather>
                             <h4 class="card-title" style="margin-top: 4px;">{{usuariosTotales}}</h4>
                         </div>
-
                         <div class="input-group mb-4 mt-3">
                             <span class="input-group-text" id="basic-addon1">Buscar</span>
                             <input type="text" class="form-control" placeholder="Introduce el nombre de un miembro"
@@ -18,16 +16,10 @@
                             <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
                             </div>
                         </div>
-
-
                         <div
                             *ngIf="usuariosFiltrados.length <= 0 || descripcionBusqueda.length <= 0; else busquedaUsuarios">
-
-                            
                             <div *ngIf="descripcionBusqueda.length <= 0">
-
                                 <hr *ngIf="usuariosTipo1.length > 0">
-
                                 <div *ngIf="usuariosTipo1.length > 0" class="row">
                                     <div class="col-12">
                                         <h5 class="mt-2 text-decoration-underline">Usuarios Comunes:</h5>
@@ -37,9 +29,7 @@
                                         </div>
                                     </div>
                                 </div>
-
                                 <hr *ngIf="usuariosTipo2.length > 0">
-
                                 <div *ngIf="usuariosTipo2.length > 0" class="row">
                                     <div class="col-12">
                                         <h5 class="mt-2 text-decoration-underline">Usuarios Moderadores:</h5>
@@ -49,9 +39,7 @@
                                         </div>
                                     </div>
                                 </div>
-
                                 <hr *ngIf="usuariosTipo3.length > 0">
-
                                 <div *ngIf="usuariosTipo3.length > 0" class="row">
                                     <div class="col-12">
                                         <h5 class="mt-2 text-decoration-underline">Usuarios Administradores:</h5>
@@ -62,16 +50,13 @@
                                     </div>
                                 </div>
                             </div>
-
                             <div *ngIf="descripcionBusqueda.length > 0" class="row">
                                 <hr>
                                 <div class="col-12">
                                     <h5 class="mt-2">No hay resultados con el criterio introducido.</h5>
                                 </div>
                             </div>
-
                         </div>
-
                         <ng-template #busquedaUsuarios>
                             <hr>
                             <div class="row">
@@ -85,14 +70,17 @@
                                 </div>
                             </div>
                         </ng-template>
-
-
-
-
-
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
+<ng-template #loading>
+    <div class="d-flex justify-content-center mt-5">
+        <div class="spinner-border text-danger" role="status">
+            <span class="sr-only">Cargando...</span>
+        </div>
+    </div>
+</ng-template>

@@ -77,7 +77,7 @@ export class AdminComunidadesComponent implements OnInit {
   docBannerEditado: Documento = null;
   ///////////////////////////////////////////////////
 
-  constructor(private documentosService: DocumentosService, private ventanaConfirmacionService: VentanaConfirmacionService, private loginService: LoginService, private modalService: NgbModal, private fb: FormBuilder, private manejoDocsService: ManejoDocsService, private comunidadesService: ComunidadesService, private adminComunidadesService: AdminComunidadesService, private toastrService: ToastrService) { }
+  constructor(private documentosService: DocumentosService, private ventanaConfirmacionService: VentanaConfirmacionService, private loginService: LoginService, private modalService: NgbModal, private fb: FormBuilder, private comunidadesService: ComunidadesService, private toastrService: ToastrService) { }
 
   async ngOnInit(): Promise<void> {
 
@@ -167,8 +167,6 @@ export class AdminComunidadesComponent implements OnInit {
 
     } else {
 
-      var idDocPicture: number = 0;
-      var idDocBanner: number = 0;
 
       var comunidadAEditar: Comunidad = {
         id_com: this.comunidadSeleccionado.id_com,

@@ -21,9 +21,9 @@ export class ComunidadesUsuariosService {
       .pipe(retry(1), catchError(this.errorHandl));
   }
 
-  GetComunidadesUsuariosByUsuario(usuarioId: number): Observable<ComunidadUsuario> {
+  GetComunidadesUsuariosByUsuario(usuarioId: number): Observable<ComunidadUsuario[]> {
     return this.http
-      .get<ComunidadUsuario>(`${this.baseurl}/ComunidadesUsuarios/comunidadUsuario/usuario/${usuarioId}`)
+      .get<ComunidadUsuario[]>(`${this.baseurl}/ComunidadesUsuarios/comunidadUsuario/usuario/${usuarioId}`)
       .pipe(retry(1), catchError(this.errorHandl));
   }
 

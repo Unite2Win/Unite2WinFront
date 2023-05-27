@@ -7,9 +7,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MultimediaComponent implements OnInit {
 
+  loadingFlag: boolean = true;
+
   constructor() { }
 
   ngOnInit(): void {
+
+    this.loadingFlag = false;
   }
 
 }

@@ -106,7 +106,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     JwtModule.forRoot({
       config: {
         tokenGetter: tokenGetter,
-        allowedDomains: ["http://api-reservas.lksnext.com/api"],
+        allowedDomains: [],
         disallowedRoutes: []
       }
     }),

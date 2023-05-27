@@ -1,4 +1,4 @@
-<div class="m-3">
+<div *ngIf="!loadingFlag; else loading" class="m-3">
 
     <div class="card">
         <div *ngIf="comunidadActual.banner != null; else noBanner">
@@ -70,8 +70,9 @@
         </div>
         <!-- <app-feed style="margin-top: -20px;"></app-feed> ESTO ES POR SI QUEREMOS QUE ESTE PEGADO AL NAVBAR -->
         <app-feed [comunidadActual]="comunidadActual" [isMiembro]="yaSoyMiembro" *ngIf="mostrarFeed"></app-feed>
-        <app-personas [usuariosTotales]="usuariosTotales" [comunidadActual]="comunidadActual" *ngIf="mostrarPersonas"></app-personas>
-        <app-eventos *ngIf="mostrarEventos"></app-eventos>
+        <app-personas [usuariosTotales]="usuariosTotales" [comunidadActual]="comunidadActual"
+            *ngIf="mostrarPersonas"></app-personas>
+        <app-eventos [comunidadActual]="comunidadActual" *ngIf="mostrarEventos"></app-eventos>
         <app-multimedia *ngIf="mostrarMultimedia"></app-multimedia>
     </div>
 
@@ -104,5 +105,13 @@
 
     <div class="modal-footer">
         <button type="button" class="btn btn-secondary" (click)="closeBtnClick()">Cerrar</button>
+    </div>
+</ng-template>
+
+<ng-template #loading>
+    <div class="d-flex justify-content-center mt-5">
+        <div class="spinner-border text-danger" role="status">
+            <span class="sr-only">Cargando...</span>
+        </div>
     </div>
 </ng-template>
