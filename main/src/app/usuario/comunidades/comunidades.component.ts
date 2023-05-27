@@ -9,6 +9,7 @@ import { VentanaConfirmacionService } from 'app/administracion/ventana-confirmac
 import { AdminComunidadesService } from 'app/administracion/admin-comunidades/admin-comunidades.service';
 import { ComunidadesUsuariosService } from '../services/comunidades-usuarios.service';
 import { globales } from 'common/globales';
+import { Documento } from '../interfaces/documentoModel';
 
 @Component({
   selector: 'app-comunidades',
@@ -49,7 +50,33 @@ export class ComunidadesComponent implements OnInit {
     this.comunidadesFiltrados = this.filtrarIdiomas(val);
   }
 
-  constructor(private comunidadesUsuariosService: ComunidadesUsuariosService, private loginService: LoginService, private comunidadesService: ComunidadesService) { }
+  //ESTO ES PARA LOS MODALES DE EDICION, CREADO Y BORRADO
+  miFormComunidades: FormGroup = this.fb.group({
+    nombre: ['', Validators.required],
+    descripcion: ['', Validators.required],
+    clave: ['', [Validators.required, Validators.minLength(8), Validators.maxLength(50)]],
+    banner: [''],
+    picture: ['']
+  });
+
+  comunidadesOBJ: Comunidad[] = [];
+  comunidadesDescripcion: String[] = [];
+
+  selectedComBorrar: String;
+  selectedComEditar: String;
+
+  mensajeModalDelete: string = ""
+  tituloModalDelete: string = ""
+
+  docPicture: Documento = null;
+  docBanner: Documento = null;
+  ///////////////////////////////////////////////////
+
+  get globales() {
+    return globales.usuarioLogueado;
+  }
+
+  constructor(private ventanaConfirmacionService: VentanaConfirmacionService, private loginService: LoginService, private modalService: NgbModal, private fb: FormBuilder, private manejoDocsService: ManejoDocsService, private comunidadesService: ComunidadesService, private comunidadesUsuariosService: ComunidadesUsuariosService, private adminComunidadesService: AdminComunidadesService) { }
 
   async ngOnInit(): Promise<void> {
 
@@ -62,8 +89,9 @@ export class ComunidadesComponent implements OnInit {
       this.loadingFlag = true;
       this.noDataFlag = false;
 
-      let a = this.comunidadesService.GetComunidadesCount().toPromise()
+      let a = this.comunidadesUsuariosService.GetComunidadesUsuariosCount(this.globales.id_usu).toPromise()
       await a.then(count => {
+        console.log(count)
         this.size = count
         if (this.size === 0) {
           this.noDataFlag = true;
@@ -73,17 +101,33 @@ export class ComunidadesComponent implements OnInit {
       })
 
       if (this.noDataFlag == false) {
-        let comunidadesIDs: number[] = []
-        await this.comunidadesUsuariosService.GetComunidadesUsuariosByUsuario(globales.usuarioLogueado.id_usu).toPromise().then(resp => {
-          resp.forEach(cm => {
-            comunidadesIDs.push(cm.id_com);
-          });
-        })
-        await this.comunidadesService.GetComunidadesByIdArray(comunidadesIDs).toPromise().then(resp => {
-          resp.forEach(comunidad => {
-            this.todosComunidades.push(comunidad)
-          })
+        var idsComunidades
+        console.log('YEE')
+        await this.comunidadesUsuariosService.GetComunidadesUsuariosPaginado(0, this.pageSize, this.globales.id_usu).toPromise().then(resp => {
+          console.log(resp)
+          idsComunidades = resp
+        // let comunidadesIDs: number[] = []
+        // await this.comunidadesUsuariosService.GetComunidadesUsuariosByUsuario(globales.usuarioLogueado.id_usu).toPromise().then(resp => {
+        //   resp.forEach(cm => {
+        //     comunidadesIDs.push(cm.id_com);
+        //   });
+        // })
+        // await this.comunidadesService.GetComunidadesByIdArray(comunidadesIDs).toPromise().then(resp => {
+        //   resp.forEach(comunidad => {
+        //     this.todosComunidades.push(comunidad)
+        //   })
         });
+        console.log(idsComunidades);
+
+        idsComunidades.forEach(comunidad => {
+          this.comunidadesService.GetComunidadById(comunidad.id_com).toPromise().then(resp => {
+            this.todosComunidades.push(resp)
+          })
+          
+          console.log(comunidad);
+        })
+        console.log(this.todosComunidades);
+
         this.loadingFlag = false;
       }
       this.comunidadesFiltrados = this.todosComunidades;

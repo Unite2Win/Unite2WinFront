@@ -63,6 +63,24 @@ export class ComunidadesUsuariosService {
       .pipe(retry(1), catchError(this.errorHandl));
   }
 
+  //
+  GetComunidadesUsuariosCount(usuarioId: number): Observable<number> {
+    return this.http
+      .get<number>(`${this.baseurl}/comunidadUsuario/count/${usuarioId}`)
+      .pipe(retry(1), catchError(this.errorHandl));
+  }
+
+  GetComunidadesUsuariosPaginado(pagina: number, pageSize: number, usuarioId: number): Observable<ComunidadUsuario[]> {
+    return this.http
+      .get<ComunidadUsuario[]>(`${this.baseurl}/comunidadUsuario/paginado/${pagina}/${pageSize}/${usuarioId}`)
+      .pipe(retry(1), catchError(this.errorHandl));
+  }
+
+  GetComunidadesUsuariosPaginadoExplorar(pagina: number, pageSize: number, usuarioId: number): Observable<ComunidadUsuario[]> {
+    return this.http
+      .get<ComunidadUsuario[]>(`${this.baseurl}/comunidadUsuarioExplorar/paginado/${pagina}/${pageSize}/${usuarioId}`)
+      .pipe(retry(1), catchError(this.errorHandl));
+  }
 
   // ERROR HANDLER
   errorHandl(error) {
