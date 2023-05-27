@@ -1,47 +1,78 @@
 <div class="row">
     <div class="col-5">
-        <h1 class="row justify-content-center">Proximos eventos</h1>
+        <h1 style="background-image:url(assets/images/tapizRosa.jpg);padding: 2%;text-align: center;">Últimos mensajes
+        </h1>
 
-        
+
     </div>
     <div class="col-2"></div>
     <div class="col-5">
-        <h1 class="row justify-content-center">{{usuario.nick}}</h1>
-        <img *ngIf="usuario.picture != null; else noFile" class="d-block mx-auto img-responsive" style="max-width: 100px;min-width: 100px;min-height: 100px; max-height: 100px; clip-path: circle(50px);"
-            [src]="'data: usuario.picture.extensionArchivo; base64,'+usuario.picture.data | safe">
-            <ng-template #noFile>
-                    <img src="assets\images\profilepic.jpg" class="d-block mx-auto img-responsive"
-                        style="max-height: 100px; max-width: 100px; clip-path: circle(50px);" />
-            </ng-template>
-        <div class="row justify-content-center">Nivel: {{usuario.level}}</div>
-        <hr class="row w-70">
-        
-        <h3 class="row justify-content-center">{{ObjetivosTitulo}}</h3>
-        
-        <div class="row w-70 card bg-secondary" *ngFor="let obj of objetivos;let i=index">
-            <div class="card-body">
-                <div class="row">
-                    <div class="col-10">
-                        <h5 class="card-title">{{objetivos[i].nombre | uppercase}}</h5>
-                        <h6 class="card-subtitle mb-2 text-muted d-flex align-items-center">
-                            <i-feather name="map-pin" class="me-2 feather-sm"></i-feather>Duracion: {{objetivos[i].duracion}}
-                            dias.
-                        </h6>
-                        <div class="card-text pt-2">
-                            {{objetivos[i].descripcion | titlecase}}
+        <div style="display: flex; flex-direction: column;">
+            <h1 style="background-image:url(assets/images/tapizRosa.jpg);padding: 2%;text-align: center;">Mis objetivos
+            </h1>
+            <hr>
+
+            <div style="display: flex; flex-direction: row; flex-wrap: nowrap; justify-content:space-between">
+                <div style=" display: flex; flex-direction: column;">
+                    <img *ngIf="usuario.picture != null; else noFile" class="d-block mx-auto img-responsive"
+                        style="max-width: 100px;min-width: 100px;min-height: 100px; max-height: 100px; clip-path: circle(50px);"
+                        [src]="'data: usuario.picture.extensionArchivo; base64,'+usuario.picture.data | safe">
+                    <ng-template #noFile>
+                        <img src="assets\images\profilepic.jpg" class="d-block mx-auto img-responsive"
+                            style="max-height: 100px; max-width: 100px; clip-path: circle(50px);" />
+                    </ng-template>
+                    <div class="row justify-content-center"> Nivel: {{usuario.level}}</div>
+                </div>
+
+                <div style=" display: flex; flex-direction: column; margin-top: 2.4%; margin-left: -5%; ">
+                    <pre style="font-size: 24px; margin-bottom: -1%;font-size: 20px;">@{{usuario.nick}}</pre>
+                    <pre style="font-size: 24px; margin-bottom: -1%;font-size: 20px;">Nombre: {{usuario.name}}</pre>
+                    <pre style="font-size: 24px; margin-bottom: -1%;font-size: 20px;">Apellido: {{usuario.surname}}</pre>
+                </div>
+
+                
+
+                <div style=" display: flex; flex-direction: column;">
+                    <button routerLink="/usuario/perfil" type="button" class="btn btn-primary" style="height: 100px; background-color:palevioletred; border-color:transparent">></button>
+                </div>
+            </div>
+
+
+
+            <hr class="row w-70">
+
+            <div class="row w-70 card bg-secondary" style="margin-top:1%" *ngFor="let obj of objetivos;let i=index">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-10">
+                            <h5 class="card-title">{{objetivos[i].nombre | uppercase}}</h5>
+                            <h6 class="card-subtitle mb-2 text-muted d-flex align-items-center">
+                                <i-feather name="map-pin" class="me-2 feather-sm"></i-feather>Duracion:
+                                {{objetivos[i].duracion}}
+                                dias.
+                            </h6>
+                            <div class="card-text pt-2">
+                                {{objetivos[i].descripcion | titlecase}}
+                            </div>
+                            <div class="p-3">
+                                <h5 class="card-title mb-0">Progreso</h5>
+                            </div>
+                            <div class="card-body border-top">
+                                <div><ngb-progressbar type="danger"
+                                        [value]="getProgressBarValue(objetivos[i])"></ngb-progressbar></div>
+                            </div>
                         </div>
-                        <div class="p-3">
-                            <h5 class="card-title mb-0">Progreso</h5>
-                        </div>
-                        <div class="card-body border-top">
-                            <div><ngb-progressbar type="danger" [value]="getProgressBarValue(objetivos[i])"></ngb-progressbar></div>
-                        </div>
+                        <div class="col-2">
+                            <img *ngIf="objetivos[i].complete_date !== null || objetivos[i].completado == true" src="assets\images\icon\checked.gif" class="img-fluid" alt="icon" style="padding-bottom: 10%;">
+                            <img *ngIf="objetivos[i].complete_date == null" src="assets\images\icon\Red.gif"  class ="img-fluid" alt="icon" style="padding-bottom: 10%;">
+                          </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="row mx-auto" style="max-width:50%;">
-            <a (click)="irObjetivos()" class="btn btn-outline-info">{{TextoBoton}}</a>
+            <div class="row mx-auto" style="width: 100%;">
+                <a (click)="irObjetivos()" class="btn btn-outline-info">{{TextoBoton}}</a>
+            </div>
         </div>
     </div>
+
 </div>
