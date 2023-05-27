@@ -24,6 +24,7 @@ import { TooltipModule } from 'primeng/tooltip';
 import { CustomerSupportComponent } from './customer-support/customer-support.component';
 import { QRCodeModule } from 'angularx-qrcode';
 import { TarjetaUsuarioComponent } from './ver-comunidad-unica/components/personas/tarjeta-usuario/tarjeta-usuario.component';
+import { ExplorarComponent } from './explorar/explorar.component';
 import { TarjetaEventoComponent } from './ver-comunidad-unica/components/eventos/tarjeta-evento/tarjeta-evento.component';
 import { SpeedDialModule } from 'primeng/speeddial';
 
@@ -42,6 +43,7 @@ import { SpeedDialModule } from 'primeng/speeddial';
     MultimediaComponent,
     CustomerSupportComponent,
     TarjetaUsuarioComponent,
+    ExplorarComponent,
     TarjetaEventoComponent,
   ],
   imports: [
