@@ -1,9 +1,37 @@
 <div class="row">
     <div class="col-5">
-        <h1 style="background-image:url(assets/images/tapizRosa.jpg);padding: 2%;text-align: center;">Últimos mensajes
+        <h1 style="background-image:url(assets/images/tapizRosa.jpg);padding: 2%;text-align: center;">Comunidades
         </h1>
-
-
+        <hr style="margin-top: 4.5%;">
+        <div>
+            <p style="font-size: 18px; text-align: justify;">
+                Las comunidades de Unite2Win son espacios donde puedes unirte a grupos de personas con intereses y
+                objetivos
+                similares. Conéctate con otros usuarios, comparte conocimientos y descubre nuevas oportunidades de
+                crecimiento
+                personal y profesional.
+            </p>
+            <p style="font-size: 18px; text-align: justify;">
+                Únete a comunidades relacionadas con tu área de interés, como desarrollo personal, emprendimiento,
+                tecnología,
+                arte y mucho más. Participa en debates, colabora en proyectos y accede a recursos exclusivos que te
+                ayudarán
+                a
+                alcanzar tus metas.
+            </p>
+            <p style="font-size: 18px; text-align: justify;">
+                Amplía tu red de contactos, encuentra mentores y aprende de personas con experiencias similares a la
+                tuya.
+                Las
+                comunidades de Unite2Win te brindan la oportunidad de conectarte con una comunidad activa y motivada,
+                ¡juntos
+                podemos lograr más!
+            </p>
+        </div>
+        <hr>
+        <div class="row mx-auto" style="width: 100%;">
+            <a routerLink="/usuario/miscomunidades" class="btn btn-outline-info">Explorar comunidades</a>
+        </div>
     </div>
     <div class="col-2"></div>
     <div class="col-5">
@@ -27,13 +55,15 @@
                 <div style=" display: flex; flex-direction: column; margin-top: 2.4%; margin-left: -5%; ">
                     <pre style="font-size: 24px; margin-bottom: -1%;font-size: 20px;">@{{usuario.nick}}</pre>
                     <pre style="font-size: 24px; margin-bottom: -1%;font-size: 20px;">Nombre: {{usuario.name}}</pre>
-                    <pre style="font-size: 24px; margin-bottom: -1%;font-size: 20px;">Apellido: {{usuario.surname}}</pre>
+                    <pre
+                        style="font-size: 24px; margin-bottom: -1%;font-size: 20px;">Apellido: {{usuario.surname}}</pre>
                 </div>
 
-                
+
 
                 <div style=" display: flex; flex-direction: column;">
-                    <button routerLink="/usuario/perfil" type="button" class="btn btn-primary" style="height: 100px; background-color:palevioletred; border-color:transparent">></button>
+                    <button routerLink="/usuario/perfil" type="button" class="btn btn-primary"
+                        style="height: 100px; background-color:palevioletred; border-color:transparent">></button>
                 </div>
             </div>
 
@@ -63,12 +93,16 @@
                             </div>
                         </div>
                         <div class="col-2">
-                            <img *ngIf="objetivos[i].complete_date !== null || objetivos[i].completado == true" src="assets\images\icon\checked.gif" class="img-fluid" alt="icon" style="padding-bottom: 10%;">
-                            <img *ngIf="objetivos[i].complete_date == null" src="assets\images\icon\Red.gif"  class ="img-fluid" alt="icon" style="padding-bottom: 10%;">
-                          </div>
+                            <img *ngIf="objetivos[i].complete_date !== null || objetivos[i].completado == true"
+                                src="assets\images\icon\checked.gif" class="img-fluid" alt="icon"
+                                style="padding-bottom: 10%;">
+                            <img *ngIf="objetivos[i].complete_date == null" src="assets\images\icon\Red.gif"
+                                class="img-fluid" alt="icon" style="padding-bottom: 10%;">
+                        </div>
                     </div>
                 </div>
             </div>
+            <hr style="margin-top: 1%;">
             <div class="row mx-auto" style="width: 100%;">
                 <a (click)="irObjetivos()" class="btn btn-outline-info">{{TextoBoton}}</a>
             </div>

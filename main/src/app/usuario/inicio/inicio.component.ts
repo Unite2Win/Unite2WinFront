@@ -27,8 +27,8 @@ export class InicioComponent implements OnInit {
     if (this.objetivos.length == 0) {
       this.ObjetivosTitulo = 'Aun no hay objetivos';
       this.TextoBoton = 'Crear objetivos';
-    } else if (this.objetivos.length > 3) {
-      this.objetivos = this.objetivos.slice(0, 3);
+    } else if (this.objetivos.length > 2) {
+      this.objetivos = this.objetivos.slice(0, 2);
     };
   }
 
