@@ -5,7 +5,7 @@
       center center;
   "
 >
-  <div class="auth-box m-3 m-md-0">
+  <div class="auth-box m-3 m-md-0" >
     <!-- <form [formGroup]="miFormLogin" (ngSubmit)="iniciarSesion()"> -->
     <div id="loginform" [ngClass]="{ 'd-none': recoverform }">
       <div class="text-center">
@@ -76,7 +76,7 @@
               <div class="col-xs-12">
                 <!-- <a class="btn d-block w-100 btn-lg btn-info" href="/authentication/login" type="submit">Log
                                         In</a> -->
-                <button class="btn d-block w-100 btn-lg btn-info" type="submit">
+                <button class="btn d-block w-100 btn-lg btn-danger" style="background-color: #d63384;" type="submit">
                   Iniciar sesión
                 </button>
               </div>
@@ -108,7 +108,7 @@
             <div class="form-group mb-0 mt-2">
               <div class="col-sm-12 text-center">
                 ¿No te has unido a la comunidad?
-                <a href="authentication/signup" class="text-info ms-1"
+                <a href="authentication/signup" class="text-danger ms-1"
                   ><b>Regístrate</b></a
                 >
               </div>

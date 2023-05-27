@@ -6,10 +6,10 @@
                 (click)="addExpandClass('user')" aria-expanded="false"><span>
                     <div *ngIf="usuarioLogueado.picture!=null else defaultIMG" ><img
                             [src]="'data: usuarioLogueado.picture.extensionArchivo; base64,'+usuarioLogueado.picture.data | safe"
-                            alt="user" style="max-height: 100px; max-width: 100px; clip-path: circle(15px);" /></div>
+                            alt="user" style="max-height: 40px; min-width: 40px;min-height: 40px; max-width: 40px; clip-path: circle(15px);" /></div>
                     <ng-template #defaultIMG>
                         <img src="assets\images\profilepic.jpg" class="img-responsive rounded"
-                            style="max-height: 100px; max-width: 100px;" />
+                            style="max-height: 40px; min-width: 40px;min-height: 40px; max-width: 40px; clip-path: circle(15px);;" />
                     </ng-template>
                 </span><span class="hide-menu">{{usuarioLogueado.name}} {{usuarioLogueado.surname}}</span></a>
             <ul aria-expanded="false" class="collapse" [class.in]="showMenu === 'user'">

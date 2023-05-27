@@ -1,9 +1,9 @@
-<div class="row animate__animated animate__fadeInUp">
+<div class="row">
     <div class="col-5">
         <h1 style="background-image:url(assets/images/tapizRosa.jpg);padding: 2%;text-align: center;">Comunidades
         </h1>
         <hr style="margin-top: 4.5%;">
-        <div>
+        <div class="animate__animated animate__fadeInLeft">
             <p style="font-size: 18px; text-align: justify;">
                 Las comunidades de Unite2Win son espacios donde puedes unirte a grupos de personas con intereses y
                 objetivos
@@ -27,10 +27,11 @@
                 ¡juntos
                 podemos lograr más!
             </p>
-        </div>
+        
         <hr>
         <div class="row mx-auto " style="width: 100%;">
             <a routerLink="/usuario/miscomunidades" class="btn btn-outline-info">Explorar comunidades</a>
+        </div>
         </div>
     </div>
     <div class="col-2"></div>
@@ -39,7 +40,7 @@
             <h1 style="background-image:url(assets/images/tapizRosa.jpg);padding: 2%;text-align: center;">Mis objetivos
             </h1>
             <hr>
-
+            <div class="animate__animated animate__fadeInRight">
             <div style="display: flex; flex-direction: row; flex-wrap: nowrap; justify-content:space-between">
                 <div style=" display: flex; flex-direction: column;">
                     <img *ngIf="usuario.picture != null; else noFile" class="d-block mx-auto img-responsive"
@@ -105,6 +106,7 @@
             <hr style="margin-top: 1%;">
             <div class="row mx-auto" style="width: 100%;">
                 <a (click)="irObjetivos()" class="btn btn-outline-info">{{TextoBoton}}</a>
+            </div>
             </div>
         </div>
     </div>
