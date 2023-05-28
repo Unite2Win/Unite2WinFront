@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { Objetivo } from '../interfaces/objetivo';
 import { ObjetivosService } from '../services/objetivos.service';
 import { globales } from 'common/globales';
@@ -73,52 +73,47 @@ export class InicioComponent implements OnInit {
       this.loadingFlag = true;
       this.noDataFlag = false;
 
-      let a = this.comunidadesUsuariosService.GetComunidadesUsuariosCount(this.usuario.id_usu).toPromise()
+      let a = this.comunidadesUsuariosService.GetComunidadesUsuariosCount(this.usuario.id_usu).toPromise();
+
       await a.then(count => {
-        this.size = count
+        this.size = count;
+
         if (this.size === 0) {
           this.noDataFlag = true;
         } else {
           this.noDataFlag = false;
         }
-      })
-      if (this.noDataFlag == false) {
-        var idsComunidades
+      });
+
+      if (!this.noDataFlag) {
+        var idsComunidades;
+
         await this.comunidadesUsuariosService.GetComunidadesUsuariosPaginado(0, this.pageSize, this.usuario.id_usu).toPromise().then(resp => {
-          idsComunidades = resp
-          // let comunidadesIDs: number[] = []
-          // await this.comunidadesUsuariosService.GetComunidadesUsuariosByUsuario(globales.usuarioLogueado.id_usu).toPromise().then(resp => {
-          //   resp.forEach(cm => {
-          //     comunidadesIDs.push(cm.id_com);
-          //   });
-          // })
-          // await this.comunidadesService.GetComunidadesByIdArray(comunidadesIDs).toPromise().then(resp => {
-          //   resp.forEach(comunidad => {
-          //     this.todosComunidades.push(comunidad)
-          //   })
+          idsComunidades = resp;
         });
 
-        idsComunidades.forEach(comunidad => {
-          this.comunidadesService.GetComunidadById(comunidad.id_com).toPromise().then(resp => {
-            this.todosComunidades.push(resp)
-          })
+        for await (let comunidad of idsComunidades) {
+          await this.comunidadesService.GetComunidadById(comunidad.id_com).toPromise().then(resp => {
+            this.todosComunidades.push(resp);
+          });
+        }
 
-        })
-
+        console.log(this.todosComunidades);
         this.loadingFlag = false;
+
+        this.comunidadesFiltrados = this.todosComunidades;
+
+        if (this.comunidadesFiltrados.length > 1) {
+          this.comunidadesFiltrados = this.comunidadesFiltrados.slice(0, 1);
+        }
       }
-      this.comunidadesFiltrados = this.todosComunidades;
-      
-      if (this.comunidadesFiltrados.length > 5){
-        this.comunidadesFiltrados.slice(0, 5);
-      };
     }
   }
 
   irAComunidad(comunidad: Comunidad) {
     return `usuario/comunidad/${comunidad.id_com}`
   }
-  
+
 
   irObjetivos() {
     this.router.navigate(['/usuario/objetivos']);
@@ -134,7 +129,7 @@ export class InicioComponent implements OnInit {
       objetivo.complete_date = new Date();
     }
     return progreso;
-    
+
   }
 
 }
