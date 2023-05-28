@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { PrimeNGConfig } from 'primeng/api';
 
@@ -10,7 +11,7 @@ import { PrimeNGConfig } from 'primeng/api';
 export class AppComponent {
   title = 'app';
 
-  constructor(private config: PrimeNGConfig, private translate: TranslateService) { }
+  constructor(private config: PrimeNGConfig, private translate: TranslateService, public router: Router) { this.router.navigate(["/usuario/inicio"]); }
 
   ngOnInit() {
     this.translate.setDefaultLang('es');
