@@ -103,10 +103,22 @@ export class ExplorarComponent implements OnInit {
 
       if (this.noDataFlag == false) {
         var idsComunidades
-        await this.comunidadesUsuariosService.GetComunidadesUsuariosPaginadoExplorar(0, this.pageSize, this.globales.id_usu).toPromise().then(resp => {
+        // await this.comunidadesUsuariosService.GetComunidadesUsuariosPaginadoExplorar(0, this.pageSize, this.globales.id_usu).toPromise().then(resp => {
+        //   console.log(resp)
+        //   idsComunidades = resp
+        // });
+        // console.log(idsComunidades);
+        // const arraySinDuplicados = idsComunidades.reduce((accumulator, current) => {
+        //   const duplicate = accumulator.find(obj => obj.id_com === current.id_com);
+        //   if (!duplicate) {
+        //     return accumulator.concat(current);
+        //   }
+        //   return accumulator;
+        // }, []);
+        await this.comunidadesService.GetComunidadesBBDD().toPromise().then(resp => {
           console.log(resp)
           idsComunidades = resp
-        });
+        })
         console.log(idsComunidades);
         const arraySinDuplicados = idsComunidades.reduce((accumulator, current) => {
           const duplicate = accumulator.find(obj => obj.id_com === current.id_com);
@@ -133,10 +145,10 @@ export class ExplorarComponent implements OnInit {
             idsComunidades3.push(x.id_com);
           });
         }));
-      
+
         console.log(this.todosComunidades2);
         console.log(idsComunidades3);
-      
+
         const arraySinDuplicadosFiltrado = arraySinDuplicados.filter(objeto => !idsComunidades3.includes(objeto.id_com));
         console.log(arraySinDuplicadosFiltrado);
 
