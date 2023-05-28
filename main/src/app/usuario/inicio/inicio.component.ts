@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Objetivo } from '../interfaces/objetivo';
 import { ObjetivosService } from '../services/objetivos.service';
 import { globales } from 'common/globales';
@@ -103,8 +103,8 @@ export class InicioComponent implements OnInit {
 
         this.comunidadesFiltrados = this.todosComunidades;
 
-        if (this.comunidadesFiltrados.length > 1) {
-          this.comunidadesFiltrados = this.comunidadesFiltrados.slice(0, 1);
+        if (this.comunidadesFiltrados.length > 5) {
+          this.comunidadesFiltrados = this.comunidadesFiltrados.slice(0, 5);
         }
       }
     }
