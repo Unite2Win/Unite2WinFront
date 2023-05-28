@@ -136,9 +136,7 @@ export class PerfilComponent implements OnInit {
   }
 
   async postDocumento(documento: Documento) {
-    console.log(this.recursoDocumento)
     this.recursoDocumento = await this.documentosService.postDocumento(documento).toPromise()
-    console.log(this.recursoDocumento)
   }
 
   async submit() {
@@ -148,9 +146,6 @@ export class PerfilComponent implements OnInit {
     }
     if (this.recursoDocumento.id_doc != -1) {
       await this.postDocumento(this.recursoDocumento)
-      console.log(globales.usuarioLogueado)
-      console.log(this.myForm.value)
-      console.log(this.recursoDocumento)
       var usuarioAModificar: Usuario = {
         id_usu: globales.usuarioLogueado.id_usu,
         nick: this.myForm.controls['nick'].value,
@@ -162,9 +157,7 @@ export class PerfilComponent implements OnInit {
         level: globales.usuarioLogueado.level,
         active: globales.usuarioLogueado.active
       }
-      console.log(usuarioAModificar)
       await this.usuariosService.putUsuario(globales.usuarioLogueado.id_usu, usuarioAModificar).subscribe(resp => {
-        console.log(resp)
         this.toastrService.success('Tu información ha sido actualizada')
       })
       globales.usuarioLogueado.name = usuarioAModificar.name
@@ -175,9 +168,6 @@ export class PerfilComponent implements OnInit {
       globales.usuarioLogueado.pictureid_doc = usuarioAModificar.pictureid_doc
       globales.usuarioLogueado.picture = this.recursoDocumento
     } else {
-      console.log(globales.usuarioLogueado)
-      console.log(this.myForm.value)
-      console.log(this.recursoDocumento)
       if (globales.usuarioLogueado.picture != null || globales.usuarioLogueado.picture != undefined) {
         var usuarioAModificar: Usuario = {
           id_usu: globales.usuarioLogueado.id_usu,
@@ -202,9 +192,7 @@ export class PerfilComponent implements OnInit {
           active: globales.usuarioLogueado.active
         }
       }
-      console.log(usuarioAModificar)
       await this.usuariosService.putUsuario(globales.usuarioLogueado.id_usu, usuarioAModificar).subscribe(resp => {
-        console.log(resp)
         this.toastrService.success('Tu información ha sido actualizada')
       })
       var foto = globales.usuarioLogueado.picture
@@ -215,7 +203,6 @@ export class PerfilComponent implements OnInit {
   }
 
   reset() {
-    console.log(this.myForm.value)
     this.myForm.setValue(globales.usuarioLogueado)
   }
 
@@ -245,12 +232,10 @@ export class PerfilComponent implements OnInit {
             descripcion: res.descripcion,
             extensionArchivo: res.fileExtension
           }
-          console.log(res)
           globales.usuarioLogueado.picture = this.recursoDocumento
         }
       )
     }
-    console.log(this.recursoDocumento)
   }
 
   file2Base64 = (file: File): Promise<DecodedBase64> => {

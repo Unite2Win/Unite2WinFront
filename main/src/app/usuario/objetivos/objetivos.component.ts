@@ -96,7 +96,7 @@ export class ObjetivosComponent implements OnInit {
   async anadir() {
     this.form1.reset();
     this.modalService.dismissAll();
-    await this.objetivosService.PostObjetivos(this.nuevoObjetivo).toPromise().then(x => console.log(x));
+    await this.objetivosService.PostObjetivos(this.nuevoObjetivo).toPromise().then();
     this.objetivos = [];
     await this.objetivosService.GetObjetivosUsuario(globales.usuarioLogueado.id_usu).toPromise().then(x => this.objetivos = x);
 
@@ -106,14 +106,14 @@ export class ObjetivosComponent implements OnInit {
     if (objetivo.duracion === 100) {
       objetivo.complete_date = new Date();
     }
-    await this.objetivosService.UpdateObjetivos(index, objetivo).toPromise().then(x => console.log(x));
+    await this.objetivosService.UpdateObjetivos(index, objetivo).toPromise().then();
     this.objetivos = [];
     await this.objetivosService.GetObjetivosUsuario(globales.usuarioLogueado.id_usu).toPromise().then(x => this.objetivos = x);
     this.modalService.dismissAll();
   }
 
   async eliminar(index: number) {
-    await this.objetivosService.DeleteObjetivos(index).toPromise().then(x => console.log(x));
+    await this.objetivosService.DeleteObjetivos(index).toPromise().then();
     var objetivos_copia = this.objetivos;
     this.objetivos = [];
     this.objetivos = objetivos_copia.filter(x => x.id_obj != index);
@@ -130,9 +130,7 @@ export class ObjetivosComponent implements OnInit {
   getProgressBarValue(objetivo: Objetivo): number {
     const fechaString = objetivo.create_date;
     const fecha = new Date(fechaString);
-    //console.log(fecha);
     const diferenciaEnDias = Math.floor((new Date().getTime() - fecha.getTime()) / (1000 * 60 * 60 * 24));
-    //console.log(diferenciaEnDias);
     let progreso = (diferenciaEnDias / objetivo.duracion) * 100;
     progreso = Math.min(progreso, 100); // Para que no supere el 100%
     if (progreso === 100) { //Aqui se comprueba si esta ya al 100% el objetivo para modificarlo en la bd
@@ -216,10 +214,7 @@ export class ObjetivosComponent implements OnInit {
   // onSubmit() {
   //   this.myForm.get('id_usu').setValue(Number(globales.usuarioLogueado.id_usu))
   //   this.postObjetivo = this.myForm.value
-  //   console.log(this.postObjetivo)
   //   this.objetivosService.postObjetivo(this.postObjetivo).subscribe(resp=>{
-  //     console.log(resp)
   //     this.toastrService.success('Objetivo creado correctamente', 'Felicidades')
   //   })
   //   this.modalReference.close()
-  //   console.log(this.myForm)

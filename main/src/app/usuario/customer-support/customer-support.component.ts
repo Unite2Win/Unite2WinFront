@@ -65,7 +65,6 @@ response!: ResponseModel | undefined;
         presence_penalty: 0.0,
       };
       this.showSpinner = true;
-      console.log(requestData)
       let apiResponse =  await openai.createCompletion(requestData);
 
       this.response = apiResponse.data as ResponseModel;
