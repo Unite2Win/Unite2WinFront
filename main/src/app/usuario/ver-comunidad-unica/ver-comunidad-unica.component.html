@@ -73,7 +73,8 @@
         <app-personas [usuariosTotales]="usuariosTotales" [comunidadActual]="comunidadActual"
             *ngIf="mostrarPersonas"></app-personas>
         <app-eventos [comunidadActual]="comunidadActual" *ngIf="mostrarEventos"></app-eventos>
-        <app-multimedia *ngIf="mostrarMultimedia"></app-multimedia>
+        <app-multimedia [usuariosTotales]="usuariosTotales" [comunidadActual]="comunidadActual"
+            *ngIf="mostrarMultimedia"></app-multimedia>
     </div>
 
 </div>

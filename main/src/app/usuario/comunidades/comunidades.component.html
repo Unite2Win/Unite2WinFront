@@ -29,13 +29,13 @@
                     ">
                                 <td *ngIf="comunidad.picture != null; else noFile">
                                     <img [src]="'data: comunidad.picture.extensionArchivo; base64,'+comunidad.picture.data | safe"
-                                        class="img-responsive rounded"
+                                        class="img-responsive ms-2"
                                         style="max-height: 120px; max-width: 120px; clip-path: circle(50px);" />
                                 </td>
                                 <ng-template #noFile>
                                     <td>
                                         <img src="assets\images\404\comunidadDefaultSquareNoBKG.png"
-                                            class="img-responsive rounded"
+                                            class="img-responsive"
                                             style="max-height: 120px; max-width: 120px; clip-path: circle(50px);" />
                                     </td>
                                 </ng-template>

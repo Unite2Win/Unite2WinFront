@@ -27,6 +27,8 @@ import { TarjetaUsuarioComponent } from './ver-comunidad-unica/components/person
 import { ExplorarComponent } from './explorar/explorar.component';
 import { TarjetaEventoComponent } from './ver-comunidad-unica/components/eventos/tarjeta-evento/tarjeta-evento.component';
 import { SpeedDialModule } from 'primeng/speeddial';
+import { CalendarModule } from 'primeng/calendar';
+import { TarjetaPostComponent } from './ver-comunidad-unica/components/feed/tarjeta-post/tarjeta-post.component';
 
 @NgModule({
   declarations: [
@@ -45,10 +47,12 @@ import { SpeedDialModule } from 'primeng/speeddial';
     TarjetaUsuarioComponent,
     ExplorarComponent,
     TarjetaEventoComponent,
+    TarjetaPostComponent,
   ],
   imports: [
     FormsModule, 
     ReactiveFormsModule,
+    CalendarModule,
     TabMenuModule,
     TooltipModule,
     SpeedDialModule,

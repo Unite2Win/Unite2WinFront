@@ -1,0 +1,93 @@
+<div class="card col-12">
+    <div class="card-body">
+        <div class="row d-flex flex-row justify-content-center">
+
+            <div class="col-6">
+                <div class="row">
+                    <div class="col-2">
+                        <img *ngIf="usuarioActual.picture !=null; else defaultIMG"
+                            [src]="'data: usuarioActual.picture.extensionArchivo; base64,'+usuarioActual.picture.data | safe"
+                            class="img-responsive rounded"
+                            style="max-height: 60px; max-width: 60px; clip-path: circle(25px);"
+                            [pTooltip]="usuarioActual.name + ' ' + usuarioActual.surname" tooltipPosition="top" />
+                        <ng-template #defaultIMG>
+                            <img src="assets\images\profilepic.jpg" class="img-responsive rounded"
+                                style="max-height: 60px; max-width: 60px; clip-path: circle(25px);"
+                                [pTooltip]="usuarioActual.name + ' ' + usuarioActual.surname" tooltipPosition="top" />
+                        </ng-template>
+                    </div>
+                    <div class="col-8 ms-2" style="margin-top: 10px;">
+                        <div class="d-flex flex-column">
+                            <h5>{{usuarioActual.name}} {{usuarioActual.surname}}</h5>
+                            <h6>{{fechaCreacion}}</h6>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-6">
+                <div class="row">
+                    <div *ngIf="tooltipItems.length > 0" class="col-12 d-flex justify-content-end">
+                        <!-- <a href="javascript: void(0);" class="link btn btn-danger" placement="top"
+                            style="color: white;">
+                            Eliminar post
+                            <i-feather name="trash-2" class="feather-sm pointer" style="color: white;"></i-feather>
+                        </a> -->
+                        <p-speedDial [model]="tooltipItems" showIcon="pi pi-bars" hideIcon="pi pi-times"
+                            direction="down" [radius]="80" buttonClassName="p-button-secondary p-button-text"
+                            class="me-5"></p-speedDial>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <hr>
+
+        <h2 class="card-text fs-6">{{postActual.descripcion}}</h2>
+
+        <hr *ngIf="postActual.imagen != null">
+        <div *ngIf="postActual.imagen != null" class="d-flex flex-row justify-content-center">
+            <img *ngIf="!isMultimedia"
+                [src]="'data: postActual.imagen.extensionArchivo; base64,'+postActual.imagen.data | safe"
+                class="img-responsive" style="max-height: 250px; max-width: 90%;" />
+            <img *ngIf="isMultimedia"
+                [src]="'data: postActual.imagen.extensionArchivo; base64,'+postActual.imagen.data | safe"
+                class="img-responsive" style="max-height: 250px; max-width: 90%; cursor: pointer"
+                (click)="openModal(vistaAumentadaDeImagen)" />
+        </div>
+
+        <hr>
+
+        <div class="row">
+            <div class="col-12">
+                <div class="d-flex flex-row justify-content-center">
+                    <i-feather class="mdi mdi-heart fs-6" style="cursor: pointer;"></i-feather>
+                    <i-feather class="mdi mdi-heart-outline fs-6" style="cursor: pointer;"></i-feather>
+                    <h5 style="margin-top: 5px; cursor: pointer;">0
+                        likes</h5>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<ng-template #vistaAumentadaDeImagen let-modal>
+    <div class="modal-header">
+        <h3 class="modal-title">Vista aumentada</h3>
+        <button type="button" class="btn-close" (click)="closeBtnClick()" aria-label="Close"></button>
+    </div>
+
+    <div class="modal-body row">
+        <div class="col-12" style="text-align: center;">
+
+            <img [src]="'data: postActual.imagen.extensionArchivo; base64,'+postActual.imagen.data | safe"
+                class="img-responsive" style="max-height: 550px; max-width: 90%;" />
+
+        </div>
+    </div>
+
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="closeBtnClick()">Cerrar</button>
+    </div>
+</ng-template>

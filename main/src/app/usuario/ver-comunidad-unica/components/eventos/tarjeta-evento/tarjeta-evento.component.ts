@@ -14,7 +14,9 @@ import { MenuItem } from 'primeng/api';
 export class TarjetaEventoComponent implements OnInit {
 
   @Input() eventoActual: Evento;
+  @Input() modal;
   @Output("parentOnInit") parentOnInit: EventEmitter<any> = new EventEmitter();
+  @Output("parentCrearOEditar") parentCrearOEditar: EventEmitter<any> = new EventEmitter();
 
   tooltipItems: MenuItem[];
 
@@ -58,12 +60,12 @@ export class TarjetaEventoComponent implements OnInit {
 
   }
 
-  parsearFecha(fecha: Date) {
+  parsearFecha(fecha: string) {
     return this.dp.transform(fecha, 'dd-MM-yyyy', 'es-ES');
   }
 
-  parsearHora(fecha: Date) {
-    return this.dp.transform(fecha, 'hh:mm:ss',);
+  parsearHora(fecha: string) {
+    return this.dp.transform(fecha, 'hh:mm:ss');
   }
 
   async eliminarEvento() {
@@ -80,11 +82,7 @@ export class TarjetaEventoComponent implements OnInit {
   }
 
   editarEvento() {
-
-  }
-
-  unirmeComoAsistente() {
-
+    this.parentCrearOEditar.emit({ param1: this.modal, param2: 'md', param3: this.eventoActual })
   }
 
 }

@@ -74,8 +74,8 @@ export class VerComunidadUnicaComponent implements OnInit {
       { label: 'Eventos', icon: 'mdi mdi-coffee' },
       { label: 'Multimedia', icon: 'mdi mdi-image' },
     ];
-    this.activeItem = this.items[2];
-    this.mostrarEventos = true;
+    this.activeItem = this.items[0];
+    this.mostrarFeed = true;
 
     this.comunidadesUsuariosService.GetComunidadesUsuariosCountByComunidad(this.idComunidadActual).toPromise().then(resp => {
       this.usuariosTotales = resp;

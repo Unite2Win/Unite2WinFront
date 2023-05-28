@@ -8,8 +8,9 @@ export interface Evento {
     titulo: string;
     descripcion?: string;
     ubicacion?: string;
-    fechaInicio: Date;
-    fechaFin: Date;
+    fechaInicio: string;
+    fechaFin: string;
+    imagenid_doc?: number;
     imagen?: Documento;
     create_date?: Date,
     last_modified?: Date,

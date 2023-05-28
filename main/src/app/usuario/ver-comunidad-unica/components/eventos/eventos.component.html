@@ -44,7 +44,7 @@
 
                 <div *ngIf="eventosAMostrar.length > 0; else loadingSinMT">
                     <div *ngFor="let eventoFOR of eventosAMostrar">
-                        <app-tarjeta-evento [eventoActual]="eventoFOR" (parentOnInit)="ngOnInit()"></app-tarjeta-evento>
+                        <app-tarjeta-evento [eventoActual]="eventoFOR" (parentOnInit)="ngOnInit()" (parentCrearOEditar)="manejarEvento($event)" [modal]="createEditEventoModal"></app-tarjeta-evento>
                     </div>
                 </div>
 
@@ -90,108 +90,68 @@
 </ng-template>
 
 <ng-template #createEditEventoModal let-modal>
-    <form [formGroup]="miFormComunidades" (ngSubmit)="crearOEditar()">
+    <form [formGroup]="miFormEventos" (ngSubmit)="crearOEditar()">
         <div class="modal-header">
-            <h3 class="modal-title" id="editComunidadModal">{{comunidadSeleccionado == null ? "Crear
-                comunidad" : "Editar " + comunidadSeleccionado.nombre}}</h3>
+            <h3 class="modal-title" id="editEventoModal">Editar o crear evento</h3>
             <button type="button" class="btn-close" (click)="closeBtnClick()" aria-label="Close"></button>
         </div>
 
-        <div class="modal-body">
+        <div class="modal-body row">
             <div class="col-12">
 
                 <div class="row">
                     <div class="col-12 d-flex flex-column justify-content-center">
-                        <label for="nombreComunidad" class="form-label">Introduzca el nombre de la
-                            comunidad*</label>
-                        <input type="text" id="nombreComunidad" class="form-control"
-                            placeholder="Nombre para la comunidad" formControlName="nombre" />
+                        <label for="tituloEvento" class="form-label">Introduzca el titulo del evento*</label>
+                        <input type="text" id="tituloEvento" class="form-control" placeholder="Titulo para el evento"
+                            formControlName="titulo" />
                     </div>
                 </div>
                 <br>
 
                 <div class="row">
                     <div class="col-12 d-flex flex-column justify-content-center">
-                        <label for="descripcionComunidad" class="form-label">Introduzca la descripción de la
-                            comunidad*</label>
-                        <textarea type="text" id="descripcionComunidad" class="form-control"
-                            placeholder="Descripción para la comunidad"
-                            formControlName="descripcion"></textarea>
+                        <label for="descripcionEvento" class="form-label">Introduzca la descripción del evento*</label>
+                        <textarea type="text" id="descripcionEvento" class="form-control"
+                            placeholder="Descripción para el evento" formControlName="descripcion"></textarea>
                     </div>
                 </div>
                 <br>
 
                 <div class="row">
                     <div class="col-12 d-flex flex-column justify-content-center">
-                        <label for="claveComunidad" class="form-label">Introduzca la clave de seguridad para
-                            la comunidad*</label>
-                        <input type="text" id="claveComunidad" class="form-control"
-                            placeholder="Clave de seguridad para la comunidad" formControlName="clave" />
+                        <label for="ubicacionEvento" class="form-label">Introduzca la ubicación del evento*</label>
+                        <input type="text" id="ubicacionEvento" class="form-control"
+                            placeholder="Ubicación para el evento" formControlName="ubicacion" />
                     </div>
                 </div>
                 <br>
 
                 <div class="row">
                     <div class="col-12 d-flex flex-column justify-content-center">
-                        <label for="claveComunidad" class="form-label">Seleccione una opcion de visibilidad*</label>
-                        <div class="row">
-                            <div class="col-3">
-                                <p-radioButton [value]="true" formControlName="isVisible"
-                                    inputId="visible"></p-radioButton>
-                                <label for="visible" class="ml-2 ms-2">Visible</label>
-                            </div>
-
-                            <div class="col-3">
-                                <p-radioButton [value]="false" formControlName="isVisible"
-                                    inputId="noVisible"></p-radioButton>
-                                <label for="noVisible" class="ml-2 ms-2">No visible</label>
-                            </div>
-                        </div>
+                        <label for="fechaInicioEvento" class="form-label">La fecha y horas de inicio para el evento*</label>
+                        <p-calendar formControlName="date" id="fechaInicioEvento" class="form-control"
+                            placeholder="Fecha y hora de inicio para el evento" formControlName="fechaInicio" [showIcon]="true"
+                            [readonlyInput]="true" [minDate]="minDate" [showTime]="true"></p-calendar>
                     </div>
                 </div>
                 <br>
 
                 <div class="row">
                     <div class="col-12 d-flex flex-column justify-content-center">
-                        <label for="claveComunidad" class="form-label">Seleccione una opcion de accesibilidad*</label>
-                        <div class="row">
-                            <div class="col-3">
-                                <p-radioButton [value]="true" formControlName="isPublica"
-                                    inputId="publica"></p-radioButton>
-                                <label for="publica" class="ml-2 ms-2">Publica</label>
-                            </div>
-
-                            <div class="col-3">
-                                <p-radioButton [value]="false" formControlName="isPublica"
-                                    inputId="noPublica"></p-radioButton>
-                                <label for="noPublica" class="ml-2 ms-2">Privada</label>
-                            </div>
-                        </div>
+                        <label for="fechaFinEvento" class="form-label">La fecha y horas de fin para el evento*</label>
+                        <p-calendar formControlName="date" id="fechaFinEvento" class="form-control"
+                            placeholder="Fecha y hora de fin para el evento" formControlName="fechaFin" [showIcon]="true"
+                            [readonlyInput]="true" [minDate]="minDateFin" [showTime]="true" [defaultDate]=deadline></p-calendar>
                     </div>
                 </div>
                 <br>
 
                 <div class="row">
                     <div class="col-12 d-flex flex-column justify-content-center">
-                        <label for="formPicture" class="form-label">Seleccionar icono de la
-                            comunidad</label>
+                        <label for="formImagen" class="form-label">Seleccionar imagen para el evento</label>
                         <div class="col-12 d-flex justify-content-center">
-                            <input class="form-control" formControlName="picture"
-                                accept="image/png, image/jpeg" type="file" id="formPicture"
-                                (change)="fileChange($event, 'picture')">
-                        </div>
-                    </div>
-                </div>
-                <br>
-
-                <div class="row">
-                    <div class="col-12 d-flex flex-column justify-content-center">
-                        <label for="formBanner" class="form-label">Seleccionar banner de la
-                            comunidad</label>
-                        <div class="col-12 d-flex justify-content-center">
-                            <input class="form-control" formControlName="banner"
-                                accept="image/png, image/jpeg" type="file" id="formBanner"
-                                (change)="fileChange($event, 'banner')">
+                            <input class="form-control" formControlName="imagen" accept="image/png, image/jpeg"
+                                type="file" id="formImagen" (change)="fileChange($event, 'picture')">
                         </div>
                     </div>
                 </div>
@@ -202,8 +162,8 @@
 
         <div class="modal-footer">
             <button type="button" class="btn btn-secondary" (click)="closeBtnClick()">Cerrar</button>
-            <button [disabled]="miFormComunidades.invalid || miFormComunidades.untouched"
-                class="btn btn-danger" type="submit">Aceptar</button>
+            <button [disabled]="miFormEventos.invalid || miFormEventos.untouched" class="btn btn-danger"
+                type="submit">Aceptar</button>
         </div>
     </form>
 </ng-template>

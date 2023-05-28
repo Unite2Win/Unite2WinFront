@@ -7,7 +7,7 @@
                     <div *ngIf="isMiembro; else noMemberPost" class="card-body">
                         <h4 class="card-title">Cuenta algo a la comunidad</h4>
                         <hr>
-                        <form [formGroup]="miFormCompartir">
+                        <form [formGroup]="miFormPost" (ngSubmit)="publicarPost()">
                             <div class="row d-flex flex-row justify-content-center">
                                 <div class="col-1" style="margin-top: 5px;">
                                     <img *ngIf="usuarioActual.picture !=null; else defaultIMG"
@@ -27,10 +27,25 @@
                                     <div class="input-group">
                                         <textarea type="text" id="inputURL" class="form-control" aria-label="Username"
                                             aria-describedby="basic-addon1" placeholder="Escribe algo..."
-                                            formControlName="url"></textarea>
-                                        <button class="input-group-text btn btn-secondary" id="basic-addon1"
-                                            type="button" pTooltip="Adjuntar imagen" tooltipPosition="top"><i-feather
-                                                name="paperclip" class="feather-sm"></i-feather></button>
+                                            formControlName="descripcion"></textarea>
+                                        <button class="input-group-text btn btn-secondary" type="button"
+                                            pTooltip="Adjuntar imagen" tooltipPosition="top"
+                                            (click)="activarFileInput()"><i-feather name="paperclip"
+                                                class="feather-sm"></i-feather></button>
+
+                                    </div>
+                                    <input #fileInputRef style="display: none;" class="form-control"
+                                        formControlName="imagen" accept="image/png, image/jpeg" type="file"
+                                        id="formImagen" (change)="fileChange($event, 'picture')">
+
+
+                                </div>
+                                <div *ngIf="docImagen != null" class="row mt-5"
+                                    style="border: 1px black dashed; border-radius: 5px;">
+                                    <p class="card-text">Vista previa de la imagen seleccionada: </p>
+                                    <div class="col-12" style="text-align: center;">
+                                        <img [src]="'data: docImagen.extensionArchivo; base64,'+docImagen.data | safe"
+                                            class="img-responsive m-3" style="max-height: 150px; max-width: 90%;" />
                                     </div>
                                 </div>
                             </div>
@@ -38,6 +53,9 @@
                                 <div class="col-12 mt-3 d-flex flex-row justify-content-center">
                                     <button class="btn btn-info" type="submit">Publicar <i-feather
                                             class="mdi mdi-send"></i-feather></button>
+                                    <button *ngIf="docImagen != null" class="btn btn-danger ms-3" type="button"
+                                        (click)="eliminarImagen()">Eliminar imagen<i-feather class="feather-sm ms-2"
+                                            name="trash-2"></i-feather></button>
                                 </div>
                             </div>
                         </form>
@@ -51,72 +69,22 @@
                         </div>
                     </ng-template>
                 </div>
-                <!-- ACABA EL ESCRIBIR EL POST -->
 
-                <div class="card col-12 mt-3">
-                    <div class="card-body">
-                        <div class="row d-flex flex-row justify-content-center">
-
-                            <div class="col-6">
-                                <div class="row">
-                                    <div class="col-2">
-                                        <img *ngIf="usuarioActual.picture !=null; else defaultIMG"
-                                            [src]="'data: usuarioActual.picture.extensionArchivo; base64,'+usuarioActual.picture.data | safe"
-                                            class="img-responsive rounded"
-                                            style="max-height: 60px; max-width: 60px; clip-path: circle(25px);"
-                                            [pTooltip]="usuarioActual.name + ' ' + usuarioActual.surname"
-                                            tooltipPosition="top" />
-                                        <ng-template #defaultIMG>
-                                            <img src="assets\images\profilepic.jpg" class="img-responsive rounded"
-                                                style="max-height: 60px; max-width: 60px; clip-path: circle(25px);"
-                                                [pTooltip]="usuarioActual.name + ' ' + usuarioActual.surname"
-                                                tooltipPosition="top" />
-                                        </ng-template>
-                                    </div>
-                                    <div class="col-10" style="margin-top: 10px;">
-                                        <div class="d-flex flex-column">
-                                            <h5>{{usuarioActual.name}} {{usuarioActual.surname}}</h5>
-                                            <h6>24/09/2000</h6>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col-6">
-                                <div class="row">
-                                    <div class="col-12 d-flex justify-content-end" style="margin-top: 10px;">
-                                        <a href="javascript: void(0);" class="link btn btn-danger" placement="top"
-                                            style="color: white;">
-                                            Eliminar post
-                                            <i-feather name="trash-2" class="feather-sm pointer"
-                                                style="color: white;"></i-feather>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div>
-
-                        <hr>
-
-                        <h2>AAAAAAAAAAAAA</h2>
-
-                        <hr>
-
-                        <div class="row">
-                            <div class="col-12">
-                                <div class="card d-flex flex-row justify-content-center">
-                                    <i-feather class="mdi mdi-heart fs-6" style="cursor: pointer;"
-                                        (click)="holi()"></i-feather>
-                                    <i-feather class="mdi mdi-heart-outline fs-6" style="cursor: pointer;"
-                                        (click)="holi()"></i-feather>
-                                    <h5 class="card-title" style="margin-top: 5px; cursor: pointer;" (click)="holi()">0
-                                        likes</h5>
-                                </div>
-                            </div>
-                        </div>
+                <div *ngIf="todosPost.length > 0; else noPosts">
+                    <div *ngFor="let postFOR of todosPost">
+                        <app-tarjeta-post [isMultimedia]="false" [postActual]="postFOR" (parentOnInit)="ngOnInit()"></app-tarjeta-post>
                     </div>
                 </div>
+
+                <ng-template #noPosts>
+                    <div class="card">
+                        <div class=" m-4">
+                            <h4 class="card-title">No hay posts disponibles para mostrar.</h4>
+                            <p class="card-text">Prueba a compartir algo con el resto de miembros de la comunidad.</p>
+                        </div>
+                    </div>
+                </ng-template>
+
             </div>
         </div>
 

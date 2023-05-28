@@ -1,29 +1,37 @@
 <div *ngIf="!loadingFlag; else loading" class="m-3">
+    <div class="row d-flex flex-row justify-content-center">
+        <div class="col-7">
+            <div class="row">
 
-    <div class="row d-flex flex-row justify-content-between">
+                <div class="card p-4">
+                    <h3 class="card-title">Instrucciones menú multimedia</h3>
+                    <hr>
+                    <ul>
+                        <li class="card-text">En este menú solo aparecerán los Post que contengan imagenes.</li>
+                        <li class="card-text">Además, haciendo click en ellas veras una vista ampliada de las mismas.
+                        </li>
+                    </ul>
+                </div>
 
-        <div class="card col-8">
-            <div class="card-body">
-                <h5 class="card-title">MULTMEDIA</h5>
-                <p class="card-text">Some quick example text to build on the MULTMEDIA and make up the bulk of the
-                    card's
-                    content.</p>
-                <a href="#" class="btn btn-primary">Go somewhere</a>
+                <div *ngIf="todosPost.length > 0; else noPosts">
+                    <div *ngFor="let postFOR of todosPost">
+                        <app-tarjeta-post [postActual]="postFOR" (parentOnInit)="ngOnInit()"
+                            [isMultimedia]="true"></app-tarjeta-post>
+                    </div>
+                </div>
+
+                <ng-template #noPosts>
+                    <div class="card">
+                        <div class=" m-4">
+                            <h4 class="card-title">No hay posts multimedia disponibles para mostrar.</h4>
+                            <p class="card-text">Prueba a compartir algo con el resto de miembros de la comunidad en la pestaña de Feed.</p>
+                        </div>
+                    </div>
+                </ng-template>
+
             </div>
         </div>
-
-        <div class="card col-3">
-            <div class="card-body">
-                <h5 class="card-title">MULTMEDIA</h5>
-                <p class="card-text">Some quick example text to build on the MULTMEDIA and make up the bulk of the
-                    card's
-                    content.</p>
-                <a href="#" class="btn btn-primary">Go somewhere</a>
-            </div>
-        </div>
-
     </div>
-
 </div>
 
 <ng-template #loading>

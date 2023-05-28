@@ -20,7 +20,7 @@
 
             <div *ngIf="eventoActual.imagen !=null;" class="col-12 d-flex flex-row justify-content-center">
                 <img [src]="'data: eventoActual.imagen.extensionArchivo; base64,'+eventoActual.imagen.data | safe"
-                    class="img-responsive" style="max-height: 350px;" />
+                    class="img-responsive" style="max-height: 350px; max-width: 90%;" />
                 <!-- <ng-template #defaultIMG>
                     <img src="assets\images\profilepic.jpg" class="img-responsive" style="max-height: 150px;" />
                 </ng-template> -->
