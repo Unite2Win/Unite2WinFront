@@ -103,12 +103,11 @@
                         <div class="mb-3">
                             <label class="col-md-12">Contraseña</label>
                             <div class="input-group">
-                                <input type="password" value="password" class="form-control" formControlName="password">
-                                <div class="input-group-append">
-                                    <span class="input-group-text">
-                                        <i class="fa fa-eye-slash"></i>
-                                    </span>
-                                </div>
+                                <input [type]="password" value="password" class="form-control" formControlName="password">
+                                    <button (click)="onClick()" style="border-color:aliceblue; background-color:whitesmoke">
+                                        <i class="fa fa-eye" aria-hidden="true" *ngIf="!show"></i>
+                                        <i class="fa fa-eye-slash" aria-hidden="true" *ngIf="show"></i>
+                                    </button>
                             </div>
                         </div>
                         <!-- <div class="mb-3">

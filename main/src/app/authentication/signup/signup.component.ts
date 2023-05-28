@@ -53,4 +53,32 @@ export class SignupComponent {
     this.router.navigate(["authentication/login"]);
   }
 
+  password = "password";
+
+  show = false;
+
+  onClick() {
+    if (this.password == 'password') {
+      this.password = 'text';
+      this.show = true;
+    } else {
+      this.password = 'password';
+      this.show = false;
+    }
+  }
+
+  password2 = "password";
+
+  show2 = false;
+
+  onClick2() {
+    if (this.password2 == 'password') {
+      this.password2 = 'text';
+      this.show2 = true;
+    } else {
+      this.password2 = 'password';
+      this.show2 = false;
+    }
+  }
+
 }

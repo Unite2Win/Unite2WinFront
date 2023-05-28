@@ -1,4 +1,5 @@
-<div class="auth-wrapper d-flex no-block justify-content-center align-items-center" style="background:url(assets/images/background/login-register.jpg) no-repeat center center;">
+<div class="auth-wrapper d-flex no-block justify-content-center align-items-center"
+    style="background:url(assets/images/background/login-register.jpg) no-repeat center center;">
     <div class="auth-box m-3 m-md-0">
         <div>
             <div class="text-center">
@@ -8,42 +9,66 @@
             <!-- Form -->
             <div class="row">
                 <div class="col-12">
-                    <form class="form-horizontal mt-3" action="index.html" [formGroup]="miFormSignUp" (ngSubmit)="signup()">
+                    <form class="form-horizontal mt-3" action="index.html" [formGroup]="miFormSignUp"
+                        (ngSubmit)="signup()">
                         <div class="mb-3 row ">
                             <div class="col-12 ">
-                                <input class="form-control" formControlName="name" type="text" required=" " placeholder="Nombre">
-                            </div>
-                        </div>
-                        <div class="mb-3 row ">
-                            <div class="col-12 ">
-                                <input class="form-control" formControlName="surname" type="text" required=" " placeholder="Apellidos">
-                            </div>
-                        </div>
-                        <div class="mb-3 row">
-                            <div class="col-12 ">
-                                <input class="form-control" formControlName="email" type="text" required=" " placeholder="Email">
+                                <input class="form-control" formControlName="name" type="text" required=" "
+                                    placeholder="Nombre">
                             </div>
                         </div>
                         <div class="mb-3 row ">
                             <div class="col-12 ">
-                                <input class="form-control" formControlName="username" type="text" required=" " placeholder="Usuario">
+                                <input class="form-control" formControlName="surname" type="text" required=" "
+                                    placeholder="Apellidos">
                             </div>
                         </div>
                         <div class="mb-3 row">
                             <div class="col-12 ">
-                                <input class="form-control" formControlName="password" type="password" required=" " placeholder="Contraseña">
+                                <input class="form-control" formControlName="email" type="text" required=" "
+                                    placeholder="Email">
+                            </div>
+                        </div>
+                        <div class="mb-3 row ">
+                            <div class="col-12 ">
+                                <input class="form-control" formControlName="username" type="text" required=" "
+                                    placeholder="Usuario">
                             </div>
                         </div>
                         <div class="mb-3 row">
                             <div class="col-12 ">
-                                <input class="form-control" formControlName="passRepeat" type="password" required=" " placeholder="Confime contraseña">
+                                <div class="input-group">
+                                    <input class="form-control" formControlName="password" [type]="password"
+                                        required=" " placeholder="Contraseña">
+                                    <button (click)="onClick()"
+                                        style="border-color:aliceblue; background-color:whitesmoke">
+                                        <i class="fa fa-eye" aria-hidden="true" *ngIf="!show"></i>
+                                        <i class="fa fa-eye-slash" aria-hidden="true" *ngIf="show"></i>
+                                    </button>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="mb-3 row">
+                            <div class="col-12 ">
+                                <div class="input-group">
+                                    <input class="form-control" formControlName="passRepeat" [type]="password2"
+                                        required=" " placeholder="Confime contraseña">
+                                    <button (click)="onClick2()"
+                                        style="border-color:aliceblue; background-color:whitesmoke">
+                                        <i class="fa fa-eye" aria-hidden="true" *ngIf="!show2"></i>
+                                        <i class="fa fa-eye-slash" aria-hidden="true" *ngIf="show2"></i>
+                                    </button>
+                                </div>
+
                             </div>
                         </div>
                         <div class="mb-3 row">
                             <div class="col-md-12 ">
                                 <div class="form-check">
                                     <input type="checkbox" class="form-check-input" id="customCheck1">
-                                    <label class="form-check-label" for="customCheck1">Acepto los <a href="javascript:void(0)">terminos y condiciones</a></label>
+                                    <label class="form-check-label" for="customCheck1">Acepto los <a
+                                            href="javascript:void(0)">terminos y condiciones</a></label>
                                 </div>
                             </div>
                         </div>
@@ -54,7 +79,8 @@
                         </div>
                         <div class="mb-3 mb-0 mt-2 ">
                             <div class="col-sm-12 text-center ">
-                                Ya eres parte de la comunidad? <a href="/authentication/login" class="text-info ms-1 "><b>Inicia sesión</b></a>
+                                Ya eres parte de la comunidad? <a href="/authentication/login"
+                                    class="text-info ms-1 "><b>Inicia sesión</b></a>
                             </div>
                         </div>
                     </form>

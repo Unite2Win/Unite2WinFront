@@ -185,7 +185,7 @@ export class PerfilComponent implements OnInit {
         name: this.myForm.controls['name'].value,
         surname: this.myForm.controls['surname'].value,
         email: this.myForm.controls['email'].value,
-        // picture: this.recursoDocumento,
+        pictureid_doc: globales.usuarioLogueado.picture.id_doc,
         level: globales.usuarioLogueado.level,
         active: globales.usuarioLogueado.active
       }
@@ -194,7 +194,9 @@ export class PerfilComponent implements OnInit {
         console.log(resp)
         this.toastrService.success('Tu información ha sido actualizada')
       })
+      var foto = globales.usuarioLogueado.picture
       globales.usuarioLogueado = this.myForm.value
+      globales.usuarioLogueado.picture = foto
     }
     
   }
@@ -202,6 +204,20 @@ export class PerfilComponent implements OnInit {
   reset() {
     console.log(this.myForm.value)
     this.myForm.setValue(globales.usuarioLogueado)
+  }
+
+  password = "password";
+
+  show = false;
+
+  onClick() {
+    if (this.password == 'password') {
+      this.password = 'text';
+      this.show = true;
+    } else {
+      this.password = 'password';
+      this.show = false;
+    }
   }
 
   async onFileChanged(event: Event) {

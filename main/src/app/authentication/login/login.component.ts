@@ -60,4 +60,18 @@ export class LoginComponent {
     this.loginform = !this.loginform;
     this.recoverform = !this.recoverform;
   }
+
+  password = "password";
+
+  show = false;
+
+  onClick() {
+    if (this.password == 'password') {
+      this.password = 'text';
+      this.show = true;
+    } else {
+      this.password = 'password';
+      this.show = false;
+    }
+  }
 }
