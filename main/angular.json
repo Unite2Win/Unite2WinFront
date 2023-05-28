@@ -28,7 +28,9 @@
               "rxjs",
               "date-fns",
               "rxjs-compat",
-              "chart.js"
+              "chart.js",
+              "openai",
+              "@cordobo/qrcode"
             ],
             "outputPath": "dist/adminpro-angular",
             "index": "src/index.html",
