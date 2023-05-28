@@ -11,6 +11,9 @@ import { LoginService } from '../../authentication/login/login.service';
 import { globales } from 'common/globales';
 import { ObjetivosService } from 'app/usuario/services/objetivos.service';
 import { Router } from '@angular/router';
+import { ComunidadesUsuariosService } from 'app/usuario/services/comunidades-usuarios.service';
+import { Comunidad } from 'app/usuario/interfaces/comunidadModel';
+import { ComunidadesService } from 'app/usuario/services/comunidades.service';
 declare var $: any;
 
 @Component({
@@ -111,10 +114,23 @@ export class VerticalNavigationComponent implements AfterViewInit {
   }]
 
   objetivos
+  page = 1;
+  pageSize = 40;
+  todosComunidades: Comunidad[] = [];
 
-  constructor(private modalService: NgbModal, private translate: TranslateService, private loginService: LoginService, private objetivosService: ObjetivosService, private router: Router) {
+  get globales() {
+    return globales.usuarioLogueado;
+  }
+
+  constructor(private modalService: NgbModal, private translate: TranslateService, private loginService: LoginService, private objetivosService: ObjetivosService, private router: Router, private comunidadesUsuariosService: ComunidadesUsuariosService, private comunidadesService: ComunidadesService) {
     translate.setDefaultLang('en');
-    this.objetivosService.GetObjetivosUsuario(globales.usuarioLogueado.id_usu).toPromise().then(x => {
+    
+    this.obtenerObjetivos()
+    this.obtenerComunidades()
+  }
+
+  async obtenerObjetivos() {
+    await this.objetivosService.GetObjetivosUsuario(globales.usuarioLogueado.id_usu).toPromise().then(x => {
       if (x.length >= 3) {
         this.objetivos = x.slice(0, 3);
       } else {
@@ -124,8 +140,36 @@ export class VerticalNavigationComponent implements AfterViewInit {
     })
   }
 
+  async obtenerComunidades() {
+    var idsComunidades
+    console.log('YEE')
+    await this.comunidadesUsuariosService.GetComunidadesUsuariosPaginado(0, this.pageSize, this.globales.id_usu).toPromise().then(resp => {
+      console.log(resp)
+      idsComunidades = resp
+    });
+    console.log(idsComunidades);
+
+    idsComunidades.forEach(comunidad => {
+      this.comunidadesService.GetComunidadById(comunidad.id_com).toPromise().then(resp => {
+        this.todosComunidades.push(resp)
+      })
+
+      console.log(comunidad);
+    })
+    console.log(this.todosComunidades);
+    if (this.todosComunidades.length >= 3) {
+      this.todosComunidades = this.todosComunidades.slice(0, 3);
+    } else {
+      this.todosComunidades = this.todosComunidades;
+    }
+  }
+
   irObjetivos() {
     this.router.navigate(['/usuario/objetivos']);
+  }
+
+  irComunidades() {
+    this.router.navigate(['/usuario/miscomunidades']);
   }
 
   changeLanguage(lang: any) {

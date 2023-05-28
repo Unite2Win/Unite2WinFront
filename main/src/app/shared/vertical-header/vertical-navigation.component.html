@@ -81,7 +81,7 @@
       <ul class="list-style-none">
         <li>
           <div class="drop-title text-white" style="background-color: palevioletred;">
-            <h4 class="mb-0 mt-1 text-white">3 Objetivos</h4>
+            <h4 class="mb-0 mt-1 text-white">{{objetivos.length}} Objetivos</h4>
             <span class="fw-light">Últimos añadidos</span>
           </div>
         </li>
@@ -154,8 +154,8 @@
       <ul class="list-style-none">
         <li>
           <div class="drop-title text-white" style="background-color: palevioletred;">
-            <h4 class="mb-0 mt-1 text-white">5 Eventos</h4>
-            <span class="fw-light">Últimos añadidos</span>
+            <h4 class="mb-0 mt-1 text-white">{{todosComunidades.length}} Comunidades</h4>
+            <span class="fw-light">Últimas a las que te has unido</span>
           </div>
         </li>
         <li>
@@ -164,33 +164,35 @@
             <a
               href="javascript:void(0)"
               class="message-item border-bottom d-block text-decoration-none"
-              *ngFor="let mymessage of mymessages"
+              *ngFor="let comunidad of todosComunidades"
             >
               <span class="user-img position-relative d-inline-block">
                 <img
-                  src="{{ mymessage.useravatar }}"
+                  src="assets\images\people.png"
                   alt="user"
-                  class="rounded-circle"
                 />
-                <span
+                <!-- <span
                   class="profile-status rounded-circle d-inline-block {{
                     mymessage.status
                   }} float-end"
-                ></span>
+                ></span> -->
               </span>
               <span class="mail-contnet d-inline-block w-75 ps-3 align-middle">
-                <h5 class="message-title">{{ mymessage.from }}</h5>
-                <span class="mail-desc fs-2 d-block text-muted text-truncate">{{
-                  mymessage.subject
+                <h5 class="message-title">{{ comunidad.nombre }}</h5>
+                <span class="mail-desc fs-2 d-block text-muted text-truncate" *ngIf="comunidad.descripcion!=null">{{
+                  comunidad.descripcion
                 }}</span>
-                <span class="time fs-2 d-block text-muted text-truncate">{{
+                <span class="mail-desc fs-2 d-block text-muted text-truncate" *ngIf="comunidad.descripcion==null">
+                  No hay descripción
+                </span>
+                <!-- <span class="time fs-2 d-block text-muted text-truncate">{{
                   mymessage.time
-                }}</span>
+                }}</span> -->
               </span>
             </a>
           </div>
         </li>
-        <li>
+        <!-- <li>
           <a
             class="
               text-center
@@ -204,6 +206,9 @@
             <b>Ver mis eventos</b>
             <i class="fa fa-angle-right ms-1"></i>
           </a>
+        </li> -->
+        <li class="border-top p-3 d-grid">
+          <button class="btn btn-info" (click)="irComunidades()">Ver mis comunidades</button>
         </li>
       </ul>
     </div>
