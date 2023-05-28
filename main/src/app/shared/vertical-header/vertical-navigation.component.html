@@ -81,7 +81,7 @@
       <ul class="list-style-none">
         <li>
           <div class="drop-title text-white" style="background-color: palevioletred;">
-            <h4 class="mb-0 mt-1 text-white">{{objetivos.length}} Objetivos</h4>
+            <h4 class="mb-0 mt-1 text-white">{{objetivos?.length}} Objetivos</h4>
             <span class="fw-light">Últimos añadidos</span>
           </div>
         </li>
@@ -113,6 +113,9 @@
                   objetivo.duracion
                 }} dias</span>
               </span>
+            </a>
+            <a class="message-item border-bottom d-block text-decoration-none" *ngIf="objetivos?.length == 0">
+              No tienes ningún objetivo activo
             </a>
           </div>
         </li>
@@ -154,7 +157,7 @@
       <ul class="list-style-none">
         <li>
           <div class="drop-title text-white" style="background-color: palevioletred;">
-            <h4 class="mb-0 mt-1 text-white">{{todosComunidades.length}} Comunidades</h4>
+            <h4 class="mb-0 mt-1 text-white">{{todosComunidades?.length}} Comunidades</h4>
             <span class="fw-light">Últimas a las que te has unido</span>
           </div>
         </li>
@@ -190,6 +193,9 @@
                 }}</span> -->
               </span>
             </a>
+            <a class="message-item border-bottom d-block text-decoration-none" *ngIf="todosComunidades?.length == 0">
+              No te has unido a ninguna comunidad
+            </a>
           </div>
         </li>
         <!-- <li>
@@ -207,8 +213,11 @@
             <i class="fa fa-angle-right ms-1"></i>
           </a>
         </li> -->
-        <li class="border-top p-3 d-grid">
+        <li class="border-top p-3 d-grid" *ngIf="todosComunidades?.length != 0">
           <button class="btn btn-info" (click)="irComunidades()">Ver mis comunidades</button>
+        </li>
+        <li class="border-top p-3 d-grid" *ngIf="todosComunidades?.length == 0">
+          <button class="btn btn-info" (click)="irComunidadesExplorar()">Explorar comunidades</button>
         </li>
       </ul>
     </div>

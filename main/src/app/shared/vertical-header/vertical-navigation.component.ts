@@ -172,6 +172,10 @@ export class VerticalNavigationComponent implements AfterViewInit {
     this.router.navigate(['/usuario/miscomunidades']);
   }
 
+  irComunidadesExplorar() {
+    this.router.navigate(['/usuario/explorar']);
+  }
+
   changeLanguage(lang: any) {
     this.translate.use(lang.code)
     this.selectedLanguage = lang;
