@@ -151,7 +151,7 @@ export class PerfilComponent implements OnInit {
       console.log(globales.usuarioLogueado)
       console.log(this.myForm.value)
       console.log(this.recursoDocumento)
-      var usuarioAModificar : Usuario = {
+      var usuarioAModificar: Usuario = {
         id_usu: globales.usuarioLogueado.id_usu,
         nick: this.myForm.controls['nick'].value,
         password: this.myForm.controls['password'].value,
@@ -178,16 +178,29 @@ export class PerfilComponent implements OnInit {
       console.log(globales.usuarioLogueado)
       console.log(this.myForm.value)
       console.log(this.recursoDocumento)
-      var usuarioAModificar : Usuario = {
-        id_usu: globales.usuarioLogueado.id_usu,
-        nick: this.myForm.controls['nick'].value,
-        password: this.myForm.controls['password'].value,
-        name: this.myForm.controls['name'].value,
-        surname: this.myForm.controls['surname'].value,
-        email: this.myForm.controls['email'].value,
-        pictureid_doc: globales.usuarioLogueado.picture.id_doc,
-        level: globales.usuarioLogueado.level,
-        active: globales.usuarioLogueado.active
+      if (globales.usuarioLogueado.picture != null || globales.usuarioLogueado.picture != undefined) {
+        var usuarioAModificar: Usuario = {
+          id_usu: globales.usuarioLogueado.id_usu,
+          nick: this.myForm.controls['nick'].value,
+          password: this.myForm.controls['password'].value,
+          name: this.myForm.controls['name'].value,
+          surname: this.myForm.controls['surname'].value,
+          email: this.myForm.controls['email'].value,
+          pictureid_doc: globales.usuarioLogueado.picture.id_doc,
+          level: globales.usuarioLogueado.level,
+          active: globales.usuarioLogueado.active
+        }
+      } else {
+        var usuarioAModificar: Usuario = {
+          id_usu: globales.usuarioLogueado.id_usu,
+          nick: this.myForm.controls['nick'].value,
+          password: this.myForm.controls['password'].value,
+          name: this.myForm.controls['name'].value,
+          surname: this.myForm.controls['surname'].value,
+          email: this.myForm.controls['email'].value,
+          level: globales.usuarioLogueado.level,
+          active: globales.usuarioLogueado.active
+        }
       }
       console.log(usuarioAModificar)
       await this.usuariosService.putUsuario(globales.usuarioLogueado.id_usu, usuarioAModificar).subscribe(resp => {
@@ -198,7 +211,7 @@ export class PerfilComponent implements OnInit {
       globales.usuarioLogueado = this.myForm.value
       globales.usuarioLogueado.picture = foto
     }
-    
+
   }
 
   reset() {
@@ -240,12 +253,12 @@ export class PerfilComponent implements OnInit {
     console.log(this.recursoDocumento)
   }
 
-  file2Base64 = (file: File):Promise<DecodedBase64> => {
+  file2Base64 = (file: File): Promise<DecodedBase64> => {
     return new Promise<DecodedBase64>((resolve, reject) => {
       const reader = new FileReader();
       reader.readAsDataURL(file);
       reader.onload = () => {
-        let data = reader.result.toString().replace(/^data:(.*,)?/,'');
+        let data = reader.result.toString().replace(/^data:(.*,)?/, '');
         if ((data.length % 4) > 0) {
           data += '='.repeat(4 - (data.length % 4));
         }
