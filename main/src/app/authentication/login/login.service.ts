@@ -40,7 +40,6 @@ export class LoginService {
           var usuarioModel = this.usuariosService.getUsuarioById(Number(response.user_ID)).toPromise()
           usuarioModel.then(resp => {
             globales.usuarioLogueado = resp;
-            // console.log(globales.usuarioLogueado);
             // if (resp.picture == null || resp.picture == undefined) {
             //   var a : Documento = {
             //     id_doc: 38,
@@ -50,7 +49,6 @@ export class LoginService {
             //   }
             //   globales.usuarioLogueado.picture = a
             // }
-            // console.log(globales.usuarioLogueado);
             this.currentUser = resp;
           })
           //

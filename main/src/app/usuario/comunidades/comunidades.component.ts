@@ -91,7 +91,6 @@ export class ComunidadesComponent implements OnInit {
 
       let a = this.comunidadesUsuariosService.GetComunidadesUsuariosCount(this.globales.id_usu).toPromise()
       await a.then(count => {
-        console.log(count)
         this.size = count
         if (this.size === 0) {
           this.noDataFlag = true;
@@ -102,9 +101,7 @@ export class ComunidadesComponent implements OnInit {
 
       if (this.noDataFlag == false) {
         var idsComunidades
-        console.log('YEE')
         await this.comunidadesUsuariosService.GetComunidadesUsuariosPaginado(0, this.pageSize, this.globales.id_usu).toPromise().then(resp => {
-          console.log(resp)
           idsComunidades = resp
         // let comunidadesIDs: number[] = []
         // await this.comunidadesUsuariosService.GetComunidadesUsuariosByUsuario(globales.usuarioLogueado.id_usu).toPromise().then(resp => {
@@ -117,16 +114,13 @@ export class ComunidadesComponent implements OnInit {
         //     this.todosComunidades.push(comunidad)
         //   })
         });
-        console.log(idsComunidades);
 
         idsComunidades.forEach(comunidad => {
           this.comunidadesService.GetComunidadById(comunidad.id_com).toPromise().then(resp => {
             this.todosComunidades.push(resp)
           })
           
-          console.log(comunidad);
         })
-        console.log(this.todosComunidades);
 
         this.loadingFlag = false;
       }

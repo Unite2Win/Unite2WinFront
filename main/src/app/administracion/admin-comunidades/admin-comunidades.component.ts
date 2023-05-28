@@ -105,9 +105,7 @@ export class AdminComunidadesComponent implements OnInit {
         await this.comunidadesService.GetComunidadesPaginados(0, this.pageSize).toPromise().then(resp => {
           resp.forEach(comunidad => {
             this.todosComunidades.push(comunidad)
-            console.log(comunidad);
           })
-          console.log(resp);
         });
         this.loadingFlag = false;
       }
@@ -203,7 +201,6 @@ export class AdminComunidadesComponent implements OnInit {
       }
 
       await this.comunidadesService.PutComunidadIdBBDD(this.comunidadSeleccionado.id_com, comunidadAEditar).toPromise().then(resp => {
-        console.log(resp);
       });
       this.toastrService.success('La comunidad ha sido actualizada')
       this.closeBtnClick();

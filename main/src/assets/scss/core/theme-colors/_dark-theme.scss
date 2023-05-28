@@ -1,17 +1,10 @@
-//
-// Dark Theme
-//
 [data-theme="dark"] {
   @import "dark-colors";
   @import "dark-components";
 
-  // common body settings
   color: $theme-dark-text-color;
   background: $theme-dark-bg-layout !important;
 
-  // -----------------------------------------
-  // basic setting of font colors
-  // -----------------------------------------
   h1,
   h2,
   h3,
@@ -94,9 +87,6 @@
     color: $theme-dark-text-color !important;
   }
 
-  // -----------------------------------------
-  // basic settings of background colors
-  // -----------------------------------------
   .card,
   .custom-select,
   .form-control,
@@ -229,7 +219,6 @@
     background: $theme-dark-bg-layout;
   }
 
-  // important
   .chat-list .chat-item.odd .box {
     background-color: rgba($color: $info, $alpha: 0.5) !important;
   }
@@ -240,9 +229,6 @@
     background: $background-alt !important;
   }
 
-  //
-  // basic setting of border
-  //
   .bootstrap-switch,
   .rdtPicker,
   .rdtPicker th,
@@ -356,9 +342,6 @@
     border-color: $theme-dark-focus-border-color !important;
   }
 
-  //
-  // tooltip border
-  //
   .bs-popover-right > .arrow::after,
   .bs-popover-auto[x-placement^="right"] > .arrow::after {
     border-right-color: $theme-dark-border-color;
@@ -397,9 +380,6 @@
     fill: $gray-500;
   }
 
-  //
-  // css chart
-  //
   .css-bar-primary.css-bar-20 {
     background-image: linear-gradient(
         90deg,

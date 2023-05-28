@@ -21,7 +21,6 @@ import { PersonasComponent } from './ver-comunidad-unica/components/personas/per
 import { EventosComponent } from './ver-comunidad-unica/components/eventos/eventos.component';
 import { MultimediaComponent } from './ver-comunidad-unica/components/multimedia/multimedia.component';
 import { TooltipModule } from 'primeng/tooltip';
-import { CustomerSupportComponent } from './customer-support/customer-support.component';
 import { QRCodeModule } from 'angularx-qrcode';
 import { TarjetaUsuarioComponent } from './ver-comunidad-unica/components/personas/tarjeta-usuario/tarjeta-usuario.component';
 import { ExplorarComponent } from './explorar/explorar.component';
@@ -29,6 +28,7 @@ import { TarjetaEventoComponent } from './ver-comunidad-unica/components/eventos
 import { SpeedDialModule } from 'primeng/speeddial';
 import { CalendarModule } from 'primeng/calendar';
 import { TarjetaPostComponent } from './ver-comunidad-unica/components/feed/tarjeta-post/tarjeta-post.component';
+import { ChatGPTComponent } from './chatgpt/chatgpt.component';
 
 @NgModule({
   declarations: [
@@ -43,7 +43,7 @@ import { TarjetaPostComponent } from './ver-comunidad-unica/components/feed/tarj
     PersonasComponent,
     EventosComponent,
     MultimediaComponent,
-    CustomerSupportComponent,
+    ChatGPTComponent,
     TarjetaUsuarioComponent,
     ExplorarComponent,
     TarjetaEventoComponent,

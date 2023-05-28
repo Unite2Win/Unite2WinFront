@@ -1,8 +1,6 @@
-// Theme colors
 #main-wrapper {
   &[data-layout="vertical"],
   &[data-layout="horizontal"] {
-    /*This is for the logo bg*/
     .topbar .top-navbar .navbar-header {
       &[data-logobg="skin1"] {
         background: $skin1;
@@ -56,7 +54,6 @@
         background: $skin6;
       }
     }
-    /*This is for the sidebar bg*/
     .left-sidebar {
       &[data-sidebarbg="skin1"],
       &[data-sidebarbg="skin1"] ul {
@@ -70,8 +67,6 @@
         background: $skin2;
 
         &::after {
-          background: url(/../../assets/images/background/sidebarbg.png)
-            no-repeat;
           position: absolute;
           top: 0px;
           content: "";

@@ -1,4 +1,3 @@
-// scafholding
 * {
   outline: none;
 }
@@ -39,10 +38,6 @@ a.link {
   padding: 10px;
 }
 
-/*******************
-Blockquote
-*******************/
-
 html body blockquote {
   border-left: 5px solid $primary;
   border: 1px solid $border-color;
@@ -61,10 +56,6 @@ ol li {
   display: none;
 }
 
-//
-// Opacity
-//
-
 .op-5 {
   opacity: 0.5;
 }
@@ -72,10 +63,6 @@ ol li {
 .op-3 {
   opacity: 0.3;
 }
-
-// 
-// Font weight
-// 
 
 html body {
   .font-medium {
@@ -86,9 +73,6 @@ html body {
   }
 }
 
-//
-// Background Colors
-//
 html body {
   .bg-megna {
     background-color: $cyan;
@@ -101,9 +85,6 @@ html body {
   }
 }
 
-// 
-// Round
-// 
 .round {
   line-height: 48px;
   width: 50px;
@@ -141,19 +122,11 @@ html body {
   font-size: 30px;
 }
 
-//
-// Badge
-//
-
 .badge {
   &.badge-pill {
     padding: 0.2em 0.6em;
   }
 }
-
-//
-// Lists
-//
 
 ul.list-style-none {
   margin: 0px;
@@ -171,8 +144,6 @@ ul.list-style-none {
     }
   }
 }
-
-// Dashboard Table
 
 .popover-icon {
   margin-left: -15px;

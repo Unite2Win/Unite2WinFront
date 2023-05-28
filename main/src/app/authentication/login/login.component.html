@@ -3,13 +3,11 @@
       center center;
   ">
   <div class="auth-box m-3 m-md-0">
-    <!-- <form [formGroup]="miFormLogin" (ngSubmit)="iniciarSesion()"> -->
     <div id="loginform" [ngClass]="{ 'd-none': recoverform }">
       <div class="text-center">
         <span class="db"><img src="assets/images/logo-icon.png" alt="logo" /></span>
         <h5 class="font-medium mb-4">Inicia sesión</h5>
       </div>
-      <!-- Form -->
       <div class="row">
         <div class="col-12">
           <form class="form-horizontal mt-3" id="loginform" [formGroup]="miFormLogin" (ngSubmit)="iniciarSesion()">

@@ -1,4 +1,3 @@
-// Form
 .form-check-input {
     background-color: $theme-dark-bg-layout;
     border: 1px solid $theme-dark-border-color;
@@ -8,15 +7,11 @@
     }
   }
   
-  // pagination
   .page-item.active .page-link {
       background-color: $info !important;
       border-color: $info !important;
   }
   
-  // Table
-  
-  // tables
   .table-primary,
   .table-success,
   .table-info,
@@ -61,7 +56,6 @@
     background-color: rgba($color: $warning, $alpha: 0.2) !important;
   }
   
-  // Form color borders
   
   .form-control.border.border-warning {
     border-color: $warning !important;

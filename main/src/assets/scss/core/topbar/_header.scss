@@ -1,9 +1,4 @@
-// header part
 @import "notify";
-
-/*******************
- General Topbar
-*******************/
 
 .topbar {
   position: relative;
@@ -86,9 +81,6 @@
   }
 }
 
-/*******************
-Megamenu
-******************/
 .topbar {
   .mega-dropdown {
     position: static;
@@ -102,9 +94,6 @@ Megamenu
     }
   }
 }
-/*******************
-Designed dropdown
-******************/
 .topbar {
   .dropdown-menu {
     padding-top: 0px;
@@ -127,7 +116,6 @@ Designed dropdown
         content: "";
         -moz-border-radius: 6px 0 0 0;
         border-radius: 6px 0 0 0;
-        /*box-shadow:-3px -3px 8px rgba(0, 0, 0, 0.1);    */
       }
     }
     &.dropdown-menu-end {
@@ -141,9 +129,6 @@ Designed dropdown
     }
   }
 }
-/*******************
-Topbar Responsive
-******************/
 
 @media (max-width: 1023px) {
   .topbar .top-navbar {

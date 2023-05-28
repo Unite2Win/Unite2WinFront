@@ -31,7 +31,6 @@ export class VerticalNavigationComponent implements AfterViewInit {
     return globales.usuarioLogueado;
   }
 
-  // This is for Notifications
   notifications: Object[] = [
     {
       btn: 'btn-danger',
@@ -63,7 +62,6 @@ export class VerticalNavigationComponent implements AfterViewInit {
     }
   ];
 
-  // This is for Mymessages
   mymessages: Object[] = [
     {
       useravatar: 'assets/images/users/user1.jpg',
@@ -136,27 +134,21 @@ export class VerticalNavigationComponent implements AfterViewInit {
       } else {
         this.objetivos = x;
       }
-      console.log(this.objetivos)
     })
   }
 
   async obtenerComunidades() {
     var idsComunidades
-    console.log('YEE')
     await this.comunidadesUsuariosService.GetComunidadesUsuariosPaginado(0, this.pageSize, this.globales.id_usu).toPromise().then(resp => {
-      console.log(resp)
       idsComunidades = resp
     });
-    console.log(idsComunidades);
 
     idsComunidades.forEach(comunidad => {
       this.comunidadesService.GetComunidadById(comunidad.id_com).toPromise().then(resp => {
         this.todosComunidades.push(resp)
       })
 
-      console.log(comunidad);
     })
-    console.log(this.todosComunidades);
     if (this.todosComunidades.length >= 3) {
       this.todosComunidades = this.todosComunidades.slice(0, 3);
     } else {

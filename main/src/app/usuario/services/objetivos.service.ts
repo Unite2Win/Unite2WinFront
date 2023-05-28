@@ -41,8 +41,6 @@ export class ObjetivosService {
   }
 
   PostObjetivos(objetivo:Objetivo):Observable<any>{
-    //console.log("anadir objetivos disparado");
-    //console.log(objetivo.toString());
     return this.http.post<Objetivo>(`${this.API_URL}/API/post`,objetivo);
   }
 
@@ -51,7 +49,6 @@ export class ObjetivosService {
   }
 
   DeleteObjetivos(id: number): Observable<Object>{
-    //console.log("eliminar objetivos disparado");
      return this.http.put(`${this.API_URL}/delete`,id);
   }
 

@@ -3,7 +3,64 @@
         <h1 style="background-image:url(assets/images/tapizRosa.jpg);padding: 2%;text-align: center;">Comunidades
         </h1>
         <hr style="margin-top: 4.5%;">
-        <div class="animate__animated animate__fadeInLeft">
+        
+        <div *ngIf="comunidadesFiltrados.length>0; else noComunidades" class="animate__animated animate__fadeInLeft">
+            <table class="table table-striped mb-0 text-nowrap align-middle">
+                <tbody>
+                    <tr *ngFor="
+                                  let comunidad of comunidadesFiltrados
+                                    | slice
+                                      : (page - 1) * pageSize
+                                      : (page - 1) * pageSize + pageSize
+                                ">
+                        <td *ngIf="comunidad.picture != null; else noFile">
+                            <img [src]="'data: comunidad.picture.extensionArchivo; base64,'+comunidad.picture.data | safe"
+                                class="img-responsive ms-2" style="max-height: 100px; min-height: 100px; max-width: 100px; min-width: 100px; clip-path: circle(40px);" />
+                        </td>
+                        <ng-template #noFile>
+                            <td>
+                                <img src="assets\images\404\comunidadDefaultSquareNoBKG.png" class="img-responsive"
+                                    style="max-height: 100px; min-height: 100px; max-width: 100px; min-width: 100px; clip-path: circle(40px);" />
+                            </td>
+                        </ng-template>
+                        <td>
+                            <div class="d-flex align-items-center">
+                                <div>
+                                    <p *ngIf="comunidad.nombre != null; else noFileNombre" class="font-medium mb-0">
+                                        {{ comunidad.nombre.length > 15 ? comunidad.nombre.slice(0,15) + "..." :
+                                        comunidad.nombre }}
+                                    </p>
+                                    <ng-template #noFileNombre>
+                                        <p class="text-danger font-medium mb-0">NO DATA</p>
+                                    </ng-template>
+                                </div>
+                            </div>
+                        </td>
+                        <td *ngIf="comunidad.descripcion != null; else noFile">{{ comunidad.descripcion.length >
+                            1 ? comunidad.descripcion.slice(0,14) + "..." :
+                            comunidad.descripcion }}</td>
+                        <ng-template #noFile>
+                            <td class="text-danger">NO DATA</td>
+                        </ng-template>
+                        <td *ngIf="selectedOption == 1">
+                            <a [href]="irAComunidad(comunidad)" class="link" ngbTooltip="Ver Comunidad">
+                                Ver
+                                <i-feather name="log-in" class="feather text-info pointer ms-1"></i-feather>
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            
+        
+        <hr>
+        <div class="row mx-auto " style="width: 100%;">
+            <a routerLink="/usuario/miscomunidades" class="btn btn-outline-info">Ver mis comunidades</a>
+        </div>
+        
+        </div>
+        <ng-template #noComunidades>
             <p style="font-size: 18px; text-align: justify;">
                 Las comunidades de Unite2Win son espacios donde puedes unirte a grupos de personas con intereses y
                 objetivos
@@ -27,12 +84,10 @@
                 ¡juntos
                 podemos lograr más!
             </p>
-        
-        <hr>
-        <div class="row mx-auto " style="width: 100%;">
-            <a routerLink="/usuario/miscomunidades" class="btn btn-outline-info">Explorar comunidades</a>
-        </div>
-        </div>
+            <div class="row mx-auto " style="width: 100%;">
+                <a routerLink="/usuario/explorar" class="btn btn-outline-info">Explorar comunidades</a>
+            </div>
+        </ng-template>
     </div>
     <div class="col-2"></div>
     <div class="col-5">

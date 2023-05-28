@@ -104,10 +104,8 @@ export class ExplorarComponent implements OnInit {
       if (this.noDataFlag == false) {
         var idsComunidades
         // await this.comunidadesUsuariosService.GetComunidadesUsuariosPaginadoExplorar(0, this.pageSize, this.globales.id_usu).toPromise().then(resp => {
-        //   console.log(resp)
         //   idsComunidades = resp
         // });
-        // console.log(idsComunidades);
         // const arraySinDuplicados = idsComunidades.reduce((accumulator, current) => {
         //   const duplicate = accumulator.find(obj => obj.id_com === current.id_com);
         //   if (!duplicate) {
@@ -116,10 +114,8 @@ export class ExplorarComponent implements OnInit {
         //   return accumulator;
         // }, []);
         await this.comunidadesService.GetComunidadesBBDD().toPromise().then(resp => {
-          console.log(resp)
           idsComunidades = resp
         })
-        console.log(idsComunidades);
         const arraySinDuplicados = idsComunidades.reduce((accumulator, current) => {
           const duplicate = accumulator.find(obj => obj.id_com === current.id_com);
           if (!duplicate) {
@@ -128,16 +124,12 @@ export class ExplorarComponent implements OnInit {
           return accumulator;
         }, []);
 
-        console.log(arraySinDuplicados)
         // Aqui miro las comunidades en las que estoy para que me las elimine del array de explorar
         var idsComunidades2
         var idsComunidades3 = []
-        console.log('YEE')
         await this.comunidadesUsuariosService.GetComunidadesUsuariosPaginado(0, this.pageSize, this.globales.id_usu).toPromise().then(resp => {
-          console.log(resp)
           idsComunidades2 = resp
         });
-        console.log(idsComunidades2);
 
         await Promise.all(idsComunidades2.map(comunidad => {
           return this.comunidadesService.GetComunidadById(comunidad.id_com).toPromise().then(x => {
@@ -146,27 +138,18 @@ export class ExplorarComponent implements OnInit {
           });
         }));
 
-        console.log(this.todosComunidades2);
-        console.log(idsComunidades3);
 
         const arraySinDuplicadosFiltrado = arraySinDuplicados.filter(objeto => !idsComunidades3.includes(objeto.id_com));
-        console.log(arraySinDuplicadosFiltrado);
 
-        console.log(arraySinDuplicados)
-        console.log(this.todosComunidades2)
-        console.log(arraySinDuplicadosFiltrado)
         //
 
 
         arraySinDuplicadosFiltrado.forEach(async comunidad => {
           await this.comunidadesService.GetComunidadById(comunidad.id_com).toPromise().then(resp => {
-            console.log(resp)
             this.todosComunidades.push(resp)
           })
 
-          console.log(comunidad);
         })
-        console.log(this.todosComunidades);
         this.loadingFlag = false;
       }
       this.comunidadesFiltrados = this.todosComunidades;
@@ -178,7 +161,6 @@ export class ExplorarComponent implements OnInit {
   }
 
   mostrarComunidad(com: Comunidad) {
-    console.log(com);
   }
 
   filtrarIdiomas(v: string) {
