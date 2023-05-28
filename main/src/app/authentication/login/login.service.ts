@@ -11,6 +11,7 @@ import { globales } from 'common/globales';
 import { Usuario } from 'app/usuario/interfaces/usuarioModel';
 import { LoginModel } from 'app/usuario/interfaces/loginModel';
 import { Documento } from 'app/usuario/interfaces/documentoModel';
+import { ToastrService } from 'ngx-toastr';
 
 @Injectable({
   providedIn: 'root'
@@ -26,7 +27,7 @@ export class LoginService {
 
 
 
-  constructor(private http: HttpClient, public router: Router, private jwtHelper: JwtHelperService, private usuariosService: UsuariosService) { }
+  constructor(private toastrService: ToastrService, private http: HttpClient, public router: Router, private jwtHelper: JwtHelperService, private usuariosService: UsuariosService) { }
 
   signIn(user: LoginModel) {
     this.logout();
@@ -56,8 +57,14 @@ export class LoginService {
           localStorage.setItem('user_id', response.user_ID);
           this.AUTH_TOKEN = this.getToken();
           this.AUTH_USERID = this.getId();
-          this.router.navigate(["/usuario/perfil"]);
+          this.router.navigate(["/usuario/inicio"]);
         },
+        error: (e) => {
+          if (e.status == 401) {
+            this.toastrService.error('Credenciales incorrectas.')
+          }
+        },
+        complete: () => this.toastrService.success('Sesión iniciada con exito.')
       })
   }
 

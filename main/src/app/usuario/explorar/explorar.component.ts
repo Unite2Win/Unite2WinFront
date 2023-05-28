@@ -146,7 +146,9 @@ export class ExplorarComponent implements OnInit {
 
         arraySinDuplicadosFiltrado.forEach(async comunidad => {
           await this.comunidadesService.GetComunidadById(comunidad.id_com).toPromise().then(resp => {
-            this.todosComunidades.push(resp)
+            if (resp.isVisible) {
+              this.todosComunidades.push(resp)
+            }
           })
 
         })

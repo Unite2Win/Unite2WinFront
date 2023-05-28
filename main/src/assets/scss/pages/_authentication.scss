@@ -1,3 +1,15 @@
+.paleta {
+  // color: #DEB2B3;
+  color: #FF5B7E;
+}
+
+.btn-dangerMOD {
+  // background-color: #DEB2B3;
+  background-color: #FF5B7E;
+  // border: #9f7778 2px solid;
+  border: #c4117c 4px solid;
+}
+
 .auth-wrapper {
   min-height: 100vh;
   position: relative;
@@ -54,7 +66,7 @@
 .error-box {
   height: 100%;
   position: fixed;
-  background: url(../../images/background/error-bg.jpg) no-repeat center center #fff;
+  background: url(../../images/background/error-bg2.png) no-repeat center center #fff;
   width: 100%;
 
   .error-body {

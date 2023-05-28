@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { LoginService } from './login.service';
 import { LoginModel } from 'app/usuario/interfaces/loginModel';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-login',
@@ -14,9 +15,14 @@ export class LoginComponent {
     password: ['', Validators.required]
   });
 
-  constructor(private fb: FormBuilder, private loginService: LoginService) { }
+  constructor(private fb: FormBuilder, private loginService: LoginService, private toastrService: ToastrService) { }
 
   iniciarSesion() {
+    if (this.miFormLogin.invalid) {
+      this.toastrService.warning('El usuario y la contraseña son obligatorios.')
+      return;
+    }
+
     let user: LoginModel =
     {
       nick: this.miFormLogin.get('username').value,

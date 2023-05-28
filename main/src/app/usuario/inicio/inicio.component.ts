@@ -51,8 +51,6 @@ export class InicioComponent implements OnInit {
 
   IdTokenPerfilActual: number;
 
-
-
   constructor(private objetivosService: ObjetivosService, private router: Router, private ventanaConfirmacionService: VentanaConfirmacionService, private loginService: LoginService, private modalService: NgbModal, private fb: FormBuilder, private manejoDocsService: ManejoDocsService, private comunidadesService: ComunidadesService, private comunidadesUsuariosService: ComunidadesUsuariosService, private adminComunidadesService: AdminComunidadesService) { }
 
   async ngOnInit() {

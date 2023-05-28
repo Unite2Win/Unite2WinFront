@@ -3,63 +3,69 @@
         <h1 style="background-image:url(assets/images/tapizRosa.jpg);padding: 2%;text-align: center;">Comunidades
         </h1>
         <hr style="margin-top: 4.5%;">
-        
-        <div *ngIf="comunidadesFiltrados.length>0; else noComunidades" class="animate__animated animate__fadeInLeft">
-            <table class="table table-striped mb-0 text-nowrap align-middle">
-                <tbody>
-                    <tr *ngFor="
+
+        <div *ngIf="!loadingFlag; else loading">
+
+            <div *ngIf="comunidadesFiltrados.length>0; else noComunidades"
+                class="animate__animated animate__fadeInLeft">
+                <table class="table table-striped mb-0 text-nowrap align-middle">
+                    <tbody>
+                        <tr *ngFor="
                                   let comunidad of comunidadesFiltrados
                                     | slice
                                       : (page - 1) * pageSize
                                       : (page - 1) * pageSize + pageSize
                                 ">
-                        <td *ngIf="comunidad.picture != null; else noFile">
-                            <img [src]="'data: comunidad.picture.extensionArchivo; base64,'+comunidad.picture.data | safe"
-                                class="img-responsive ms-2" style="max-height: 100px; min-height: 100px; max-width: 100px; min-width: 100px; clip-path: circle(40px);" />
-                        </td>
-                        <ng-template #noFile>
-                            <td>
-                                <img src="assets\images\404\comunidadDefaultSquareNoBKG.png" class="img-responsive"
+                            <td *ngIf="comunidad.picture != null; else noFile">
+                                <img [src]="'data: comunidad.picture.extensionArchivo; base64,'+comunidad.picture.data | safe"
+                                    class="img-responsive ms-2"
                                     style="max-height: 100px; min-height: 100px; max-width: 100px; min-width: 100px; clip-path: circle(40px);" />
                             </td>
-                        </ng-template>
-                        <td>
-                            <div class="d-flex align-items-center">
-                                <div>
-                                    <p *ngIf="comunidad.nombre != null; else noFileNombre" class="font-medium mb-0">
-                                        {{ comunidad.nombre.length > 15 ? comunidad.nombre.slice(0,15) + "..." :
-                                        comunidad.nombre }}
-                                    </p>
-                                    <ng-template #noFileNombre>
-                                        <p class="text-danger font-medium mb-0">NO DATA</p>
-                                    </ng-template>
+                            <ng-template #noFile>
+                                <td>
+                                    <img src="assets\images\404\comunidadDefaultSquareNoBKG.png" class="img-responsive"
+                                        style="max-height: 100px; min-height: 100px; max-width: 100px; min-width: 100px; clip-path: circle(40px);" />
+                                </td>
+                            </ng-template>
+                            <td>
+                                <div class="d-flex align-items-center">
+                                    <div>
+                                        <p *ngIf="comunidad.nombre != null; else noFileNombre" class="font-medium mb-0">
+                                            {{ comunidad.nombre.length > 15 ? comunidad.nombre.slice(0,15) + "..." :
+                                            comunidad.nombre }}
+                                        </p>
+                                        <ng-template #noFileNombre>
+                                            <p class="text-danger font-medium mb-0">NO DATA</p>
+                                        </ng-template>
+                                    </div>
                                 </div>
-                            </div>
-                        </td>
-                        <td *ngIf="comunidad.descripcion != null; else noFile">{{ comunidad.descripcion.length >
-                            1 ? comunidad.descripcion.slice(0,14) + "..." :
-                            comunidad.descripcion }}</td>
-                        <ng-template #noFile>
-                            <td class="text-danger">NO DATA</td>
-                        </ng-template>
-                        <td *ngIf="selectedOption == 1">
-                            <a [href]="irAComunidad(comunidad)" class="link" ngbTooltip="Ver Comunidad">
-                                Ver
-                                <i-feather name="log-in" class="feather text-info pointer ms-1"></i-feather>
-                            </a>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-            
-            
-        
-        <hr>
-        <div class="row mx-auto " style="width: 100%;">
-            <a routerLink="/usuario/miscomunidades" class="btn btn-outline-info">Ver mis comunidades</a>
+                            </td>
+                            <td *ngIf="comunidad.descripcion != null; else noFile">{{ comunidad.descripcion.length >
+                                1 ? comunidad.descripcion.slice(0,14) + "..." :
+                                comunidad.descripcion }}</td>
+                            <ng-template #noFile>
+                                <td class="text-danger">NO DATA</td>
+                            </ng-template>
+                            <td *ngIf="selectedOption == 1">
+                                <a [href]="irAComunidad(comunidad)" class="link" ngbTooltip="Ver Comunidad">
+                                    Ver
+                                    <i-feather name="log-in" class="feather text-info pointer ms-1"></i-feather>
+                                </a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+
+
+                <hr>
+                <div class="row mx-auto " style="width: 100%;">
+                    <a routerLink="/usuario/miscomunidades" class="btn btn-outline-info">Ver mis comunidades</a>
+                </div>
+
+            </div>
         </div>
-        
-        </div>
+
         <ng-template #noComunidades>
             <p style="font-size: 18px; text-align: justify;">
                 Las comunidades de Unite2Win son espacios donde puedes unirte a grupos de personas con intereses y
@@ -95,75 +101,88 @@
             <h1 style="background-image:url(assets/images/tapizRosa.jpg);padding: 2%;text-align: center;">Mis objetivos
             </h1>
             <hr>
-            <div class="animate__animated animate__fadeInRight">
-            <div style="display: flex; flex-direction: row; flex-wrap: nowrap; justify-content:space-between">
-                <div style=" display: flex; flex-direction: column;">
-                    <img *ngIf="usuario.picture != null; else noFile" class="d-block mx-auto img-responsive"
-                        style="max-width: 100px;min-width: 100px;min-height: 100px; max-height: 100px; clip-path: circle(50px);"
-                        [src]="'data: usuario.picture.extensionArchivo; base64,'+usuario.picture.data | safe">
-                    <ng-template #noFile>
-                        <img src="assets\images\profilepic.jpg" class="d-block mx-auto img-responsive"
-                            style="max-height: 100px; max-width: 100px; clip-path: circle(50px);" />
-                    </ng-template>
-                    <div class="row justify-content-center"> Nivel: {{usuario.level}}</div>
-                </div>
+            <div *ngIf="!loadingFlag; else loading">
 
-                <div style=" display: flex; flex-direction: column; margin-top: 2.4%; margin-left: -5%; ">
-                    <pre style="font-size: 24px; margin-bottom: -1%;font-size: 20px;">@{{usuario.nick}}</pre>
-                    <pre style="font-size: 24px; margin-bottom: -1%;font-size: 20px;">Nombre: {{usuario.name}}</pre>
-                    <pre
-                        style="font-size: 24px; margin-bottom: -1%;font-size: 20px;">Apellido: {{usuario.surname}}</pre>
-                </div>
-
-
-
-                <div style=" display: flex; flex-direction: column;">
-                    <button routerLink="/usuario/perfil" type="button" class="btn btn-primary"
-                        style="height: 100px; background-color:palevioletred; border-color:transparent">></button>
-                </div>
-            </div>
-
-
-
-            <hr class="row w-70">
-
-            <div class="row w-70 card bg-secondary" style="margin-top:1%" *ngFor="let obj of objetivos;let i=index">
-                <div class="card-body">
-                    <div class="row">
-                        <div class="col-10">
-                            <h5 class="card-title">{{objetivos[i].nombre | uppercase}}</h5>
-                            <h6 class="card-subtitle mb-2 text-muted d-flex align-items-center">
-                                <i-feather name="map-pin" class="me-2 feather-sm"></i-feather>Duracion:
-                                {{objetivos[i].duracion}}
-                                dias.
-                            </h6>
-                            <div class="card-text pt-2">
-                                {{objetivos[i].descripcion | titlecase}}
-                            </div>
-                            <div class="p-3">
-                                <h5 class="card-title mb-0">Progreso</h5>
-                            </div>
-                            <div class="card-body border-top">
-                                <div><ngb-progressbar type="danger"
-                                        [value]="getProgressBarValue(objetivos[i])"></ngb-progressbar></div>
-                            </div>
+                <div class="animate__animated animate__fadeInRight">
+                    <div style="display: flex; flex-direction: row; flex-wrap: nowrap; justify-content:space-between">
+                        <div style=" display: flex; flex-direction: column;">
+                            <img *ngIf="usuario.picture != null; else noFile" class="d-block mx-auto img-responsive"
+                                style="max-width: 100px;min-width: 100px;min-height: 100px; max-height: 100px; clip-path: circle(50px);"
+                                [src]="'data: usuario.picture.extensionArchivo; base64,'+usuario.picture.data | safe">
+                            <ng-template #noFile>
+                                <img src="assets\images\profilepic.jpg" class="d-block mx-auto img-responsive"
+                                    style="max-height: 100px; max-width: 100px; clip-path: circle(50px);" />
+                            </ng-template>
+                            <div class="row justify-content-center"> Nivel: {{usuario.level}}</div>
                         </div>
-                        <div class="col-2">
-                            <img *ngIf="objetivos[i].complete_date !== null || objetivos[i].completado == true"
-                                src="assets\images\icon\checked.gif" class="img-fluid" alt="icon"
-                                style="padding-bottom: 10%;">
-                            <img *ngIf="objetivos[i].complete_date == null" src="assets\images\icon\Red.gif"
-                                class="img-fluid" alt="icon" style="padding-bottom: 10%;">
+
+                        <div style=" display: flex; flex-direction: column; margin-top: 2.4%; margin-left: -5%; ">
+                            <pre style="font-size: 24px; margin-bottom: -1%;font-size: 20px;">@{{usuario.nick}}</pre>
+                            <pre
+                                style="font-size: 24px; margin-bottom: -1%;font-size: 20px;">Nombre: {{usuario.name}}</pre>
+                            <pre
+                                style="font-size: 24px; margin-bottom: -1%;font-size: 20px;">Apellido: {{usuario.surname}}</pre>
+                        </div>
+
+
+
+                        <div style=" display: flex; flex-direction: column;">
+                            <button routerLink="/usuario/perfil" type="button" class="btn btn-primary"
+                                style="height: 100px; background-color:palevioletred; border-color:transparent">></button>
                         </div>
                     </div>
+
+
+
+                    <hr class="row w-70">
+
+                    <div class="row w-70 card bg-secondary" style="margin-top:1%"
+                        *ngFor="let obj of objetivos;let i=index">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-10">
+                                    <h5 class="card-title">{{objetivos[i].nombre | uppercase}}</h5>
+                                    <h6 class="card-subtitle mb-2 text-muted d-flex align-items-center">
+                                        <i-feather name="map-pin" class="me-2 feather-sm"></i-feather>Duracion:
+                                        {{objetivos[i].duracion}}
+                                        dias.
+                                    </h6>
+                                    <div class="card-text pt-2">
+                                        {{objetivos[i].descripcion | titlecase}}
+                                    </div>
+                                    <div class="p-3">
+                                        <h5 class="card-title mb-0">Progreso</h5>
+                                    </div>
+                                    <div class="card-body border-top">
+                                        <div><ngb-progressbar type="danger"
+                                                [value]="getProgressBarValue(objetivos[i])"></ngb-progressbar></div>
+                                    </div>
+                                </div>
+                                <div class="col-2">
+                                    <img *ngIf="objetivos[i].complete_date !== null || objetivos[i].completado == true"
+                                        src="assets\images\icon\checked.gif" class="img-fluid" alt="icon"
+                                        style="padding-bottom: 10%;">
+                                    <img *ngIf="objetivos[i].complete_date == null" src="assets\images\icon\Red.gif"
+                                        class="img-fluid" alt="icon" style="padding-bottom: 10%;">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <hr style="margin-top: 1%;">
+                    <div class="row mx-auto" style="width: 100%;">
+                        <a (click)="irObjetivos()" class="btn btn-outline-info">{{TextoBoton}}</a>
+                    </div>
                 </div>
-            </div>
-            <hr style="margin-top: 1%;">
-            <div class="row mx-auto" style="width: 100%;">
-                <a (click)="irObjetivos()" class="btn btn-outline-info">{{TextoBoton}}</a>
-            </div>
             </div>
         </div>
     </div>
 
 </div>
+
+<ng-template #loading>
+    <div class="d-flex justify-content-center mt-5">
+        <div class="spinner-border text-danger" role="status">
+            <span class="sr-only">Cargando...</span>
+        </div>
+    </div>
+</ng-template>

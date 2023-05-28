@@ -43,7 +43,7 @@ export class TarjetaPostComponent implements OnInit {
     this.tooltipItems = [
       {
         tooltipOptions: {
-          tooltipLabel: 'Eliminar evento',
+          tooltipLabel: 'Eliminar post',
           tooltipPosition: 'right'
         },
         icon: 'pi pi-trash',
