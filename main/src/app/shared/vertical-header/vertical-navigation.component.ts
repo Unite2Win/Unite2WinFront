@@ -31,7 +31,6 @@ export class VerticalNavigationComponent implements AfterViewInit {
     return globales.usuarioLogueado;
   }
 
-  // This is for Notifications
   notifications: Object[] = [
     {
       btn: 'btn-danger',
@@ -63,7 +62,6 @@ export class VerticalNavigationComponent implements AfterViewInit {
     }
   ];
 
-  // This is for Mymessages
   mymessages: Object[] = [
     {
       useravatar: 'assets/images/users/user1.jpg',

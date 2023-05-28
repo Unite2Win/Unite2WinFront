@@ -1,4 +1,3 @@
-// Sidebar route metadata
 export interface RouteInfo {
   path: string;
   title: string;
