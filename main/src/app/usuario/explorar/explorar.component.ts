@@ -117,7 +117,7 @@ export class ExplorarComponent implements OnInit {
         }, []);
 
         console.log(arraySinDuplicados)
-        //
+        // Aqui miro las comunidades en las que estoy para que me las elimine del array de explorar
         var idsComunidades2
         var idsComunidades3 = []
         console.log('YEE')
