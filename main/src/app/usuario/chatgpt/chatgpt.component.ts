@@ -5,11 +5,11 @@ import { ChatWithBot, ResponseModel } from '../interfaces/gpt-response';
 import { environment } from 'environments/environment';
 
 @Component({
-  selector: 'app-customer-support',
-  templateUrl: './customer-support.component.html',
-  styleUrls: ['./customer-support.component.css']
+  selector: 'app-chatgpt',
+  templateUrl: './chatgpt.component.html',
+  styleUrls: ['./chatgpt.component.css']
 })
-export class CustomerSupportComponent implements OnInit {
+export class ChatGPTComponent implements OnInit {
 chatConversation: ChatWithBot[]=[];
 response!: ResponseModel | undefined;
     gptModels = gptModels

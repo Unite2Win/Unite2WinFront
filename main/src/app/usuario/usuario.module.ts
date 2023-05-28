@@ -28,7 +28,7 @@ import { TarjetaEventoComponent } from './ver-comunidad-unica/components/eventos
 import { SpeedDialModule } from 'primeng/speeddial';
 import { CalendarModule } from 'primeng/calendar';
 import { TarjetaPostComponent } from './ver-comunidad-unica/components/feed/tarjeta-post/tarjeta-post.component';
-import { CustomerSupportComponent } from './customer-support/customer-support.component';
+import { ChatGPTComponent } from './chatgpt/chatgpt.component';
 
 @NgModule({
   declarations: [
@@ -43,7 +43,7 @@ import { CustomerSupportComponent } from './customer-support/customer-support.co
     PersonasComponent,
     EventosComponent,
     MultimediaComponent,
-    CustomerSupportComponent,
+    ChatGPTComponent,
     TarjetaUsuarioComponent,
     ExplorarComponent,
     TarjetaEventoComponent,
