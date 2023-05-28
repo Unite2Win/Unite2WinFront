@@ -25,7 +25,7 @@
               <input [type]="password" class="form-control" placeholder="Contraseña" aria-label="Password"
                 aria-describedby="basic-addon1" formControlName="password" />
 
-              <button (click)="onClick()" style="border-color:aliceblue; background-color:whitesmoke">
+              <button type="button" (click)="onClick()" class="btn btn-secondary">
                 <i class="fa fa-eye" aria-hidden="true" *ngIf="!show"></i>
                 <i class="fa fa-eye-slash" aria-hidden="true" *ngIf="show"></i>
               </button>
