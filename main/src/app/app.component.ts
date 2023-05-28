@@ -11,7 +11,11 @@ import { PrimeNGConfig } from 'primeng/api';
 export class AppComponent {
   title = 'app';
 
-  constructor(private config: PrimeNGConfig, private translate: TranslateService, public router: Router) { this.router.navigate(["/usuario/inicio"]); }
+  constructor(private config: PrimeNGConfig, private translate: TranslateService, public router: Router) {
+    if (window.location.href == 'http://localhost:4200/') {
+      this.router.navigate(["/usuario/inicio"]);
+    }
+  }
 
   ngOnInit() {
     this.translate.setDefaultLang('es');
