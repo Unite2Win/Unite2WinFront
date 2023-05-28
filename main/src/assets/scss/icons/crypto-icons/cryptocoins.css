@@ -1,5 +1,3 @@
-/*! Cryptocoins - cryptocurrency icon font | https://github.com/allienworks/cryptocoins */
-
 @font-face {
     font-family: "cryptocoins";
     src: url('cryptocoins.woff2') format('woff2'),
@@ -8,8 +6,6 @@
 }
 
 
-/* .cc:before { */
-
 .cc::before {
     font-family: "cryptocoins";
     -webkit-font-smoothing: antialiased;
@@ -17,7 +13,6 @@
     font-style: normal;
     font-variant: normal;
     font-weight: normal;
-    /* speak: none; only necessary if not using the private unicode range (firstGlyph option) */
     text-decoration: none;
     text-transform: none;
 }

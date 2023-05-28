@@ -1,4 +1,3 @@
-// Sidebar
 $sidebar-link-padding: 12px 15px;
 $sidebar-icon-size: 20px;
 $sidebar-first-level-padding: 0 0 10px 0;
@@ -6,10 +5,6 @@ $sidebar-first-level-link-padding: 8px 15px;
 $sidebar-first-level-icon-size: 14px;
 $sidebar-second-level-padding: 0 0 0px 20px;
 $small-cap-padding: 12px 23px;
-
-/*******************
-Main sidebar
-******************/
 
 .left-sidebar {
   position: absolute;
@@ -23,12 +18,8 @@ Main sidebar
   transition: 0.2s ease-in;
 }
 
-/*******************
-sidebar navigation
-******************/
 .scroll-sidebar {
   height: calc(100% - 20px);
-  // overflow: auto;
   position: relative;
 }
 
@@ -39,7 +30,6 @@ sidebar navigation
 .sidebar-nav {
   ul {
     .sidebar-item {
-      // width: $sidebar-width-full;
       margin-bottom: 5px;
       .sidebar-link {
         color: $sidebar-text;
@@ -87,12 +77,8 @@ sidebar navigation
       }
       &.selected > .sidebar-link,
       &:hover > .sidebar-link {
-        /*background: rgba(0, 0, 0, 0.04);*/
         opacity: 1;
       }
-      /*******************
-					 First level
-					 ******************/
       .first-level {
         padding: $sidebar-first-level-padding;
         .sidebar-item.active > .sidebar-link {
@@ -115,9 +101,6 @@ sidebar navigation
         }
       }
     }
-    /*******************
-		 Small cap
-		 ******************/
     .nav-small-cap {
       font-size: 12px;
       padding: $small-cap-padding;
@@ -137,9 +120,6 @@ sidebar navigation
     }
   }
 }
-/*******************
- common m-p removed
-******************/
 .sidebar-nav {
   ul {
     margin: 0px;
@@ -152,9 +132,6 @@ sidebar navigation
 .collapse.in {
   display: block;
 }
-/*******************
-Down arrow
-******************/
 .sidebar-nav .has-arrow {
   position: relative;
   &::after {
@@ -182,9 +159,6 @@ Down arrow
   }
 }
 
-/*.sidebar-nav .active > .has-arrow::after,*/
-
-/*.sidebar-nav li.selected > .has-arrow::after,*/
 .sidebar-nav li.active > .has-arrow::after,
 .sidebar-nav li > .has-arrow.active::after,
 .sidebar-nav .has-arrow[aria-expanded="true"]::after {
@@ -215,7 +189,6 @@ Down arrow
   }
 }
 
-// truncate
 .hide-menu {
   overflow: hidden;
   text-overflow: ellipsis;

@@ -1,11 +1,5 @@
-/*
-Template Name: Admin Template
-Author: Niravjoshi / Wrappixel
-File: scss
-*/
 $sidebarheight: 54px;
 #main-wrapper[data-layout="horizontal"] {
-  // sidebar setting
 
   @include media-breakpoint-up(lg) {
     .sidebar-nav ul .sidebar-item .first-level .sidebar-item .sidebar-link i {
@@ -13,7 +7,6 @@ $sidebarheight: 54px;
     }
   }
 
-  // language change ellipsis text
   @include media-breakpoint-up(lg) {
     .sidebar-nav {
       #sidebarnav {
@@ -28,9 +21,6 @@ $sidebarheight: 54px;
     }
   }
 
-  /****************************
-    This is for the fixed header layout
-    ***************************/
   &[data-header-position="fixed"] {
     .topbar {
       position: fixed;
@@ -40,9 +30,7 @@ $sidebarheight: 54px;
       padding-top: 64px;
     }
   }
-  /****************************
-    This is for the fixed sidebar layout
-    ***************************/
+
   &[data-sidebar-position="fixed"] {
     .topbar {
       position: fixed;
@@ -58,19 +46,12 @@ $sidebarheight: 54px;
   }
 }
 
-/****************************
-This is for the horizontal layout
-***************************/
-
 @include media-breakpoint-up(lg) {
   #main-wrapper[data-layout="horizontal"] {
     background: $body-bg;
     .topbar {
       transition: 0s;
     }
-    /****************************
-        This is for the Boxed horizontal layout
-        ***************************/
     &[data-boxed-layout="boxed"] {
       .top-navbar,
       .sidebar-nav,
@@ -93,9 +74,6 @@ This is for the horizontal layout
             display: block;
           }
         }
-        // .sidebar-item {
-        //     flex: 1 1 0;
-        // }
       }
     }
     &[data-sidebar-position="fixed"] {
@@ -103,12 +81,8 @@ This is for the horizontal layout
         padding-top: 114px;
       }
     }
-    /****************************
-        This is for the horizontal layout
-        ***************************/
     .topbar .top-navbar .navbar-header {
       width: 200px;
-      // border-right: 1px solid rgba(0, 0, 0, 0.1);
     }
     .topbar .sidebartoggler {
       display: none;
@@ -213,7 +187,6 @@ This is for the horizontal layout
         ul.first-level > .sidebar-item:hover ul.second-level {
           display: block;
         }
-        // >.sidebar-item > .has-arrow:after,
         .nav-small-cap,
         .sidebar-footer,
         .user-pro,
@@ -239,9 +212,6 @@ This is for the horizontal layout
 
 @include media-breakpoint-down(md) {
   #main-wrapper[data-layout="horizontal"] {
-    /****************************
-        This is for the fixed sidebar layout
-        ***************************/
     &[data-sidebar-position="fixed"] {
       .left-sidebar {
         overflow: auto;
@@ -250,7 +220,6 @@ This is for the horizontal layout
   }
 }
 
-// new main + horizontal combination style
 @include media-breakpoint-up(lg) {
   #main-wrapper[data-layout="horizontal"] {
     .topbar .top-navbar .navbar-header {

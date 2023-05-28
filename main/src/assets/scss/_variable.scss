@@ -1,11 +1,5 @@
-// ======================================================
-// Custom layout variables
-// ======================================================
 @import url("https://fonts.googleapis.com/css?family=Montserrat:300,400,500,600,700");
 
-// ======================================================
-// Theme Global setting colors
-// ======================================================
 $themecolor: #398bf7;
 $themecolor-dark: #028ee1;
 $themecolor-alt: #26c6da;
@@ -19,20 +13,12 @@ $skin4: #1976d2;
 $skin5: #242a33;
 $skin6: #fff;
 
-// ======================================================
-// Topbar settings
-// ======================================================
-
 $topbar: $theme-light;
 $topbar-height: 60px;
 $topbar-navlink-padding: 0px 0.75rem;
 $topbar-navlink-font-size: 15px;
 $topbar-navlink-height: 60px;
 $topbar-navbrand-padding: 0 10px 0 10px;
-
-// ======================================================
-// Sidebar settings
-// ======================================================
 
 $sidebar: $theme-light;
 $sidebar-alt: #edf0f5;
@@ -45,15 +31,9 @@ $sidebar-width-full: 240px;
 $sidebar-width-iconbar: 180px;
 $sidebar-width-mini: 70px;
 
-// ======================================================
-// Layout settings
-// ======================================================
 $boxed-width: 1200px;
 $page-wrapper-max-width: 1300px;
 
-// ======================================================
-// Common settings
-// ======================================================
 $shadow: 1px 0px 20px rgba(0, 0, 0, 0.08);
 $transitions: 0.2s ease-in;
 $transparent-dark-bg: rgba(0, 0, 0, 0.05);
@@ -61,9 +41,6 @@ $lft: left;
 $rgt: right;
 $card-alt: #e4e9ef;
 
-// ======================================================
-// Mixin settings
-// ======================================================
 %square {
   border-radius: 0px;
 }
@@ -76,9 +53,6 @@ $card-alt: #e4e9ef;
   -moz-transform: rotate(45deg);
 }
 
-// ======================================================
-// Bootstrap override colors
-// ======================================================
 $white: #fff !default;
 $gray-100: #ebf3f5 !default;
 $gray-200: #e9edf2 !default;
@@ -133,9 +107,6 @@ $muted: $gray-500 !default;
 $cyan: $cyan !default;
 $orange: $orange !default;
 
-//
-// Light Colors
-//
 $light-danger: #f9e7eb;
 $light-success: #e8fdeb;
 $light-warning: #fff8ec;
@@ -144,9 +115,6 @@ $light-info: #cfecfe;
 $light-inverse: #f6f6f6;
 $light-megna: #e0f2f4;
 
-//
-// Dark Colors
-//
 $danger-dark: #e6294b;
 $success-dark: #1eacbe;
 $warning-dark: #e9ab2e;
@@ -183,9 +151,6 @@ $theme-colors: map-merge(
   $theme-colors
 );
 
-// ======================================================
-// Dark Theme Colors Settings
-// ======================================================
 $theme-dark-bg-layout: #323743;
 $theme-dark-text-color: #b2b9bf !default;
 $theme-dark-border-color: rgba(255, 255, 255, 0.2) !default;
@@ -195,9 +160,6 @@ $theme-dark-bg-light: #3c424e;
 $main-body-bg-dark: $gray-900 !default;
 $background-alt: #2b2b2b !default;
 
-// ======================================================
-// Enable optional
-// ======================================================
 $enable-caret: true !default;
 $enable-rounded: true !default;
 $enable-shadows: false !default;
@@ -208,17 +170,11 @@ $enable-grid-classes: true !default;
 $enable-print-styles: false !default;
 $enable-negative-margins: true;
 
-// ======================================================
-// Body
-// ======================================================
 $main-body-bg: #fff !default;
 $body-bg: #f4f6f9;
 $body-color: #67757c !default;
 $grid-gutter-width: 20px !default;
 
-// ======================================================
-// Typography
-// ======================================================
 $font-size-base: 1rem;
 $font-weight-base: 300 !default;
 $font-family-sans-serif: "Montserrat", sans-serif !default;
@@ -236,7 +192,6 @@ $headings-margin-bottom: 8px !default;
 $headings-font-weight: 400 !default;
 $headings-color: #455a64 !default;
 
-// Font size
 $font-sizes: (
   1: 10px,
   2: 12px,
@@ -247,7 +202,6 @@ $font-sizes: (
   7: 24px,
 );
 
-// display
 $display-font-sizes: (
   1: 5rem,
   2: 4.5rem,
@@ -259,39 +213,21 @@ $display-font-sizes: (
   8: 1.75rem,
 ) !default;
 
-// ======================================================
-// Breadcrumb
-// ======================================================
 $breadcrumb-bg: $body-bg;
 $breadcrumb-margin-bottom: 1.5rem;
 
-// ======================================================
-// Cards
-// ======================================================
 $card-border-width: 0px !default;
 $card-border-color: transparent !default;
 $card-border-radius: 0.25rem !default;
 $card-spacer-y: 1.25rem !default;
 $card-spacer-x: 1.25rem !default;
 
-// 
-// pagination
-// 
 $pagination-color: $blue !default;
 
-// ======================================================
-// Buttons
-// ======================================================
 $btn-secondary-border: $gray-300;
 
-// ======================================================
-// Progressbar
-// ======================================================
 $progress-bg: $gray-100;
 
-// ======================================================
-// Tables
-// ======================================================
 $table-color: #212529 !default;
 $table-bg-accent: $gray-100;
 $table-bg-hover: $gray-100;
@@ -305,17 +241,11 @@ $table-striped-bg: $light !default;
 $table-cell-padding-y-sm: 10px !default;
 $table-cell-padding-x-sm: 15px !default;
 
-// ======================================================
-// Components
-// ======================================================
 $component-active-color: $white !default;
 $component-active-bg: $themecolor !default;
 $badge-pill-padding-x: 0.2em !default;
 $badge-pill-padding-y: 1em !default;
 
-// ======================================================
-// Forms
-// ======================================================
 $input-group-addon-bg: $gray-100;
 $input-border-color: $gray-200;
 $input-color: #54667a;
@@ -336,9 +266,6 @@ $form-select-focus-box-shadow: none !default;
 $input-bg: none !default;
 $input-focus-box-shadow: none !default;
 
-// ======================================================
-// Checkbox
-// ======================================================
 $form-check-input-bg: #ebedf3 !default;
 $form-check-input-border: 0 !default;
 $form-check-input-border-radius: 4px !default;
@@ -347,19 +274,12 @@ $form-check-input-height: 1.375em !default;
 $form-check-input-focus-box-shadow: none !default;
 $form-range-track-bg:             $gray-300 !default;
 
-
-// ======================================================
-// Border settings
-// ======================================================
 $border-width: 1px !default;
 $border-color: $gray-200 !default;
 $border-radius: 4px !default;
 $border-radius-lg: 5px !default;
 $border-radius-sm: 1px !default;
 
-// ======================================================
-// Dropdowns
-// ======================================================
 $dropdown-item-padding-x: 1rem !default;
 $dropdown-item-padding-y: 0.65rem !default;
 $dropdown-border-color: $gray-200;
@@ -368,19 +288,10 @@ $dropdown-color: #212529 !default;
 $dropdown-link-color: #67757c !default;
 $dropdown-font-size: 0.875rem !default;
 
-// ======================================================
-// Progressbars
-// ======================================================
 $progress-height: 5px !default;
 
-// ======================================================
-// Tabs
-// ======================================================
 $nav-tabs-link-active-bg: $white !default;
 
-// ======================================================
-// Grid breakpoints
-// ======================================================
 $grid-breakpoints: (
   xs: 0,
   sm: 576px,
@@ -389,26 +300,17 @@ $grid-breakpoints: (
   xl: 1600px,
 ) !default;
 
-// ======================================================
-// Navbar
-// ======================================================
 $navbar-dark-color: rgba($white, 0.8) !default;
 $navbar-dark-hover-color: rgba($white, 1) !default;
 
 $navbar-light-color: rgba($black, 0.3) !default;
 $navbar-light-hover-color: rgba($black, 0.8) !default;
 
-// ======================================================
-// Badges
-// ======================================================
 $badge-padding-y: 3px !default;
 $badge-padding-x: 10px !default;
 $badge-font-weight: 400 !default;
 $badge-border-radius: 4px !default;
 
-// ======================================================
-// Button shadow & hover
-// ======================================================
 $enable-shadows: true !default;
 $btn-box-shadow: 0 1px 0 rgba($white, 0.15) !default;
 
@@ -422,17 +324,11 @@ $btn-box-shadow: 0 1px 0 rgba($white, 0.15) !default;
   }
 }
 
-// 
-// accordian
-// 
 $accordion-padding-y:                     1rem !default;
 $accordion-padding-x:                     1rem !default;
 $accordion-bg:                            transparent !default;
 $accordion-button-active-color: $info  !default;
 
-// 
-// alert
-// 
 $alert-bg-scale: 0% !default;
 $alert-border-scale: 0% !default;
 $alert-color-scale: 1% !default;
