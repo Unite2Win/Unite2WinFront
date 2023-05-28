@@ -9,14 +9,6 @@
         <div class="p-3 border-bottom">
             <h5 class="font-medium mb-4 mt-2">Disposición</h5>
             <div class="form-check mt-2">
-                <input type="checkbox" class="form-check-input" name="layout" id="layout"
-                    [attr.checked]="(options.layout=='horizontal') ? 'checked' : null"
-                    (change)="options.layout = (options.layout == 'vertical' ? 'horizontal' : 'vertical')"
-                    (click)="options.boxed = (options.boxed == 'full' ? 'boxed' : 'full');">
-                <label class="form-check-label" for="layout">Horizontal</label>
-            </div>
-
-            <div class="form-check mt-2">
                 <input type="checkbox" class="form-check-input" name="theme-view" id="theme-view"
                     [attr.checked]="(options.theme=='dark') ? 'checked' : null"
                     (change)="options.theme = (options.theme == 'light' ? 'dark' : 'light');">
@@ -39,12 +31,6 @@
                     [attr.checked]="(options.boxed=='boxed') ? 'checked' : null"
                     (change)="options.boxed = (options.boxed == 'full' ? 'boxed' : 'full');">
                 <label class="form-check-label" for="boxed-layout">Bordes Pagina</label>
-            </div>
-            <div class="form-check mt-2">
-                <input type="checkbox" class="form-check-input" name="rtl-layout" id="rtl-layout"
-                    [attr.checked]="(options.dir=='rtl') ? 'checked' : null"
-                    (change)="options.dir = (options.dir == 'rtl' ? 'ltr' : 'rtl');">
-                <label class="form-check-label" for="rtl-layout">RTL</label>
             </div>
         </div>
         <div class="p-3 border-bottom" *ngIf="options.layout==='vertical'">
