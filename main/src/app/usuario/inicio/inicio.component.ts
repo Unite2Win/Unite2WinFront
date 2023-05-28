@@ -4,6 +4,16 @@ import { ObjetivosService } from '../services/objetivos.service';
 import { globales } from 'common/globales';
 import { Usuario } from '../interfaces/usuarioModel';
 import { Router } from '@angular/router';
+import { VentanaConfirmacionService } from 'app/administracion/ventana-confirmacion/ventana-confirmacion.service';
+import { LoginService } from 'app/authentication/login/login.service';
+import { FormBuilder } from '@angular/forms';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ComunidadesService } from 'app/usuario/services/comunidades.service';
+import { ManejoDocsService } from 'app/usuario/services/manejo-docs.service';
+import { Comunidad } from 'app/usuario/interfaces/comunidadModel';
+import { AdminComunidadesService } from 'app/administracion/admin-comunidades/admin-comunidades.service';
+import { ComunidadesUsuariosService } from '../services/comunidades-usuarios.service';
+
 
 @Component({
   selector: 'app-inicio',
@@ -18,7 +28,32 @@ export class InicioComponent implements OnInit {
   globales: globales;
   usuario: Usuario = globales.usuarioLogueado;
 
-  constructor(private objetivosService: ObjetivosService, private router: Router) { }
+  selectedOption = 1;
+
+  borrarDisabled: boolean = false;
+
+  page = 1;
+  pageSize = 40;
+
+  size = 0
+
+  actualPage = 0
+
+  loadingFlag = true;
+  noDataFlag = false;
+
+  comunidadesFiltrados: Comunidad[] = [];
+  todosComunidades: Comunidad[] = [];
+
+  comunidadSeleccionado: Comunidad;
+
+  _descripcionBusqueda = '';
+
+  IdTokenPerfilActual: number;
+
+
+
+  constructor(private objetivosService: ObjetivosService, private router: Router, private ventanaConfirmacionService: VentanaConfirmacionService, private loginService: LoginService, private modalService: NgbModal, private fb: FormBuilder, private manejoDocsService: ManejoDocsService, private comunidadesService: ComunidadesService, private comunidadesUsuariosService: ComunidadesUsuariosService, private adminComunidadesService: AdminComunidadesService) { }
 
   async ngOnInit() {
     await this.objetivosService.getObjetivos();
@@ -29,7 +64,61 @@ export class InicioComponent implements OnInit {
     } else if (this.objetivos.length > 2) {
       this.objetivos = this.objetivos.slice(0, 2);
     };
+    if (this.actualPage == 0) {
+      this.IdTokenPerfilActual = Number(this.loginService.AUTH_USERID);
+
+      this.todosComunidades = [];
+      this.comunidadesFiltrados = [];
+
+      this.loadingFlag = true;
+      this.noDataFlag = false;
+
+      let a = this.comunidadesUsuariosService.GetComunidadesUsuariosCount(this.usuario.id_usu).toPromise()
+      await a.then(count => {
+        this.size = count
+        if (this.size === 0) {
+          this.noDataFlag = true;
+        } else {
+          this.noDataFlag = false;
+        }
+      })
+      if (this.noDataFlag == false) {
+        var idsComunidades
+        await this.comunidadesUsuariosService.GetComunidadesUsuariosPaginado(0, this.pageSize, this.usuario.id_usu).toPromise().then(resp => {
+          idsComunidades = resp
+          // let comunidadesIDs: number[] = []
+          // await this.comunidadesUsuariosService.GetComunidadesUsuariosByUsuario(globales.usuarioLogueado.id_usu).toPromise().then(resp => {
+          //   resp.forEach(cm => {
+          //     comunidadesIDs.push(cm.id_com);
+          //   });
+          // })
+          // await this.comunidadesService.GetComunidadesByIdArray(comunidadesIDs).toPromise().then(resp => {
+          //   resp.forEach(comunidad => {
+          //     this.todosComunidades.push(comunidad)
+          //   })
+        });
+
+        idsComunidades.forEach(comunidad => {
+          this.comunidadesService.GetComunidadById(comunidad.id_com).toPromise().then(resp => {
+            this.todosComunidades.push(resp)
+          })
+
+        })
+
+        this.loadingFlag = false;
+      }
+      this.comunidadesFiltrados = this.todosComunidades;
+      
+      if (this.comunidadesFiltrados.length > 5){
+        this.comunidadesFiltrados.slice(0, 5);
+      };
+    }
   }
+
+  irAComunidad(comunidad: Comunidad) {
+    return `usuario/comunidad/${comunidad.id_com}`
+  }
+  
 
   irObjetivos() {
     this.router.navigate(['/usuario/objetivos']);
