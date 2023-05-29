@@ -60,7 +60,7 @@
                                     <td class="text-danger">NO DATA</td>
                                 </ng-template>
                                 <td *ngIf="selectedOption == 1">
-                                    <a [href]="irAComunidad(comunidad)" class="link" ngbTooltip="Ver Comunidad">
+                                    <a (click)="irAComunidad(comunidad)" class="link" ngbTooltip="Ver Comunidad" style="cursor: pointer;">
                                         Ver
                                         <i-feather name="log-in" class="feather text-info pointer ms-1"></i-feather>
                                     </a>

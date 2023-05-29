@@ -6,17 +6,18 @@ import { number } from 'ngx-custom-validators/src/app/number/validator';
 import { globales } from 'common/globales';
 import { Usuario } from '../interfaces/usuarioModel';
 import { ObjetivosComponent } from '../objetivos/objetivos.component';
+import { environment } from 'environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ObjetivosService {
 
-  private API_URL = 'https://localhost:7059/api/Objetivos';
-
   public objetivosBd: Objetivo[] = [];
 
   public usuario: number = globales.usuarioLogueado.id_usu
+
+  baseurl = environment.url;
 
   constructor(private http: HttpClient) { }
 
@@ -32,29 +33,31 @@ export class ObjetivosService {
   // a null el delete_date y no del array que hemos llenado previamente con todos.
   // El metodo anterior (getObjetivos()) es provisional
   GetObjetivosBBDD(){
-    return this.http.get<Objetivo[]>(this.API_URL);
+    return this.http.get<Objetivo[]>(`${this.baseurl}/Objetivos`);
   }
   
   GetObjetivosUsuario(id: number){
-    const url = `${this.API_URL}/${id}/usuarioId`;
-    return this.http.get<Objetivo[]>(url);
+    return this.http.get<Objetivo[]>(`${this.baseurl}/Objetivos/${id}/usuarioId`);
   }
 
   PostObjetivos(objetivo:Objetivo):Observable<any>{
-    return this.http.post<Objetivo>(`${this.API_URL}/API/post`,objetivo);
+    return this.http.post<Objetivo>(`${this.baseurl}/Objetivos/API/post`,objetivo);
   }
 
   PutObjetivos(objetivo:Objetivo):Observable<any>{
-    return this.http.post<Objetivo>(`${this.API_URL}/API/put`,objetivo);
+    return this.http.post<Objetivo>(`${this.baseurl}/Objetivos/API/put`,objetivo);
   }
 
   DeleteObjetivos(id: number): Observable<Object>{
-     return this.http.put(`${this.API_URL}/delete`,id);
+     return this.http.put(`${this.baseurl}/Objetivos/delete`,id);
   }
 
   UpdateObjetivos(id: number, objetivoActualizado: Objetivo): Observable<Objetivo> {
-    const url = `${this.API_URL}/${id}`;
-    return this.http.put<Objetivo>(url, objetivoActualizado);
+    return this.http.put<Objetivo>(`${this.baseurl}/Objetivos/${id}`, objetivoActualizado);
+  }
+
+  PutSubirNivel(id: number, aumento:number, objetivo: Objetivo): Observable<Objetivo>{
+    return this.http.put<Objetivo>(`${this.baseurl}/Objetivos/subirNivel/${id}/${aumento}`, objetivo);
   }
   
   //ENEKO

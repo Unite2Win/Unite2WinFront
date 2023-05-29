@@ -10,6 +10,7 @@ import { AdminComunidadesService } from 'app/administracion/admin-comunidades/ad
 import { ComunidadesUsuariosService } from '../services/comunidades-usuarios.service';
 import { globales } from 'common/globales';
 import { Documento } from '../interfaces/documentoModel';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-comunidades',
@@ -76,7 +77,7 @@ export class ComunidadesComponent implements OnInit {
     return globales.usuarioLogueado;
   }
 
-  constructor(private ventanaConfirmacionService: VentanaConfirmacionService, private loginService: LoginService, private modalService: NgbModal, private fb: FormBuilder, private manejoDocsService: ManejoDocsService, private comunidadesService: ComunidadesService, private comunidadesUsuariosService: ComunidadesUsuariosService, private adminComunidadesService: AdminComunidadesService) { }
+  constructor(private ventanaConfirmacionService: VentanaConfirmacionService, private loginService: LoginService, private modalService: NgbModal, private fb: FormBuilder, private manejoDocsService: ManejoDocsService, private comunidadesService: ComunidadesService, private comunidadesUsuariosService: ComunidadesUsuariosService, private adminComunidadesService: AdminComunidadesService, private router: Router) { }
 
   async ngOnInit(): Promise<void> {
 
@@ -129,7 +130,7 @@ export class ComunidadesComponent implements OnInit {
   }
 
   irAComunidad(comunidad: Comunidad) {
-    return `usuario/comunidad/${comunidad.id_com}`
+    this.router.navigate([`usuario/comunidad/${comunidad.id_com}`])
   }
 
   filtrarIdiomas(v: string) {

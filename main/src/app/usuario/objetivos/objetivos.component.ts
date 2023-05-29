@@ -7,6 +7,7 @@ import { number } from 'ngx-custom-validators/src/app/number/validator';
 import { globales } from 'common/globales';
 import { interval } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { NavigationEnd } from '@angular/router';
 
 @Component({
   selector: 'app-objetivos',
@@ -145,6 +146,8 @@ export class ObjetivosComponent implements OnInit {
     this.nuevoObjetivo.complete_date = new Date();    
     this.nuevoObjetivo.duracion = 0;
     this.modificar(this.nuevoObjetivo.id_obj, this.nuevoObjetivo);
+    this.objetivosService.PutSubirNivel(objetivo.id_usu, 1, objetivo).toPromise().then();
+    globales.usuarioLogueado.level += 1;
 
   }
 

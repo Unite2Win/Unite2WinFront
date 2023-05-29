@@ -15,7 +15,7 @@
                 <i-feather name="map-pin" class="me-2 feather-sm"></i-feather>Duracion: {{objetivos[i].duracion}} dias.
               </h6>
               <p class="card-text pt-2">
-                {{objetivos[i].descripcion | titlecase}}
+                {{objetivos[i].descripcion}}
               </p>
               <div class="p-3">
                   <h4 class="card-title mb-0">Progreso</h4>
@@ -97,7 +97,7 @@
           </div>
 
           <div class="mb-3">
-            <label for="duracion">Duración</label>
+            <label for="duracion">Duración en días</label>
             <input class="form-control" type="number" min="0" required="" id="duracion" placeholder="Cuanto durara el reto"
               name="duracion" #duracion [(ngModel)]="nuevoObjetivo.duracion" />
           </div>
