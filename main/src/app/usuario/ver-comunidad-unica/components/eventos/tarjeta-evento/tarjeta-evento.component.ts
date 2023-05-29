@@ -3,6 +3,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { VentanaConfirmacionService } from 'app/administracion/ventana-confirmacion/ventana-confirmacion.service';
 import { Evento } from 'app/usuario/interfaces/eventoModel';
 import { EventosService } from 'app/usuario/services/eventos.service';
+import { globales } from 'common/globales';
 import { ToastrService } from 'ngx-toastr';
 import { MenuItem } from 'primeng/api';
 
@@ -45,8 +46,12 @@ export class TarjetaEventoComponent implements OnInit {
         command: () => {
           this.editarEvento();
         }
-      },
-      {
+      }
+
+    ];
+
+    if (this.miTipoUsuario() == 3) {
+      this.tooltipItems.push({
         tooltipOptions: {
           tooltipLabel: 'Eliminar evento',
           tooltipPosition: 'right'
@@ -55,8 +60,8 @@ export class TarjetaEventoComponent implements OnInit {
         command: () => {
           this.eliminarEvento();
         }
-      }
-    ];
+      });
+    }
 
   }
 
@@ -83,6 +88,10 @@ export class TarjetaEventoComponent implements OnInit {
 
   editarEvento() {
     this.parentCrearOEditar.emit({ param1: this.modal, param2: 'md', param3: this.eventoActual })
+  }
+
+  miTipoUsuario() {
+    return globales.tipoUsuario;
   }
 
 }

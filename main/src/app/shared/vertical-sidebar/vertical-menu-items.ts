@@ -1,6 +1,6 @@
 import { RouteInfo } from "./vertical-sidebar.metadata";
 
-export const ROUTES: RouteInfo[] = [
+export let ROUTES: RouteInfo[] = [
   {
     path: "",
     title: "Personal",
@@ -70,26 +70,5 @@ export const ROUTES: RouteInfo[] = [
     labelClass: "side-badge badge bg-success",
     extralink: false,
     submenu: [],
-  },
-  {
-    path: "administracion",
-    title: "Administración",
-    icon: "settings",
-    class: "has-arrow zero-level mn-admin",
-    label: "",
-    labelClass: "side-badge badge bg-info",
-    extralink: false,
-    submenu: [
-      {
-        path: "/administracion/comunidades",
-        title: "Comunidades",
-        icon: "users",
-        class: "level-one",
-        label: "",
-        labelClass: "",
-        extralink: false,
-        submenu: [],
-      }
-    ],
   },
 ];

@@ -33,7 +33,7 @@
                             Eliminar post
                             <i-feather name="trash-2" class="feather-sm pointer" style="color: white;"></i-feather>
                         </a> -->
-                        <p-speedDial [model]="tooltipItems" showIcon="pi pi-bars" hideIcon="pi pi-times"
+                        <p-speedDial *ngIf="miTipoUsuario() >= 2 || esMiPost()" [model]="tooltipItems" showIcon="pi pi-bars" hideIcon="pi pi-times"
                             direction="down" [radius]="80" buttonClassName="p-button-secondary p-button-text"
                             class="me-5"></p-speedDial>
                     </div>
@@ -62,7 +62,7 @@
         <div class="row">
             <div class="col-12">
                 <div class="d-flex flex-row justify-content-center">
-                    <i-feather class="mdi mdi-heart fs-6" style="cursor: pointer;"></i-feather>
+                    <!-- <i-feather class="mdi mdi-heart fs-6" style="cursor: pointer;"></i-feather> -->
                     <i-feather class="mdi mdi-heart-outline fs-6" style="cursor: pointer;"></i-feather>
                     <h5 style="margin-top: 5px; cursor: pointer;">0
                         likes</h5>

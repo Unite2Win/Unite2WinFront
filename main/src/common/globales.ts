@@ -47,4 +47,8 @@ export class globales {
         picture: undefined
     }
 
+    public static tipoUsuario: number = 1;
+
+    public static soyAdminGlobal: boolean = false;
+
 }

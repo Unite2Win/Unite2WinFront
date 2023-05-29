@@ -7,6 +7,7 @@ import { Comunidad } from 'app/usuario/interfaces/comunidadModel';
 import { UsuariosService } from 'app/usuario/services/usuarios.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ComunidadUsuario } from 'app/usuario/interfaces/comunidadUsuarioModel';
+import { globales } from 'common/globales';
 
 @Component({
   selector: 'app-tarjeta-usuario',
@@ -160,6 +161,9 @@ export class TarjetaUsuarioComponent implements OnInit {
 
     await this.comunidadesUsuariosService.GetComunidadesUsuariosByUsuarioYComunidad(this.usuario.id_usu, this.comunidadActual.id_com).toPromise().then(async resp => {
       await this.comunidadesUsuariosService.DeleteComunidadBBDD(resp.id_com_usu, resp).toPromise().then(resp => {
+        if (this.usuario.id_usu == globales.usuarioLogueado.id_usu) {
+          globales.tipoUsuario = -1;
+        }
       })
     })
     this.parentOnInit.emit();
@@ -176,7 +180,11 @@ export class TarjetaUsuarioComponent implements OnInit {
 
     await this.comunidadesUsuariosService.GetComunidadesUsuariosByUsuarioYComunidad(this.usuario.id_usu, this.comunidadActual.id_com).toPromise().then(async resp => {
       resp.tipoUsuario = 2;
-      await this.comunidadesUsuariosService.PutComunidadesUsuarisoIdBBDD(resp.id_com_usu, resp).toPromise().then()
+      await this.comunidadesUsuariosService.PutComunidadesUsuarisoIdBBDD(resp.id_com_usu, resp).toPromise().then( resp => {
+        if (this.usuario.id_usu == globales.usuarioLogueado.id_usu) {
+          globales.tipoUsuario = 2;
+        }
+      })
     });
     this.parentOnInit.emit();
   }
@@ -192,7 +200,11 @@ export class TarjetaUsuarioComponent implements OnInit {
 
     await this.comunidadesUsuariosService.GetComunidadesUsuariosByUsuarioYComunidad(this.usuario.id_usu, this.comunidadActual.id_com).toPromise().then(async resp => {
       resp.tipoUsuario = 2;
-      await this.comunidadesUsuariosService.PutComunidadesUsuarisoIdBBDD(resp.id_com_usu, resp).toPromise().then()
+      await this.comunidadesUsuariosService.PutComunidadesUsuarisoIdBBDD(resp.id_com_usu, resp).toPromise().then( resp => {
+        if (this.usuario.id_usu == globales.usuarioLogueado.id_usu) {
+          globales.tipoUsuario = 2;
+        }
+      })
     });
     this.parentOnInit.emit();
   }
@@ -208,7 +220,11 @@ export class TarjetaUsuarioComponent implements OnInit {
 
     await this.comunidadesUsuariosService.GetComunidadesUsuariosByUsuarioYComunidad(this.usuario.id_usu, this.comunidadActual.id_com).toPromise().then(async resp => {
       resp.tipoUsuario = 1;
-      await this.comunidadesUsuariosService.PutComunidadesUsuarisoIdBBDD(resp.id_com_usu, resp).toPromise().then()
+      await this.comunidadesUsuariosService.PutComunidadesUsuarisoIdBBDD(resp.id_com_usu, resp).toPromise().then( resp => {
+        if (this.usuario.id_usu == globales.usuarioLogueado.id_usu) {
+          globales.tipoUsuario = 1;
+        }
+      })
     });
     this.parentOnInit.emit();
   }
@@ -231,6 +247,9 @@ export class TarjetaUsuarioComponent implements OnInit {
     }
 
     await this.comunidadesUsuariosService.PostComunidadBBDD(nuevaComunidadUsuario).toPromise().then(resp => {
+      if (this.usuario.id_usu == globales.usuarioLogueado.id_usu) {
+        globales.tipoUsuario = 1;
+      }
     })
 
     this.closeBtnClick();
@@ -244,6 +263,10 @@ export class TarjetaUsuarioComponent implements OnInit {
   closeBtnClick() {
     this.modalService.dismissAll();
     this.parentOnInit.emit();
+  }
+
+  miTipoUsuario() {
+    return globales.tipoUsuario;
   }
 
 }

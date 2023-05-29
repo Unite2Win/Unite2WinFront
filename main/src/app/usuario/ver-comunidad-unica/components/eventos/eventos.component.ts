@@ -11,6 +11,7 @@ import { ToastrService } from 'ngx-toastr';
 import { DocumentosService } from 'app/usuario/services/documentos.service';
 import { VentanaConfirmacionService } from 'app/administracion/ventana-confirmacion/ventana-confirmacion.service';
 import { DatePipe } from '@angular/common';
+import { globales } from 'common/globales';
 
 @Component({
   selector: 'app-eventos',
@@ -312,6 +313,10 @@ export class EventosComponent implements OnInit {
   closeBtnClick() {
     this.modalService.dismissAll();
     this.ngOnInit();
+  }
+
+  miTipoUsuario() {
+    return globales.tipoUsuario;
   }
 
 }

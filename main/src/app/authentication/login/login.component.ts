@@ -17,11 +17,13 @@ export class LoginComponent {
 
   constructor(private fb: FormBuilder, private loginService: LoginService, private toastrService: ToastrService) { }
 
-  iniciarSesion() {
+  async iniciarSesion() {
     if (this.miFormLogin.invalid) {
       this.toastrService.warning('El usuario y la contraseña son obligatorios.')
       return;
     }
+
+    this.loginService.loadingFlag = true;
 
     let user: LoginModel =
     {
@@ -37,10 +39,14 @@ export class LoginComponent {
     //     console.log('soy el user:'+this.loginService.AUTH_USERID )
     //   }
     // }, 1000)
-    
+
   }
 
-  sesionIniciada(){
+  getLoadingFlag() {
+    return this.loginService.loadingFlag;
+  }
+
+  sesionIniciada() {
     const token = this.loginService.getToken();
     if (token != null) {
       return "/usuario/perfil"
