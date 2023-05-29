@@ -67,6 +67,7 @@
         </div>
 
         <ng-template #noComunidades>
+            <div class="animate__animated animate__fadeInLeft">
             <p style="font-size: 18px; text-align: justify;">
                 Las comunidades de Unite2Win son espacios donde puedes unirte a grupos de personas con intereses y
                 objetivos
@@ -92,6 +93,7 @@
             </p>
             <div class="row mx-auto " style="width: 100%;">
                 <a routerLink="/usuario/explorar" class="btn btn-outline-info">Explorar comunidades</a>
+            </div>
             </div>
         </ng-template>
     </div>
@@ -168,7 +170,7 @@
                             </div>
                         </div>
                     </div>
-                    <hr style="margin-top: 1%;">
+                    <hr *ngIf="objetivos.length != 0" style="margin-top: 1%;">
                     <div class="row mx-auto" style="width: 100%;">
                         <a (click)="irObjetivos()" class="btn btn-outline-info">{{TextoBoton}}</a>
                     </div>
@@ -186,3 +188,18 @@
         </div>
     </div>
 </ng-template>
+<div>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+</div>
