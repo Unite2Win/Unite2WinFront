@@ -25,7 +25,7 @@ export class LoginService {
   public AUTH_TOKEN: string = this.getToken();
   public AUTH_USERID: string = this.getId();
 
-
+  loadingFlag: boolean = false;
 
   constructor(private toastrService: ToastrService, private http: HttpClient, public router: Router, private jwtHelper: JwtHelperService, private usuariosService: UsuariosService) { }
 
@@ -58,13 +58,19 @@ export class LoginService {
           this.AUTH_TOKEN = this.getToken();
           this.AUTH_USERID = this.getId();
           this.router.navigate(["/usuario/inicio"]);
+
+          this.loadingFlag = false;
         },
         error: (e) => {
           if (e.status == 401) {
             this.toastrService.error('Credenciales incorrectas.')
           }
+          this.loadingFlag = false;
         },
-        complete: () => this.toastrService.success('Sesión iniciada con exito.')
+        complete: () => {
+          this.toastrService.success('Sesión iniciada con exito.');
+          this.loadingFlag = false;
+        }
       })
   }
 

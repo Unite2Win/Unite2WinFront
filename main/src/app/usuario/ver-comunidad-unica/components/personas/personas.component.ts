@@ -151,4 +151,8 @@ export class PersonasComponent implements OnInit {
     this.ngOnInit();
   }
 
+  miTipoUsuario() {
+    return globales.tipoUsuario;
+  }
+
 }

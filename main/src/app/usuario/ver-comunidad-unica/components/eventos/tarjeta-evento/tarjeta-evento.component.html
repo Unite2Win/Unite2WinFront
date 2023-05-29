@@ -8,7 +8,7 @@
                         <h3 class="card-title">{{eventoActual.titulo}} | {{eventoActual.fechaInicio | date}} -
                             {{eventoActual.fechaFin | date}}
                         </h3>
-                        <div *ngIf="tooltipItems.length > 0" class="me-5" style="margin-top: -20px;">
+                        <div *ngIf="miTipoUsuario() >= 2" class="me-5" style="margin-top: -20px;">
                             <p-speedDial [model]="tooltipItems" showIcon="pi pi-bars" hideIcon="pi pi-times" direction="down" [radius]="80" buttonClassName="p-button-secondary p-button-text"></p-speedDial>
                         </div>
                     </div>

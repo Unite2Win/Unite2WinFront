@@ -85,4 +85,12 @@ export class TarjetaPostComponent implements OnInit {
     this.modalService.dismissAll();
   }
 
+  esMiPost() {
+    return globales.usuarioLogueado.id_usu == this.usuarioActual.id_usu;
+  }
+
+  miTipoUsuario() {
+    return globales.tipoUsuario;
+  }
+
 }

@@ -24,9 +24,6 @@ import { BlankComponent } from './layouts/blank/blank.component';
 
 import { VerticalNavigationComponent } from './shared/vertical-header/vertical-navigation.component';
 import { VerticalSidebarComponent } from './shared/vertical-sidebar/vertical-sidebar.component';
-import { BreadcrumbComponent } from './shared/breadcrumb/breadcrumb.component';
-import { HorizontalNavigationComponent } from './shared/horizontal-header/horizontal-navigation.component';
-import { HorizontalSidebarComponent } from './shared/horizontal-sidebar/horizontal-sidebar.component';
 
 import { Approutes } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -70,10 +67,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     FullComponent,
     BlankComponent,
     VerticalNavigationComponent,
-    BreadcrumbComponent,
     VerticalSidebarComponent,
-    HorizontalNavigationComponent,
-    HorizontalSidebarComponent,
   ],
   imports: [
     NotifierModule,

@@ -27,6 +27,10 @@ export class VerComunidadUnicaComponent implements OnInit {
     url: ''
   });
 
+  miFormClave: FormGroup = this.fb.group({
+    clave: ''
+  });
+
   url = environment.baseUrl
 
   idComunidadActual: number = 0;
@@ -72,6 +76,14 @@ export class VerComunidadUnicaComponent implements OnInit {
       this.yaSoyMiembro = resp;
     })
 
+    if (this.yaSoyMiembro) {
+      await this.comunidadesUsuariosService.GetComunidadesUsuariosByUsuarioYComunidad(globales.usuarioLogueado.id_usu, this.comunidadActual.id_com).toPromise().then(resp => {
+        globales.tipoUsuario = resp.tipoUsuario;
+      });
+    } else {
+      globales.tipoUsuario = -1;
+    }
+
     if (!this.comunidadActual.isVisible && !this.yaSoyMiembro) {
       this.toastrService.warning('La comunidad a la que intentas acceder no es visible para los que no son miembros');
       this.router.navigate(['/usuario/miscomunidades']);
@@ -108,22 +120,44 @@ export class VerComunidadUnicaComponent implements OnInit {
   }
 
   async unirmeAComunidad() {
-
     let nuevaComunidadUsuario: ComunidadUsuario = {
       id_com_usu: 0,
       id_com: this.idComunidadActual,
       id_usu: globales.usuarioLogueado.id_usu,
-      // comunidad: this.comunidadActual,
-      // usuario: globales.usuarioLogueado,
       apodo: globales.usuarioLogueado.nick,
       nivel: 1,
       tipoUsuario: 1
     }
 
-    console.log(nuevaComunidadUsuario);
+    await this.comunidadesUsuariosService.PostComunidadBBDD(nuevaComunidadUsuario).toPromise().then(resp => {
+      console.log(resp);
+      globales.tipoUsuario = resp.tipoUsuario;
+    })
+
+    this.ngOnInit();
+  }
+
+  async unirseAComConClave() {
+    console.log(this.miFormClave.get('clave').value);
+    console.log(this.comunidadActual.clave);
+    if (this.miFormClave.get('clave').value != this.comunidadActual.clave) {
+      this.toastrService.error('La clave de la comunidad es erronea, pruebe otra vez');
+      return;
+    }
+
+    let nuevaComunidadUsuario: ComunidadUsuario = {
+      id_com_usu: 0,
+      id_com: this.idComunidadActual,
+      id_usu: globales.usuarioLogueado.id_usu,
+      apodo: globales.usuarioLogueado.nick,
+      nivel: 1,
+      tipoUsuario: 1
+    }
 
     await this.comunidadesUsuariosService.PostComunidadBBDD(nuevaComunidadUsuario).toPromise().then(resp => {
       console.log(resp);
+      globales.tipoUsuario = resp.tipoUsuario;
+      this.closeBtnClick();
     })
 
     this.ngOnInit();
@@ -143,6 +177,7 @@ export class VerComunidadUnicaComponent implements OnInit {
 
     await this.comunidadesUsuariosService.GetComunidadesUsuariosByUsuarioYComunidad(globales.usuarioLogueado.id_usu, this.idComunidadActual).toPromise().then(async resp => {
       await this.comunidadesUsuariosService.DeleteComunidadBBDD(resp.id_com_usu, resp).toPromise().then(resp => {
+        globales.tipoUsuario = -1;
       })
     })
     this.ngOnInit();
@@ -192,6 +227,7 @@ export class VerComunidadUnicaComponent implements OnInit {
   }
 
   openModal(targetModal: string, size: string) {
+    this.miFormClave.reset();
     this.modalService.open(targetModal, {
       centered: true,
       backdrop: 'static',

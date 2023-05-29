@@ -29,9 +29,17 @@
             </div>
 
             <div class="d-flex flex-row align-items-center">
-                <a *ngIf="!yaSoyMiembro; else yaUnido" (click)="unirmeAComunidad()" class="btn btn-info">
-                    Unirme
-                </a>
+                <div *ngIf="!yaSoyMiembro; else yaUnido">
+                    <a *ngIf="comunidadActual.isPublica; else privada" (click)="unirmeAComunidad()"
+                        class="btn btn-info">
+                        Unirme
+                    </a>
+                    <ng-template #privada>
+                        <a (click)="openModal(unirmeClaveModal,md)" class="btn btn-info">
+                            Unirme
+                        </a>
+                    </ng-template>
+                </div>
 
                 <ng-template #yaUnido>
                     <a *ngIf="!salirmeDeComunidad; else salirme" class="btn btn-secondary" disabled="true"
@@ -107,6 +115,30 @@
     <div class="modal-footer">
         <button type="button" class="btn btn-secondary" (click)="closeBtnClick()">Cerrar</button>
     </div>
+</ng-template>
+
+<ng-template #unirmeClaveModal let-modal>
+    <form [formGroup]="miFormClave" (ngSubmit)="unirseAComConClave()">
+        <div class="modal-header">
+            <h3 class="modal-title" id="compartirComunidadModal">Introduce la clave</h3>
+            <button type="button" class="btn-close" (click)="closeBtnClick()" aria-label="Close"></button>
+        </div>
+
+        <div class="modal-body">
+            <div class="row">
+                <div class="col-12 d-flex flex-column justify-content-center">
+                    <label for="tituloEvento" class="form-label">Introduzca la clave la comunidad*</label>
+                    <input type="text" id="claveCom" class="form-control" placeholder="Clave de la comunidad"
+                        formControlName="clave" />
+                </div>
+            </div>
+        </div>
+
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" (click)="closeBtnClick()">Cerrar</button>
+            <button [disabled]="miFormClave.invalid" class="btn btn-danger" type="submit">Aceptar</button>
+        </div>
+    </form>
 </ng-template>
 
 <ng-template #loading>
