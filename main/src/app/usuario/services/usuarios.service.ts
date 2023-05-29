@@ -26,6 +26,18 @@ export class UsuariosService {
       .pipe(retry(1), catchError(this.errorHandl));
   }
 
+  GetByNick(nick: string): Observable<Usuario[]> {
+    return this.http
+      .get<Usuario[]>(`${this.url}/Usuarios/usuarios/getby/nick/${nick}`)
+      .pipe(retry(1), catchError(this.errorHandl));
+  }
+
+  GetComunidadesUsuariosIsRepeatedNick(nick: string): Observable<boolean> {
+    return this.http
+      .get<boolean>(`${this.url}/Usuarios/usuarios/check/repeatedNick/${nick}`)
+      .pipe(retry(1), catchError(this.errorHandl));
+  }
+
   public getUsuarioById(idUsuario: number): Observable<Usuario> {
     return this.http.get<Usuario>(`${this.url}/Usuarios/${idUsuario}`);
   }

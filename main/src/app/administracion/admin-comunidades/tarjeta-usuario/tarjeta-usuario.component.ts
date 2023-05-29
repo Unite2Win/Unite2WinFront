@@ -1,19 +1,20 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Usuario } from 'app/usuario/interfaces/usuarioModel';
 import { MenuItem } from 'primeng/api';
-import { VentanaConfirmacionService } from '../../../../../administracion/ventana-confirmacion/ventana-confirmacion.service';
 import { ComunidadesUsuariosService } from 'app/usuario/services/comunidades-usuarios.service';
 import { Comunidad } from 'app/usuario/interfaces/comunidadModel';
 import { UsuariosService } from 'app/usuario/services/usuarios.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ComunidadUsuario } from 'app/usuario/interfaces/comunidadUsuarioModel';
+import { VentanaConfirmacionService } from 'app/administracion/ventana-confirmacion/ventana-confirmacion.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
-  selector: 'app-tarjeta-usuario',
+  selector: 'app-tarjeta-usuario-admin',
   templateUrl: './tarjeta-usuario.component.html',
   styleUrls: ['./tarjeta-usuario.component.scss']
 })
-export class TarjetaUsuarioComponent implements OnInit {
+export class TarjetaUsuarioAdminComponent implements OnInit {
 
   @Input() usuario: Usuario;
   @Input() comunidadActual: Comunidad;
@@ -60,7 +61,7 @@ export class TarjetaUsuarioComponent implements OnInit {
     }
   }
 
-  constructor(private modalService: NgbModal, private ventanaConfirmacionService: VentanaConfirmacionService, private comunidadesUsuariosService: ComunidadesUsuariosService, private usuariosService: UsuariosService) { }
+  constructor(private toastrService: ToastrService, private modalService: NgbModal, private ventanaConfirmacionService: VentanaConfirmacionService, private comunidadesUsuariosService: ComunidadesUsuariosService, private usuariosService: UsuariosService) { }
 
   async ngOnInit(): Promise<void> {
     console.log('Nos generamos');
@@ -120,23 +121,27 @@ export class TarjetaUsuarioComponent implements OnInit {
 
     if (this.tipoUsuario == -2) {
       await this.comunidadesUsuariosService.GetComunidadesUsuariosByUsuarioYComunidad(this.usuario.id_usu, this.comunidadActual.id_com).toPromise().then(resp => {
-        this.tooltipItems = [{
-          tooltipOptions: {
-            tooltipLabel: 'Convertir en administrador',
-            tooltipPosition: 'top'
-          },
-          icon: 'pi pi-id-card',
-          command: () => {
-            this.convertirEnAdmin();
-          }
-        }];
-        this.comunidadUsuarioAAdmin = resp;
+        if (resp.tipoUsuario == 3) {
+          this.tooltipItems = [];
+        } else {
+          this.tooltipItems = [{
+            tooltipOptions: {
+              tooltipLabel: 'Convertir en administrador',
+              tooltipPosition: 'top'
+            },
+            icon: 'pi pi-id-card',
+            command: () => {
+              this.convertirEnAdmin();
+            }
+          }];
+          this.comunidadUsuarioAAdmin = resp;
+        }
       }, (error) => {
         console.log('Este error es intencionado por si no encuentra');
         this.tooltipItems = [
           {
             tooltipOptions: {
-              tooltipLabel: 'Añadir usuario',
+              tooltipLabel: 'Añadir usuario como administrador',
               tooltipPosition: 'top'
             },
             icon: 'pi pi-plus',
@@ -231,14 +236,18 @@ export class TarjetaUsuarioComponent implements OnInit {
     }
 
     await this.comunidadesUsuariosService.PostComunidadBBDD(nuevaComunidadUsuario).toPromise().then(resp => {
+      this.toastrService.success('Usuario creado con exito');
+      this.closeBtnClick();
     })
 
-    this.closeBtnClick();
   }
 
   async convertirEnAdmin() {
     this.comunidadUsuarioAAdmin.tipoUsuario = 3;
-    await this.comunidadesUsuariosService.PutComunidadesUsuarisoIdBBDD(this.comunidadUsuarioAAdmin.id_com_usu, this.comunidadUsuarioAAdmin).toPromise().then();
+    await this.comunidadesUsuariosService.PutComunidadesUsuarisoIdBBDD(this.comunidadUsuarioAAdmin.id_com_usu, this.comunidadUsuarioAAdmin).toPromise().then(resp => {
+      this.toastrService.success('Usuario ascendido con exito');
+      this.closeBtnClick();
+    });
   }
 
   closeBtnClick() {

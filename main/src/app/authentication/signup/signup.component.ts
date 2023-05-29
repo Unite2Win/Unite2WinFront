@@ -3,6 +3,9 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { SignupService } from './signup.service';
 import { Usuario } from 'app/usuario/interfaces/usuarioModel';
+import { ToastrService } from 'ngx-toastr';
+import { ComunidadesUsuariosService } from 'app/usuario/services/comunidades-usuarios.service';
+import { UsuariosService } from 'app/usuario/services/usuarios.service';
 
 @Component({
   selector: 'app-signup',
@@ -12,25 +15,28 @@ export class SignupComponent {
 
   miFormSignUp: FormGroup = this.fb.group({
     name: ['', Validators.required],
-    surname: ['', Validators.required],
+    surname: ['', [Validators.required, Validators.minLength(8), Validators.maxLength(50)]],
     email: ['', Validators.required],
     username: ['', Validators.required],
     password: ['', Validators.required],
     passRepeat: ['', Validators.required]
   });
 
-  constructor(private fb: FormBuilder, private signupService: SignupService, private router: Router) {}
+  constructor(private usuariosService: UsuariosService, private toastrService: ToastrService, private fb: FormBuilder, private signupService: SignupService, private router: Router) {}
 
   async signup() {
     if (this.miFormSignUp.get("password").value != this.miFormSignUp.get("passRepeat").value) {
       this.miFormSignUp.setErrors({ 'invalid': true });
       console.log('Contraseñas no coinciden');
+      this.toastrService.error('Las contraseñas no coinciden');
       return;
     }
     if (this.miFormSignUp.invalid) {
+      this.toastrService.error('El formulario no es válido');
       console.log('Formulario no válido');
       return;
     }
+
     var usuario: Usuario = {
       id_usu: 0,
       nick: this.miFormSignUp.get("username").value,
@@ -49,6 +55,28 @@ export class SignupComponent {
       objetivos: null,
       comunidadesUsuarios: null
     }
+
+    let flag: boolean;
+
+    await this.usuariosService.GetComunidadesUsuariosIsRepeatedNick(usuario.nick).toPromise().then(resp => {
+      flag = resp;
+    })
+
+    if (flag) {
+      this.toastrService.error('Usuario ya en uso, pruebe otro');
+      return;
+    }
+
+    if (usuario.password.length < 8) {
+      this.toastrService.error('La contraseña debe tener mas de 8 caracteres');
+      return;
+    }
+
+    if (usuario.password.length > 50) {
+      this.toastrService.error('La contraseña debe tener menos de 50 caracteres');
+      return;
+    }
+
     await this.signupService.registroU2W(usuario);
     this.router.navigate(["authentication/login"]);
   }

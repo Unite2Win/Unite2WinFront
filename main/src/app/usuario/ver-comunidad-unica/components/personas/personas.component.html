@@ -25,6 +25,7 @@
                                         <h5 class="mt-2 text-decoration-underline">Usuarios Comunes:</h5>
                                         <div *ngFor="let usuarioFOR of usuariosTipo1; let i = index" class="row">
                                             <app-tarjeta-usuario [usuario]="usuarioFOR"
+                                                [comunidadActual]="comunidadActualINPUT" (parentOnInit)="ngOnInit()"
                                                 [tipoUsuario]="sacarTipoUsuario(usuarioFOR)"></app-tarjeta-usuario>
                                         </div>
                                     </div>
@@ -35,6 +36,7 @@
                                         <h5 class="mt-2 text-decoration-underline">Usuarios Moderadores:</h5>
                                         <div *ngFor="let usuarioFOR of usuariosTipo2; let i = index" class="row">
                                             <app-tarjeta-usuario [usuario]="usuarioFOR"
+                                                [comunidadActual]="comunidadActualINPUT" (parentOnInit)="ngOnInit()"
                                                 [tipoUsuario]="sacarTipoUsuario(usuarioFOR)"></app-tarjeta-usuario>
                                         </div>
                                     </div>
@@ -45,6 +47,7 @@
                                         <h5 class="mt-2 text-decoration-underline">Usuarios Administradores:</h5>
                                         <div *ngFor="let usuarioFOR of usuariosTipo3; let i = index" class="row">
                                             <app-tarjeta-usuario [usuario]="usuarioFOR"
+                                                [comunidadActual]="comunidadActualINPUT" (parentOnInit)="ngOnInit()"
                                                 [tipoUsuario]="sacarTipoUsuario(usuarioFOR)"></app-tarjeta-usuario>
                                         </div>
                                     </div>
@@ -65,6 +68,7 @@
                                     <h5 class="mt-2">Busqueda realizada:</h5>
                                     <div *ngFor="let usuarioFOR of usuariosFiltrados; let i = index" class="row">
                                         <app-tarjeta-usuario [usuario]="usuarioFOR"
+                                            [comunidadActual]="comunidadActualINPUT" (parentOnInit)="ngOnInit()"
                                             [tipoUsuario]="sacarTipoUsuario(usuarioFOR)"></app-tarjeta-usuario>
                                     </div>
                                 </div>
@@ -74,11 +78,79 @@
                 </div>
             </div>
         </div>
+
+        <div class="col-3 ms-5">
+            <div class="card row">
+                <div class="col-12">
+                    <div class="card-body">
+                        <h3 class="card-title"><i class="pi pi-cog me-2" style="font-size: 1.3rem;"></i>Administración
+                        </h3>
+                        <hr>
+                        <div class="row">
+                            <!-- <h4 class="card-title col-10 ms-2">Crear evento:</h4> -->
+                            <button class="btn btn-info" (click)="openModal(createEditEventoModal, 'md')">
+                                Añadir usuario
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </div>
 </div>
 
+<ng-template #createEditEventoModal let-modal>
+    <div class="modal-header">
+        <h3 class="modal-title" id="addUserModal">Añiadir nuevo miembro</h3>
+        <button type="button" class="btn-close" (click)="closeBtnClick()" aria-label="Close"></button>
+    </div>
+
+    <div class="modal-body row">
+        <div class="col-12">
+
+            <div class="input-group mb-4 mt-3">
+                <input type="text" class="form-control" placeholder="Introduce el usuario de un miembro"
+                    [(ngModel)]="criterioBusquedaUsuarioBBDD" />
+                <button class="input-group-text btn btn-info" (click)="searchUser()" id="basic-addon21">Buscar</button>
+            </div>
+
+            <hr>
+
+            <div *ngIf="!isLoadingAddUser; else loadingNoMT">
+                <div *ngIf="addSearchUsuarios.length <= 0; else usuariosEncontrados" class="row">
+                    <div class="col-12" style="text-align: center;">
+                        <h4 class="card-title">{{mensajeFalloBusqueda}}</h4>
+                    </div>
+                </div>
+
+                <ng-template #usuariosEncontrados>
+                    <div *ngFor="let usuarioFOR of addSearchUsuarios; let i = index" class="row">
+                        <app-tarjeta-usuario class="ms-3 mb-3" [usuario]="usuarioFOR"
+                            [comunidadActual]="comunidadActualINPUT" (parentOnInit)="ngOnInit()"
+                            [tipoUsuario]="-1"></app-tarjeta-usuario>
+                    </div>
+                </ng-template>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="closeBtnClick()">Cerrar</button>
+    </div>
+</ng-template>
+
 <ng-template #loading>
     <div class="d-flex justify-content-center mt-5">
+        <div class="spinner-border text-danger" role="status">
+            <span class="sr-only">Cargando...</span>
+        </div>
+    </div>
+</ng-template>
+
+<ng-template #loadingNoMT>
+    <div class="d-flex justify-content-center">
         <div class="spinner-border text-danger" role="status">
             <span class="sr-only">Cargando...</span>
         </div>

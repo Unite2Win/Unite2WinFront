@@ -1,3 +1,5 @@
+<h1 style="background-image:url(assets/images/tapizRosa.jpg);padding: 2%;">Administrar las Comunidades</h1>
+<hr>
 <div class="row">
     <div class="col-12">
         <div class="">
@@ -6,7 +8,7 @@
                     [(ngModel)]="descripcionBusqueda" />
                 <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
                 </div>
-                <button class="btn btn-primary" (click)="crearOEditarComunidad(createEditComunidadModal, 'md', null)">
+                <button class="btn btn-info" (click)="crearOEditarComunidad(createEditComunidadModal, 'md', null)">
                     Nueva Comunidad
                 </button>
             </div>
@@ -70,9 +72,15 @@
                                         pTooltip="Comunidad privada" tooltipPosition="top"></i-feather>
                                 </td>
                                 <td *ngIf="selectedOption == 1">
+                                    <a href="javascript: void(0);" class="link" placement="top"
+                                        (click)="openModalAddUser(addUserModal, md, comunidad)"
+                                        ngbTooltip="Añadir usuario administrador">
+                                        <i-feather name="user-plus"
+                                            class="feather-sm text-info me-2 pointer"></i-feather>
+                                    </a>
                                     <a href="javascript: void(0);"
                                         (click)="crearOEditarComunidad(createEditComunidadModal, 'md', comunidad)"
-                                        class="link me-2" placement="top" ngbTooltip="Editar comunidad">
+                                        class="link" placement="top" ngbTooltip="Editar comunidad">
                                         <i-feather name="edit-3" class="feather-sm text-info me-2 pointer"></i-feather>
                                     </a>
                                     <a href="javascript: void(0);" class="link" placement="top"
@@ -90,135 +98,178 @@
                 <ngb-pagination [(page)]="page" [pageSize]="pageSize" [collectionSize]="size" maxSize="1" rotate="true"
                     (pageChange)="OnPageChange($event)"></ngb-pagination>
             </div>
+        </div>
+    </div>
+</div>
 
-            <ng-template #noHay>
-                <h3 style="display: flex; justify-content: center;">No hay datos</h3>
-            </ng-template>
+<ng-template #noHay>
+    <h3 style="display: flex; justify-content: center;">No hay datos</h3>
+</ng-template>
 
 
-            <ng-template #createEditComunidadModal let-modal>
-                <form [formGroup]="miFormComunidades" (ngSubmit)="crearOEditar()">
-                    <div class="modal-header">
-                        <h3 class="modal-title" id="editComunidadModal">{{comunidadSeleccionado == null ? "Crear
-                            comunidad" : "Editar " + comunidadSeleccionado.nombre}}</h3>
-                        <button type="button" class="btn-close" (click)="closeBtnClick()" aria-label="Close"></button>
-                    </div>
+<ng-template #createEditComunidadModal let-modal>
+    <form [formGroup]="miFormComunidades" (ngSubmit)="crearOEditar()">
+        <div class="modal-header">
+            <h3 class="modal-title" id="editComunidadModal">{{comunidadSeleccionado == null ? "Crear
+                comunidad" : "Editar " + comunidadSeleccionado.nombre}}</h3>
+            <button type="button" class="btn-close" (click)="closeBtnClick()" aria-label="Close"></button>
+        </div>
 
-                    <div class="modal-body">
-                        <div class="col-12">
+        <div class="modal-body">
+            <div class="col-12">
 
-                            <div class="row">
-                                <div class="col-12 d-flex flex-column justify-content-center">
-                                    <label for="nombreComunidad" class="form-label">Introduzca el nombre de la
-                                        comunidad*</label>
-                                    <input type="text" id="nombreComunidad" class="form-control"
-                                        placeholder="Nombre para la comunidad" formControlName="nombre" />
-                                </div>
-                            </div>
-                            <br>
-
-                            <div class="row">
-                                <div class="col-12 d-flex flex-column justify-content-center">
-                                    <label for="descripcionComunidad" class="form-label">Introduzca la descripción de la
-                                        comunidad*</label>
-                                    <textarea type="text" id="descripcionComunidad" class="form-control"
-                                        placeholder="Descripción para la comunidad"
-                                        formControlName="descripcion"></textarea>
-                                </div>
-                            </div>
-                            <br>
-
-                            <div class="row">
-                                <div class="col-12 d-flex flex-column justify-content-center">
-                                    <label for="claveComunidad" class="form-label">Introduzca la clave de seguridad para
-                                        la comunidad*</label>
-                                    <input type="text" id="claveComunidad" class="form-control"
-                                        placeholder="Clave de seguridad para la comunidad" formControlName="clave" />
-                                </div>
-                            </div>
-                            <br>
-
-                            <div class="row">
-                                <div class="col-12 d-flex flex-column justify-content-center">
-                                    <label for="claveComunidad" class="form-label">Seleccione una opcion de visibilidad*</label>
-                                    <div class="row">
-                                        <div class="col-3">
-                                            <p-radioButton [value]="true" formControlName="isVisible"
-                                                inputId="visible"></p-radioButton>
-                                            <label for="visible" class="ml-2 ms-2">Visible</label>
-                                        </div>
-
-                                        <div class="col-3">
-                                            <p-radioButton [value]="false" formControlName="isVisible"
-                                                inputId="noVisible"></p-radioButton>
-                                            <label for="noVisible" class="ml-2 ms-2">No visible</label>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <br>
-
-                            <div class="row">
-                                <div class="col-12 d-flex flex-column justify-content-center">
-                                    <label for="claveComunidad" class="form-label">Seleccione una opcion de accesibilidad*</label>
-                                    <div class="row">
-                                        <div class="col-3">
-                                            <p-radioButton [value]="true" formControlName="isPublica"
-                                                inputId="publica"></p-radioButton>
-                                            <label for="publica" class="ml-2 ms-2">Publica</label>
-                                        </div>
-
-                                        <div class="col-3">
-                                            <p-radioButton [value]="false" formControlName="isPublica"
-                                                inputId="noPublica"></p-radioButton>
-                                            <label for="noPublica" class="ml-2 ms-2">Privada</label>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <br>
-
-                            <div class="row">
-                                <div class="col-12 d-flex flex-column justify-content-center">
-                                    <label for="formPicture" class="form-label">Seleccionar icono de la
-                                        comunidad</label>
-                                    <div class="col-12 d-flex justify-content-center">
-                                        <input class="form-control" formControlName="picture"
-                                            accept="image/png, image/jpeg" type="file" id="formPicture"
-                                            (change)="fileChange($event, 'picture')">
-                                    </div>
-                                </div>
-                            </div>
-                            <br>
-
-                            <div class="row">
-                                <div class="col-12 d-flex flex-column justify-content-center">
-                                    <label for="formBanner" class="form-label">Seleccionar banner de la
-                                        comunidad</label>
-                                    <div class="col-12 d-flex justify-content-center">
-                                        <input class="form-control" formControlName="banner"
-                                            accept="image/png, image/jpeg" type="file" id="formBanner"
-                                            (change)="fileChange($event, 'banner')">
-                                    </div>
-                                </div>
-                            </div>
-                            <br>
-
-                        </div>
-                    </div>
-
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" (click)="closeBtnClick()">Cerrar</button>
-                        <button [disabled]="miFormComunidades.invalid || miFormComunidades.untouched"
-                            class="btn btn-danger" type="submit">Aceptar</button>
-                    </div>
-                </form>
-            </ng-template>
-
-            <ng-template #loading>
-                <div *ngIf="!noDataFlag; else noHay" class="d-flex justify-content-center">
-                    <div class="spinner-border text-danger" role="status">
-                        <span class="sr-only">Cargando...</span>
+                <div class="row">
+                    <div class="col-12 d-flex flex-column justify-content-center">
+                        <label for="nombreComunidad" class="form-label">Introduzca el nombre de la
+                            comunidad*</label>
+                        <input type="text" id="nombreComunidad" class="form-control"
+                            placeholder="Nombre para la comunidad" formControlName="nombre" />
                     </div>
                 </div>
-            </ng-template>
+                <br>
+
+                <div class="row">
+                    <div class="col-12 d-flex flex-column justify-content-center">
+                        <label for="descripcionComunidad" class="form-label">Introduzca la descripción de la
+                            comunidad*</label>
+                        <textarea type="text" id="descripcionComunidad" class="form-control"
+                            placeholder="Descripción para la comunidad" formControlName="descripcion"></textarea>
+                    </div>
+                </div>
+                <br>
+
+                <div class="row">
+                    <div class="col-12 d-flex flex-column justify-content-center">
+                        <label for="claveComunidad" class="form-label">Introduzca la clave de seguridad para
+                            la comunidad*</label>
+                        <input type="text" id="claveComunidad" class="form-control"
+                            placeholder="Clave de seguridad para la comunidad" formControlName="clave" />
+                    </div>
+                </div>
+                <br>
+
+                <div class="row">
+                    <div class="col-12 d-flex flex-column justify-content-center">
+                        <label for="claveComunidad" class="form-label">Seleccione una opcion de
+                            visibilidad*</label>
+                        <div class="row">
+                            <div class="col-3">
+                                <p-radioButton [value]="true" formControlName="isVisible"
+                                    inputId="visible"></p-radioButton>
+                                <label for="visible" class="ml-2 ms-2">Visible</label>
+                            </div>
+
+                            <div class="col-3">
+                                <p-radioButton [value]="false" formControlName="isVisible"
+                                    inputId="noVisible"></p-radioButton>
+                                <label for="noVisible" class="ml-2 ms-2">No visible</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <br>
+
+                <div class="row">
+                    <div class="col-12 d-flex flex-column justify-content-center">
+                        <label for="claveComunidad" class="form-label">Seleccione una opcion de
+                            accesibilidad*</label>
+                        <div class="row">
+                            <div class="col-3">
+                                <p-radioButton [value]="true" formControlName="isPublica"
+                                    inputId="publica"></p-radioButton>
+                                <label for="publica" class="ml-2 ms-2">Publica</label>
+                            </div>
+
+                            <div class="col-3">
+                                <p-radioButton [value]="false" formControlName="isPublica"
+                                    inputId="noPublica"></p-radioButton>
+                                <label for="noPublica" class="ml-2 ms-2">Privada</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <br>
+
+                <div class="row">
+                    <div class="col-12 d-flex flex-column justify-content-center">
+                        <label for="formPicture" class="form-label">Seleccionar icono de la
+                            comunidad</label>
+                        <div class="col-12 d-flex justify-content-center">
+                            <input class="form-control" formControlName="picture" accept="image/png, image/jpeg"
+                                type="file" id="formPicture" (change)="fileChange($event, 'picture')">
+                        </div>
+                    </div>
+                </div>
+                <br>
+
+                <div class="row">
+                    <div class="col-12 d-flex flex-column justify-content-center">
+                        <label for="formBanner" class="form-label">Seleccionar banner de la
+                            comunidad</label>
+                        <div class="col-12 d-flex justify-content-center">
+                            <input class="form-control" formControlName="banner" accept="image/png, image/jpeg"
+                                type="file" id="formBanner" (change)="fileChange($event, 'banner')">
+                        </div>
+                    </div>
+                </div>
+                <br>
+
+            </div>
+        </div>
+
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" (click)="closeBtnClick()">Cerrar</button>
+            <button [disabled]="miFormComunidades.invalid || miFormComunidades.untouched" class="btn btn-danger"
+                type="submit">Aceptar</button>
+        </div>
+    </form>
+</ng-template>
+
+<ng-template #loading>
+    <div *ngIf="!noDataFlag; else noHay" class="d-flex justify-content-center">
+        <div class="spinner-border text-danger" role="status">
+            <span class="sr-only">Cargando...</span>
+        </div>
+    </div>
+</ng-template>
+
+<ng-template #addUserModal let-modal>
+    <div class="modal-header">
+        <h3 class="modal-title" id="addUserModal">Configuración de administradores</h3>
+        <button type="button" class="btn-close" (click)="closeBtnClickAddUser()" aria-label="Close"></button>
+    </div>
+
+    <div class="modal-body row">
+        <div class="col-12">
+
+            <div class="input-group mb-4 mt-3">
+                <input type="text" class="form-control" placeholder="Introduce el usuario de un miembro"
+                    [(ngModel)]="criterioBusquedaUsuarioBBDD" />
+                <button class="input-group-text btn btn-info" (click)="searchUser()" id="basic-addon21">Buscar</button>
+            </div>
+
+            <hr>
+
+            <div *ngIf="!isLoadingAddUser; else loadingNoMT">
+                <div *ngIf="addSearchUsuarios.length <= 0; else usuariosEncontrados" class="row">
+                    <div class="col-12" style="text-align: center;">
+                        <h4 class="card-title">{{mensajeFalloBusqueda}}</h4>
+                    </div>
+                </div>
+
+                <ng-template #usuariosEncontrados>
+                    <div *ngFor="let usuarioFOR of addSearchUsuarios; let i = index" class="row">
+                        <app-tarjeta-usuario-admin class="ms-3 mb-3" [usuario]="usuarioFOR"
+                            [comunidadActual]="comunidadSeleccionado" (parentOnInit)="ngOnInit()"
+                            [tipoUsuario]="-2"></app-tarjeta-usuario-admin>
+                    </div>
+                </ng-template>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="closeBtnClickAddUser()">Cerrar</button>
+    </div>
+</ng-template>

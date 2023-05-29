@@ -70,7 +70,7 @@
         </div>
         <!-- <app-feed style="margin-top: -20px;"></app-feed> ESTO ES POR SI QUEREMOS QUE ESTE PEGADO AL NAVBAR -->
         <app-feed [comunidadActual]="comunidadActual" [isMiembro]="yaSoyMiembro" *ngIf="mostrarFeed"></app-feed>
-        <app-personas [usuariosTotales]="usuariosTotales" [comunidadActual]="comunidadActual"
+        <app-personas [usuariosTotales]="usuariosTotales" [comunidadActualINPUT]="comunidadActual"
             *ngIf="mostrarPersonas"></app-personas>
         <app-eventos [comunidadActual]="comunidadActual" *ngIf="mostrarEventos"></app-eventos>
         <app-multimedia [usuariosTotales]="usuariosTotales" [comunidadActual]="comunidadActual"

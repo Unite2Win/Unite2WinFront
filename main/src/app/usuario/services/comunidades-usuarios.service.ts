@@ -82,6 +82,18 @@ export class ComunidadesUsuariosService {
       .pipe(retry(1), catchError(this.errorHandl));
   }
 
+  PutComunidadesUsuarisoIdBBDD(
+    CUId: number,
+    evento: ComunidadUsuario
+  ): Observable<ComunidadUsuario> {
+    return this.http
+      .put<ComunidadUsuario>(
+        `${this.baseurl}/ComunidadesUsuarios/${CUId}`,
+        evento
+      )
+      .pipe(retry(1), catchError(this.errorHandl));
+  }
+
   // ERROR HANDLER
   errorHandl(error) {
     let errorMessage = '';

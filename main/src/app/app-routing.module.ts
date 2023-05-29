@@ -23,12 +23,6 @@ export const Approutes: Routes = [
         canActivate: [AuthGuard], //Estoy hay que ponerlo en las rutas que queramos securizadas con el login
         loadChildren: () =>
           import("./usuario/usuario.module").then((m) => m.UsuarioModule),
-      },
-
-      {
-        path: "icons",
-        loadChildren: () =>
-          import("./icons/icons.module").then((m) => m.IconsModule),
       }
     ],
   },

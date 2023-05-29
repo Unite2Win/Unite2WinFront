@@ -24,8 +24,8 @@
                         </div>
                         <div class="mb-3 row">
                             <div class="col-12 ">
-                                <input class="form-control" formControlName="email" type="text" required=" "
-                                    placeholder="Email">
+                                <input class="form-control" formControlName="email" type="email" required=" "
+                                    placeholder="Email" name="email" email>
                             </div>
                         </div>
                         <div class="mb-3 row ">
@@ -39,8 +39,7 @@
                                 <div class="input-group">
                                     <input class="form-control" formControlName="password" [type]="password"
                                         required=" " placeholder="Contraseña">
-                                    <button (click)="onClick()"
-                                        style="border-color:aliceblue; background-color:whitesmoke">
+                                    <button (click)="onClick()" class="btn btn-secondary" type="button">
                                         <i class="fa fa-eye" aria-hidden="true" *ngIf="!show"></i>
                                         <i class="fa fa-eye-slash" aria-hidden="true" *ngIf="show"></i>
                                     </button>
@@ -53,8 +52,7 @@
                                 <div class="input-group">
                                     <input class="form-control" formControlName="passRepeat" [type]="password2"
                                         required=" " placeholder="Confime contraseña">
-                                    <button (click)="onClick2()"
-                                        style="border-color:aliceblue; background-color:whitesmoke">
+                                    <button (click)="onClick2()" class="btn btn-secondary" type="button">
                                         <i class="fa fa-eye" aria-hidden="true" *ngIf="!show2"></i>
                                         <i class="fa fa-eye-slash" aria-hidden="true" *ngIf="show2"></i>
                                     </button>

@@ -68,6 +68,15 @@ export class VerComunidadUnicaComponent implements OnInit {
       this.router.navigate(['/usuario/miscomunidades'])
     })
 
+    await this.comunidadesUsuariosService.GetComunidadesUsuariosIsMember(globales.usuarioLogueado.id_usu, this.idComunidadActual).toPromise().then(resp => {
+      this.yaSoyMiembro = resp;
+    })
+
+    if (!this.comunidadActual.isVisible && !this.yaSoyMiembro) {
+      this.toastrService.warning('La comunidad a la que intentas acceder no es visible para los que no son miembros');
+      this.router.navigate(['/usuario/miscomunidades']);
+    }
+
     this.items = [
       { label: 'Feed', icon: 'mdi mdi-comment-processing' },
       { label: 'Personas', icon: 'mdi mdi-account' },
@@ -77,12 +86,8 @@ export class VerComunidadUnicaComponent implements OnInit {
     this.activeItem = this.items[0];
     this.mostrarFeed = true;
 
-    this.comunidadesUsuariosService.GetComunidadesUsuariosCountByComunidad(this.idComunidadActual).toPromise().then(resp => {
+    await this.comunidadesUsuariosService.GetComunidadesUsuariosCountByComunidad(this.idComunidadActual).toPromise().then(resp => {
       this.usuariosTotales = resp;
-    })
-
-    this.comunidadesUsuariosService.GetComunidadesUsuariosIsMember(globales.usuarioLogueado.id_usu, this.idComunidadActual).toPromise().then(resp => {
-      this.yaSoyMiembro = resp;
     })
 
     this.loadingFlag = false;
@@ -110,9 +115,9 @@ export class VerComunidadUnicaComponent implements OnInit {
       id_usu: globales.usuarioLogueado.id_usu,
       // comunidad: this.comunidadActual,
       // usuario: globales.usuarioLogueado,
-      apodo: globales.usuarioLogueado.name,
+      apodo: globales.usuarioLogueado.nick,
       nivel: 1,
-      tipoUsuario: 3
+      tipoUsuario: 1
     }
 
     console.log(nuevaComunidadUsuario);

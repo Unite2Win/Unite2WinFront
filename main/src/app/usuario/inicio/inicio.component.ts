@@ -97,7 +97,6 @@ export class InicioComponent implements OnInit {
         }
 
         console.log(this.todosComunidades);
-        this.loadingFlag = false;
 
         this.comunidadesFiltrados = this.todosComunidades;
 
@@ -105,6 +104,7 @@ export class InicioComponent implements OnInit {
           this.comunidadesFiltrados = this.comunidadesFiltrados.slice(0, 5);
         }
       }
+      this.loadingFlag = false;
     }
   }
 

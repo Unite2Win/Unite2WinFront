@@ -11,6 +11,8 @@ import { DecodedBase64 } from 'app/usuario/interfaces/decodedBase64Model';
 import { VentanaConfirmacionService } from '../ventana-confirmacion/ventana-confirmacion.service';
 import { DocumentosService } from 'app/usuario/services/documentos.service';
 import { ToastrService } from 'ngx-toastr';
+import { Usuario } from 'app/usuario/interfaces/usuarioModel';
+import { UsuariosService } from 'app/usuario/services/usuarios.service';
 
 @Component({
   selector: 'app-admin-comunidades',
@@ -51,6 +53,14 @@ export class AdminComunidadesComponent implements OnInit {
     this.comunidadesFiltrados = this.filtrarIdiomas(val);
   }
 
+  addSearchUsuarios: Usuario[] = [];
+
+  criterioBusquedaUsuarioBBDD: string = '';
+
+  mensajeFalloBusqueda: string = 'Pruebe a buscar usuarios.'
+
+  isLoadingAddUser: boolean = false;
+
   //ESTO ES PARA LOS MODALES DE EDICION, CREADO Y BORRADO
   miFormComunidades: FormGroup = this.fb.group({
     nombre: ['', Validators.required],
@@ -77,7 +87,7 @@ export class AdminComunidadesComponent implements OnInit {
   docBannerEditado: Documento = null;
   ///////////////////////////////////////////////////
 
-  constructor(private documentosService: DocumentosService, private ventanaConfirmacionService: VentanaConfirmacionService, private loginService: LoginService, private modalService: NgbModal, private fb: FormBuilder, private comunidadesService: ComunidadesService, private toastrService: ToastrService) { }
+  constructor(private usuariosService: UsuariosService, private documentosService: DocumentosService, private ventanaConfirmacionService: VentanaConfirmacionService, private loginService: LoginService, private modalService: NgbModal, private fb: FormBuilder, private comunidadesService: ComunidadesService, private toastrService: ToastrService) { }
 
   async ngOnInit(): Promise<void> {
 
@@ -274,6 +284,38 @@ export class AdminComunidadesComponent implements OnInit {
     });
   }
   //////////////////////////////////////////////////////////////////////////////////
+
+  async searchUser() {
+    this.isLoadingAddUser = true;
+    this.addSearchUsuarios = [];
+    this.mensajeFalloBusqueda = 'No hay resultados con el criterio seleccionado.';
+    await this.usuariosService.GetByNick(this.criterioBusquedaUsuarioBBDD).toPromise().then(resp => {
+      this.addSearchUsuarios = resp;
+      console.log(this.comunidadSeleccionado);
+      console.log(this.addSearchUsuarios);
+    }, (error) => {
+      this.toastrService.error('No hay usuarios con el criterio introducido.');
+      console.log('Este error debe salir si no hay usuaris con este criterio');
+    });
+    this.isLoadingAddUser = false;
+  }
+
+  openModalAddUser(targetModal: string, size: string, comunidad: Comunidad) {
+    this.comunidadSeleccionado = comunidad;
+    this.criterioBusquedaUsuarioBBDD = '';
+    this.addSearchUsuarios = [];
+    this.mensajeFalloBusqueda = 'Pruebe a buscar usuarios.';
+    this.modalService.open(targetModal, {
+      centered: true,
+      backdrop: 'static',
+      size: size
+    });
+  }
+
+  closeBtnClickAddUser() {
+    this.modalService.dismissAll();
+    this.ngOnInit();
+  }
 
   openModal(targetModal: string, size: string) {
     this.modalService.open(targetModal, {
