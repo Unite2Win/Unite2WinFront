@@ -22,7 +22,7 @@
                         style="max-height: 120px; max-width: 120px; clip-path: circle(50px);" />
                 </ng-template>
 
-                <div class="d-flex flex-column flex-wrap" style="width: 70%;">
+                <div class="d-flex flex-column flex-wrap" style="width: 65%;">
                     <h3 class="card-title ms-4 fw-bold">{{comunidadActual.nombre}}</h3>
                     <p class="card-text ms-4">{{comunidadActual.descripcion}}</p>
                 </div>
@@ -77,7 +77,7 @@
             </div>
         </div>
         <!-- <app-feed style="margin-top: -20px;"></app-feed> ESTO ES POR SI QUEREMOS QUE ESTE PEGADO AL NAVBAR -->
-        <app-feed [comunidadActual]="comunidadActual" [isMiembro]="yaSoyMiembro" *ngIf="mostrarFeed"></app-feed>
+        <app-feed #feed id="feedComp" [comunidadActual]="comunidadActual" [isMiembro]="yaSoyMiembro" *ngIf="mostrarFeed"></app-feed>
         <app-personas [usuariosTotales]="usuariosTotales" [comunidadActualINPUT]="comunidadActual"
             *ngIf="mostrarPersonas"></app-personas>
         <app-eventos [comunidadActual]="comunidadActual" *ngIf="mostrarEventos"></app-eventos>

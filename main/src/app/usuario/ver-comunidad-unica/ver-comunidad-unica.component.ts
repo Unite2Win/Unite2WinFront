@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { LoginService } from 'app/authentication/login/login.service';
 import { switchMap } from 'rxjs/operators';
@@ -15,6 +15,7 @@ import { globales } from 'common/globales';
 import { ComunidadUsuario } from '../interfaces/comunidadUsuarioModel';
 import { VentanaConfirmacionService } from '../../administracion/ventana-confirmacion/ventana-confirmacion.service';
 import { environment } from '../../../environments/environment';
+import { FeedComponent } from './components/feed/feed.component';
 
 @Component({
   selector: 'app-ver-comunidad-unica',
@@ -22,6 +23,9 @@ import { environment } from '../../../environments/environment';
   styleUrls: ['./ver-comunidad-unica.component.scss']
 })
 export class VerComunidadUnicaComponent implements OnInit {
+
+  @ViewChild('feed') feed: FeedComponent;
+  @ViewChild('feedComp') feedComp: FeedComponent;
 
   miFormCompartir: FormGroup = this.fb.group({
     url: ''
@@ -134,6 +138,8 @@ export class VerComunidadUnicaComponent implements OnInit {
       globales.tipoUsuario = resp.tipoUsuario;
     })
 
+    this.feed.ngOnInit();
+
     this.ngOnInit();
   }
 
@@ -160,6 +166,8 @@ export class VerComunidadUnicaComponent implements OnInit {
       this.closeBtnClick();
     })
 
+    this.feed.ngOnInit();
+
     this.ngOnInit();
   }
 
@@ -180,6 +188,7 @@ export class VerComunidadUnicaComponent implements OnInit {
         globales.tipoUsuario = -1;
       })
     })
+    this.feed.ngOnInit();
     this.ngOnInit();
   }
 
